@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Ordinary Mystic — Links</title>
+    <meta name="description" content="Practical spirituality for everyday mystics. Tarot, astrology, community." />
+    <meta name="theme-color" content="#14151b" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #0f1117;
+        --panel: #14151b;
+        --text: #f2f3f7;
+        --subtext: #c6c8d3;
+        --muted: #8e90a0;
+        --accentA: #7c5cff;
+        --accentB: #2fd8c7;
+        --ring: 0 0 0 3px color(display-p3 0.49 0.4 1 / 0.35);
+        --radius: 16px;
+        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
+        color: var(--text);
+        background: var(--bg);
+        overflow-x: hidden;
+      }
+      body::before {
+        content: "";
+        position: fixed;
+        inset: -10vmax;
+        z-index: -1;
+        pointer-events: none;
+        background: radial-gradient(160vmax 90vmax at 50% -10%, color-mix(in oklab, var(--accentA) 26%, transparent), transparent), radial-gradient(120vmax 70vmax at 95% 5%, color-mix(in oklab, var(--accentB) 20%, transparent), transparent),
+          linear-gradient(180deg, #0d0f14, #0b0c10 60%, #0b0c10);
+        background-repeat: no-repeat;
+        filter: saturate(1.05);
+      }
+      .stars {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.16;
+        background-image: radial-gradient(2px 2px at 20% 30%, #fff, transparent), radial-gradient(1.5px 1.5px at 70% 60%, #fff, transparent), radial-gradient(1.5px 1.5px at 40% 80%, #fff, transparent), radial-gradient(1px 1px at 85% 25%, #fff, transparent);
+        background-repeat: no-repeat;
+        filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.55));
+      }
+      .wrap {
+        min-height: 100%;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+      }
+      .card {
+        width: 100%;
+        max-width: 680px;
+        overflow: hidden;
+        background: linear-gradient(180deg, color-mix(in oklab, var(--panel) 90%, #1c1f2a 10%), var(--panel));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+      }
+      header {
+        padding: 28px 20px 10px;
+        text-align: center;
+      }
+      .avatar {
+        width: 96px;
+        height: 96px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.25);
+        object-fit: cover;
+        background: #222;
+        display: block;
+        margin: 0 auto 14px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+      }
+      h1 {
+        font-size: 1.35rem;
+        margin: 6px 0 4px;
+      }
+      .tagline {
+        color: var(--subtext);
+        font-size: 0.95rem;
+        margin: 0;
+      }
+      .badge {
+        display: inline-flex;
+        gap: 8px;
+        align-items: center;
+        padding: 6px 10px;
+        margin-top: 10px;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        color: #0a0b0f;
+        font-weight: 700;
+        background: linear-gradient(90deg, var(--accentA), var(--accentB));
+      }
+      .socials {
+        margin: 14px auto 4px;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+      .socials a {
+        width: 38px;
+        height: 38px;
+        display: grid;
+        place-items: center;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        transition: 0.2s ease;
+      }
+      .socials a:hover {
+        transform: translateY(-1px);
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+      .socials img {
+        width: 22px;
+        height: 22px;
+        border-radius: 4px;
+      }
+
+      nav {
+        padding: 10px 16px 22px;
+      }
+      .links {
+        display: grid;
+        gap: 12px;
+      }
+      .link {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        padding: 14px 16px;
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.06); /* slightly brighter so they don't look disabled */
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), background 0.28s, border-color 0.28s, box-shadow 0.28s;
+        color: var(--text);
+        outline: 0;
+      }
+      .link:visited {
+        color: var(--text);
+      }
+      .link:hover {
+        transform: translateY(-2px);
+        background: rgba(255, 255, 255, 0.09);
+        border-color: rgba(255, 255, 255, 0.28);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+      }
+      .link:focus-visible {
+        box-shadow: var(--ring);
+      }
+      .link .ico {
+        width: 22px;
+        height: 22px;
+        flex: none;
+        border-radius: 4px;
+      }
+      .link .txt {
+        flex: 1;
+      }
+      .link .title {
+        font-weight: 700;
+        font-size: 0.98rem;
+      }
+      .link .sub {
+        color: var(--muted);
+        font-size: 0.86rem;
+        line-height: 1.35;
+      }
+      .link .cta {
+        inline-size: 100px;
+        text-align: center;
+        margin-left: auto;
+        padding: 0.46rem 0.6rem;
+        font-size: 0.8rem;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: linear-gradient(90deg, var(--accentA), var(--accentB));
+        color: #0b0c10;
+        font-weight: 800;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset, 0 6px 18px rgba(124, 92, 255, 0.28);
+        filter: saturate(1.15);
+      }
+
+      .section {
+        margin: 10px 16px 22px;
+        padding: 14px;
+        border-radius: var(--radius);
+        border: 1px dashed rgba(255, 255, 255, 0.16);
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .section h2 {
+        font-size: 1rem;
+        margin: 0 0 10px;
+        color: #eaeaf4;
+      }
+
+      form {
+        display: grid;
+        gap: 10px;
+      }
+      .field {
+        display: flex;
+        gap: 10px;
+        align-items: stretch;
+        flex-wrap: wrap;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 12px;
+        padding: 8px;
+      }
+      .field input[type="email"] {
+        flex: 1;
+        min-width: 200px;
+        padding: 12px 12px;
+        font-size: 1rem;
+        border: 0;
+        outline: 0;
+        color: var(--text);
+        background: transparent;
+      }
+      .btn {
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        background: linear-gradient(90deg, var(--accentA), var(--accentB));
+        color: #0b0c10;
+        font-weight: 800;
+        padding: 12px 14px;
+        border-radius: 10px;
+        transition: transform 0.2s ease, filter 0.2s ease;
+        box-shadow: 0 6px 18px rgba(124, 92, 255, 0.28);
+        filter: saturate(1.1);
+      }
+      .btn:hover {
+        transform: translateY(-1px);
+        filter: saturate(1.2);
+      }
+      .hint {
+        font-size: 0.82rem;
+        color: var(--subtext);
+      }
+
+      .card-ui {
+        display: grid;
+        grid-template-columns: 96px 1fr;
+        gap: 12px;
+        align-items: center;
+      }
+      .tarot {
+        width: 96px;
+        height: 152px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02)), radial-gradient(200px 120px at -10% -10%, rgba(255, 255, 255, 0.1), transparent);
+        display: grid;
+        place-items: center;
+        box-shadow: var(--shadow);
+        transition: transform 0.25s ease;
+        user-select: none;
+        overflow: hidden;
+      }
+      .tarot:hover {
+        transform: rotate(-1.5deg) scale(1.02);
+      }
+      .tarot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+      }
+      .reading {
+        font-size: 0.92rem;
+        color: var(--subtext);
+        margin-top: 2px;
+      }
+
+      footer {
+        padding: 10px 16px 22px;
+        color: var(--subtext);
+        font-size: 0.8rem;
+        text-align: center;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .link,
+        .btn,
+        .tarot {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="stars" aria-hidden="true"></div>
+
+    <div class="wrap">
+      <div class="card" role="region" aria-label="Ordinary Mystic link hub">
+        <header>
+          <img class="avatar" src="/img/profile-img.png" alt="Ordinary Mystic avatar" loading="lazy" />
+          <h1>Ordinary Mystic</h1>
+          <p class="tagline">Practical spirituality for everyday mystics</p>
+          <div class="badge" aria-hidden="true">✨ Tarot • Astrology • Community</div>
+
+          <!-- Social icons via placehold.co -->
+          <div class="socials" aria-label="Social links">
+            <a href="https://www.youtube.com/@OrdinaryMysticReadings" target="_blank" rel="noopener" aria-label="YouTube">
+              <img src="/img/youtube-app-white-icon.png" alt="" />
+            </a>
+            <a href="https://www.tiktok.com/@ordinary.mystic" target="_blank" rel="noopener" aria-label="TikTok">
+              <img src="/img/tiktok-white-icon.png" alt="" />
+            </a>
+            <a href="https://www.instagram.com/ordinarymysticreadings/" target="_blank" rel="noopener" aria-label="Instagram">
+              <img src="/img/instagram-white-icon.png" alt="" />
+            </a>
+          </div>
+        </header>
+
+        <nav aria-label="Primary links">
+          <div class="links">
+            <a class="link" href="https://www.etsy.com/shop/TheOrdinaryMystic" target="_blank" rel="noopener" aria-label="Book a tarot or astrology reading">
+              <img class="ico" src="/img/etsy.png" alt="" />
+              <div class="txt">
+                <div class="title">Book a Reading</div>
+                <div class="sub">Tarot or natal chart — pay-what-you-can slots weekly</div>
+              </div>
+              <span class="cta" aria-hidden="true">Reserve</span>
+            </a>
+
+            <a class="link" href="https://www.etsy.com/shop/TheOrdinaryMystic?section_id=55086245" target="_blank" rel="noopener" aria-label="Open Notion templates">
+              <img class="ico" src="img/notion.jpg" alt="" />
+              <div class="txt">
+                <div class="title">Notion Templates</div>
+                <div class="sub">Organize your astro journals, tarot spread libraries, client trackers and more.</div>
+              </div>
+              <span class="cta" aria-hidden="true">Browse</span>
+            </a>
+
+            <a class="link" href="https:ordinarymystic.notion.site" target="_blank" rel="noopener" aria-label="Open Recommended Resources">
+              <img class="ico" src="img/resources.jpg" alt="" />
+              <div class="txt">
+                <div class="title">Recommendations</div>
+                <div class="sub">Check out the tools and resources I use daily</div>
+              </div>
+              <span class="cta" aria-hidden="true">Learn</span>
+            </a>
+
+            <a class="link" href="https://discord.gg/yourinvite" target="_blank" rel="noopener" aria-label="Join the Ordinary Mystic Discord">
+              <img class="ico" src="img/discord.jpg" alt="" />
+              <div class="txt">
+                <div class="title">Community Discord</div>
+                <div class="sub">Safe, inclusive, and faith-aware space for everyday mystics</div>
+              </div>
+              <span class="cta" aria-hidden="true">Join</span>
+            </a>
+          </div>
+        </nav>
+
+        <!-- Email signup -->
+        <div class="section" role="region" aria-labelledby="newsletter-title">
+          <h2 id="newsletter-title">Get Your Free Notion Ephemeris</h2>
+          <p class="hint" style="margin-top: -4px">
+            An ephemeris lists where the planets are each day. The Notion version includes: <strong>5 years</strong> of ephemeris data, a <strong>calendar view</strong> for a quick week-at-a-glance, plus <strong>table views</strong> to dig down deepy. You’ll also get my weekly
+            Astro-Tarot email (unsubscribe anytime and keep the ephemeris).
+          </p>
+          <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+          <form
+            action="https://app.kit.com/forms/8507439/subscriptions"
+            class="seva-form formkit-form"
+            method="post"
+            data-sv-form="8507439"
+            data-uid="038a3c96c1"
+            data-format="inline"
+            data-version="5"
+            data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false,"url":"https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
+            min-width="400 500 600 700 800"
+          >
+            <div data-style="clean">
+              <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+              <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields">
+                <div class="formkit-field"><input class="formkit-input" aria-label="First Name" name="fields[first_name]" placeholder="First Name" type="text" style="color: rgb(0, 0, 0); border-color: rgb(227, 227, 227); border-radius: 4px; font-weight: 400" /></div>
+                <div class="formkit-field">
+                  <input class="formkit-input" name="email_address" aria-label="Email Address" placeholder="Email Address" required="" type="email" style="color: rgb(0, 0, 0); border-color: rgb(227, 227, 227); border-radius: 4px; font-weight: 400" />
+                </div>
+                <button data-element="submit" class="formkit-submit formkit-submit" style="color: rgb(255, 255, 255); background-color: rgb(124, 92, 255); border-radius: 4px; font-weight: 400">
+                  <div class="formkit-spinner">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                  <span class="">Subscribe</span>
+                </button>
+              </div>
+            </div>
+            <style>
+              .formkit-form[data-uid="038a3c96c1"] * {
+                box-sizing: border-box;
+              }
+              .formkit-form[data-uid="038a3c96c1"] {
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+              }
+              .formkit-form[data-uid="038a3c96c1"] legend {
+                border: none;
+                font-size: inherit;
+                margin-bottom: 10px;
+                padding: 0;
+                position: relative;
+                display: table;
+              }
+              .formkit-form[data-uid="038a3c96c1"] fieldset {
+                border: 0;
+                padding: 0.01em 0 0 0;
+                margin: 0;
+                min-width: 0;
+              }
+              .formkit-form[data-uid="038a3c96c1"] body:not(:-moz-handler-blocked) fieldset {
+                display: table-cell;
+              }
+              .formkit-form[data-uid="038a3c96c1"] h1,
+              .formkit-form[data-uid="038a3c96c1"] h2,
+              .formkit-form[data-uid="038a3c96c1"] h3,
+              .formkit-form[data-uid="038a3c96c1"] h4,
+              .formkit-form[data-uid="038a3c96c1"] h5,
+              .formkit-form[data-uid="038a3c96c1"] h6 {
+                color: inherit;
+                font-size: inherit;
+                font-weight: inherit;
+              }
+              .formkit-form[data-uid="038a3c96c1"] h2 {
+                font-size: 1.5em;
+                margin: 1em 0;
+              }
+              .formkit-form[data-uid="038a3c96c1"] h3 {
+                font-size: 1.17em;
+                margin: 1em 0;
+              }
+              .formkit-form[data-uid="038a3c96c1"] p {
+                color: inherit;
+                font-size: inherit;
+                font-weight: inherit;
+              }
+              .formkit-form[data-uid="038a3c96c1"] ol:not([template-default]),
+              .formkit-form[data-uid="038a3c96c1"] ul:not([template-default]),
+              .formkit-form[data-uid="038a3c96c1"] blockquote:not([template-default]) {
+                text-align: left;
+              }
+              .formkit-form[data-uid="038a3c96c1"] p:not([template-default]),
+              .formkit-form[data-uid="038a3c96c1"] hr:not([template-default]),
+              .formkit-form[data-uid="038a3c96c1"] blockquote:not([template-default]),
+              .formkit-form[data-uid="038a3c96c1"] ol:not([template-default]),
+              .formkit-form[data-uid="038a3c96c1"] ul:not([template-default]) {
+                color: inherit;
+                font-style: initial;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .ordered-list,
+              .formkit-form[data-uid="038a3c96c1"] .unordered-list {
+                list-style-position: outside !important;
+                padding-left: 1em;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .list-item {
+                padding-left: 0;
+              }
+              .formkit-form[data-uid="038a3c96c1"][data-format="modal"] {
+                display: none;
+              }
+              .formkit-form[data-uid="038a3c96c1"][data-format="slide in"] {
+                display: none;
+              }
+              .formkit-form[data-uid="038a3c96c1"][data-format="sticky bar"] {
+                display: none;
+              }
+              .formkit-sticky-bar .formkit-form[data-uid="038a3c96c1"][data-format="sticky bar"] {
+                display: block;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-input,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-select,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-checkboxes {
+                width: 100%;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-button,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit {
+                border: 0;
+                border-radius: 5px;
+                color: #ffffff;
+                cursor: pointer;
+                display: inline-block;
+                text-align: center;
+                font-size: 15px;
+                font-weight: 500;
+                cursor: pointer;
+                margin-bottom: 15px;
+                overflow: hidden;
+                padding: 0;
+                position: relative;
+                vertical-align: middle;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-button:hover,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit:hover,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-button:focus,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit:focus {
+                outline: none;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-button:hover > span,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit:hover > span,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-button:focus > span,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit:focus > span {
+                background-color: rgba(0, 0, 0, 0.1);
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-button > span,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit > span {
+                display: block;
+                -webkit-transition: all 300ms ease-in-out;
+                transition: all 300ms ease-in-out;
+                padding: 12px 24px;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-input {
+                background: #ffffff;
+                font-size: 15px;
+                padding: 12px;
+                border: 1px solid #e3e3e3;
+                -webkit-flex: 1 0 auto;
+                -ms-flex: 1 0 auto;
+                flex: 1 0 auto;
+                line-height: 1.4;
+                margin: 0;
+                -webkit-transition: border-color ease-out 300ms;
+                transition: border-color ease-out 300ms;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-input:focus {
+                outline: none;
+                border-color: #1677be;
+                -webkit-transition: border-color ease 300ms;
+                transition: border-color ease 300ms;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-input::-webkit-input-placeholder {
+                color: inherit;
+                opacity: 0.8;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-input::-moz-placeholder {
+                color: inherit;
+                opacity: 0.8;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-input:-ms-input-placeholder {
+                color: inherit;
+                opacity: 0.8;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-input::placeholder {
+                color: inherit;
+                opacity: 0.8;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="dropdown"] {
+                position: relative;
+                display: inline-block;
+                width: 100%;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="dropdown"]::before {
+                content: "";
+                top: calc(50% - 2.5px);
+                right: 10px;
+                position: absolute;
+                pointer-events: none;
+                border-color: #4f4f4f transparent transparent transparent;
+                border-style: solid;
+                border-width: 6px 6px 0 6px;
+                height: 0;
+                width: 0;
+                z-index: 999;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="dropdown"] select {
+                height: auto;
+                width: 100%;
+                cursor: pointer;
+                color: #333333;
+                line-height: 1.4;
+                margin-bottom: 0;
+                padding: 0 6px;
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+                font-size: 15px;
+                padding: 12px;
+                padding-right: 25px;
+                border: 1px solid #e3e3e3;
+                background: #ffffff;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="dropdown"] select:focus {
+                outline: none;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] {
+                text-align: left;
+                margin: 0;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] {
+                margin-bottom: 10px;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] * {
+                cursor: pointer;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"]:last-of-type {
+                margin-bottom: 0;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] input[type="checkbox"] {
+                display: none;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] input[type="checkbox"] + label::after {
+                content: none;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] input[type="checkbox"]:checked + label::after {
+                border-color: #ffffff;
+                content: "";
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] input[type="checkbox"]:checked + label::before {
+                background: #10bf7a;
+                border-color: #10bf7a;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label {
+                position: relative;
+                display: inline-block;
+                padding-left: 28px;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label::before,
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label::after {
+                position: absolute;
+                content: "";
+                display: inline-block;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label::before {
+                height: 16px;
+                width: 16px;
+                border: 1px solid #e3e3e3;
+                background: #ffffff;
+                left: 0px;
+                top: 3px;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label::after {
+                height: 4px;
+                width: 8px;
+                border-left: 2px solid #4d4d4d;
+                border-bottom: 2px solid #4d4d4d;
+                -webkit-transform: rotate(-45deg);
+                -ms-transform: rotate(-45deg);
+                transform: rotate(-45deg);
+                left: 4px;
+                top: 8px;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-alert {
+                background: #f9fafb;
+                border: 1px solid #e3e3e3;
+                border-radius: 5px;
+                -webkit-flex: 1 0 auto;
+                -ms-flex: 1 0 auto;
+                flex: 1 0 auto;
+                list-style: none;
+                margin: 25px auto;
+                padding: 12px;
+                text-align: center;
+                width: 100%;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-alert:empty {
+                display: none;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-alert-success {
+                background: #d3fbeb;
+                border-color: #10bf7a;
+                color: #0c905c;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-alert-error {
+                background: #fde8e2;
+                border-color: #f2643b;
+                color: #ea4110;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-spinner {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                height: 0px;
+                width: 0px;
+                margin: 0 auto;
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                width: 0px;
+                overflow: hidden;
+                text-align: center;
+                -webkit-transition: all 300ms ease-in-out;
+                transition: all 300ms ease-in-out;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-spinner > div {
+                margin: auto;
+                width: 12px;
+                height: 12px;
+                background-color: #fff;
+                opacity: 0.3;
+                border-radius: 100%;
+                display: inline-block;
+                -webkit-animation: formkit-bouncedelay-formkit-form-data-uid-038a3c96c1- 1.4s infinite ease-in-out both;
+                animation: formkit-bouncedelay-formkit-form-data-uid-038a3c96c1- 1.4s infinite ease-in-out both;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-spinner > div:nth-child(1) {
+                -webkit-animation-delay: -0.32s;
+                animation-delay: -0.32s;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-spinner > div:nth-child(2) {
+                -webkit-animation-delay: -0.16s;
+                animation-delay: -0.16s;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit[data-active] .formkit-spinner {
+                opacity: 1;
+                height: 100%;
+                width: 50px;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit[data-active] .formkit-spinner ~ span {
+                opacity: 0;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by[data-active="false"] {
+                opacity: 0.35;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit-container {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                width: 100%;
+                margin: 10px 0;
+                position: relative;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit-container[data-active="false"] {
+                opacity: 0.35;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit {
+                -webkit-align-items: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                background-color: #ffffff;
+                border-radius: 9px;
+                color: #3d3d3d;
+                cursor: pointer;
+                display: block;
+                height: 36px;
+                margin: 0 auto;
+                opacity: 0.95;
+                padding: 0;
+                -webkit-text-decoration: none;
+                text-decoration: none;
+                text-indent: 100%;
+                -webkit-transition: ease-in-out all 200ms;
+                transition: ease-in-out all 200ms;
+                white-space: nowrap;
+                overflow: hidden;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+                width: 157px;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='133' height='36' viewBox='0 0 133 36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.861 25.5C0.735 25.5 0.651 25.416 0.651 25.29V10.548C0.651 10.422 0.735 10.338 0.861 10.338H6.279C9.072 10.338 10.668 11.451 10.668 13.824C10.668 15.819 9.219 16.932 8.001 17.226C7.707 17.268 7.707 17.625 8.022 17.688C9.912 18.108 11.088 19.116 11.088 21.321C11.088 23.715 9.429 25.5 6.426 25.5H0.861ZM5.397 23.085C6.825 23.085 7.518 22.224 7.518 21.006C7.518 19.683 6.825 18.948 5.397 18.948H4.2V23.085H5.397ZM5.313 16.617C6.51 16.617 7.245 15.945 7.245 14.601C7.245 13.383 6.51 12.753 5.25 12.753H4.2V16.617H5.313ZM17.9758 23.883C17.9758 23.568 17.6608 23.505 17.5348 23.799C17.0308 24.954 16.1698 25.731 14.5528 25.731C12.8728 25.731 12.0958 24.471 12.0958 22.707V14.937C12.0958 14.811 12.1798 14.727 12.3058 14.727H15.2248C15.3508 14.727 15.4348 14.811 15.4348 14.937V21.657C15.4348 22.581 15.7708 23.022 16.4638 23.022C17.1778 23.022 17.6188 22.581 17.6188 21.657V14.937C17.6188 14.811 17.7028 14.727 17.8288 14.727H20.7478C20.8738 14.727 20.9578 14.811 20.9578 14.937V25.29C20.9578 25.416 20.8738 25.5 20.7478 25.5H18.1858C18.0598 25.5 17.9758 25.416 17.9758 25.29V23.883ZM25.6141 25.29C25.6141 25.416 25.5301 25.5 25.4041 25.5H22.4851C22.3591 25.5 22.2751 25.416 22.2751 25.29V14.937C22.2751 14.811 22.3591 14.727 22.4851 14.727H25.4041C25.5301 14.727 25.6141 14.811 25.6141 14.937V25.29ZM23.9131 13.74C22.8001 13.74 22.0441 12.942 22.0441 11.934C22.0441 10.926 22.8001 10.107 23.9131 10.107C25.0051 10.107 25.7611 10.926 25.7611 11.934C25.7611 12.942 25.0051 13.74 23.9131 13.74ZM26.7883 10.548C26.7883 10.422 26.8723 10.338 26.9983 10.338H29.9173C30.0433 10.338 30.1273 10.422 30.1273 10.548V22.056C30.1273 22.749 30.2533 23.085 30.8203 23.085C31.0093 23.085 31.1983 23.043 31.3663 23.001C31.5133 22.959 31.6183 22.959 31.6183 23.127V25.059C31.6183 25.164 31.5763 25.269 31.4923 25.311C30.9673 25.521 30.2953 25.71 29.5813 25.71C27.7123 25.71 26.7883 24.639 26.7883 22.476V10.548ZM32.4237 14.727C32.8227 14.727 32.9277 14.538 32.9697 14.055L33.1167 12.039C33.1167 11.913 33.2217 11.829 33.3477 11.829H35.8887C36.0147 11.829 36.0987 11.913 36.0987 12.039V14.517C36.0987 14.643 36.1827 14.727 36.3087 14.727H38.2827C38.4087 14.727 38.4927 14.811 38.4927 14.937V16.659C38.4927 16.785 38.4087 16.869 38.2827 16.869H36.0777V22.056C36.0777 22.875 36.5397 23.085 37.0647 23.085C37.4847 23.085 37.9467 22.938 38.3247 22.707C38.4717 22.623 38.5767 22.665 38.5767 22.833V24.828C38.5767 24.933 38.5347 25.017 38.4507 25.08C37.8417 25.458 36.9807 25.71 36.0357 25.71C34.2927 25.71 32.7387 24.912 32.7387 22.476V16.869H31.8567C31.7307 16.869 31.6467 16.785 31.6467 16.659V14.937C31.6467 14.811 31.7307 14.727 31.8567 14.727H32.4237ZM51.3808 14.727C51.5068 14.727 51.5908 14.79 51.6118 14.916L52.3888 19.851L52.5778 21.174C52.6198 21.468 52.9558 21.468 52.9768 21.174C53.0398 20.712 53.0818 20.271 53.1658 19.83L53.8798 14.916C53.9008 14.79 53.9848 14.727 54.1108 14.727H56.6728C56.8198 14.727 56.8828 14.811 56.8618 14.958L54.6778 25.311C54.6568 25.437 54.5728 25.5 54.4468 25.5H51.3178C51.1918 25.5 51.1078 25.437 51.0868 25.311L50.1208 20.082L49.8898 18.633C49.8688 18.444 49.6588 18.444 49.6378 18.633L49.4068 20.103L48.5458 25.311C48.5248 25.437 48.4408 25.5 48.3148 25.5H45.2068C45.0808 25.5 44.9968 25.437 44.9758 25.311L42.8128 14.958C42.7918 14.811 42.8548 14.727 43.0018 14.727H45.9628C46.0888 14.727 46.1728 14.79 46.1938 14.916L46.9288 19.83C47.0128 20.271 47.0758 20.754 47.1388 21.195C47.2018 21.51 47.4748 21.531 47.5378 21.195L47.7478 19.872L48.6088 14.916C48.6298 14.79 48.7138 14.727 48.8398 14.727H51.3808ZM61.1582 25.29C61.1582 25.416 61.0742 25.5 60.9482 25.5H58.0292C57.9032 25.5 57.8192 25.416 57.8192 25.29V14.937C57.8192 14.811 57.9032 14.727 58.0292 14.727H60.9482C61.0742 14.727 61.1582 14.811 61.1582 14.937V25.29ZM59.4572 13.74C58.3442 13.74 57.5882 12.942 57.5882 11.934C57.5882 10.926 58.3442 10.107 59.4572 10.107C60.5492 10.107 61.3052 10.926 61.3052 11.934C61.3052 12.942 60.5492 13.74 59.4572 13.74ZM62.8154 14.727C63.2144 14.727 63.3194 14.538 63.3614 14.055L63.5084 12.039C63.5084 11.913 63.6134 11.829 63.7394 11.829H66.2804C66.4064 11.829 66.4904 11.913 66.4904 12.039V14.517C66.4904 14.643 66.5744 14.727 66.7004 14.727H68.6744C68.8004 14.727 68.8844 14.811 68.8844 14.937V16.659C68.8844 16.785 68.8004 16.869 68.6744 16.869H66.4694V22.056C66.4694 22.875 66.9314 23.085 67.4564 23.085C67.8764 23.085 68.3384 22.938 68.7164 22.707C68.8634 22.623 68.9684 22.665 68.9684 22.833V24.828C68.9684 24.933 68.9264 25.017 68.8424 25.08C68.2334 25.458 67.3724 25.71 66.4274 25.71C64.6844 25.71 63.1304 24.912 63.1304 22.476V16.869H62.2484C62.1224 16.869 62.0384 16.785 62.0384 16.659V14.937C62.0384 14.811 62.1224 14.727 62.2484 14.727H62.8154ZM73.4298 16.323C73.4298 16.638 73.7868 16.68 73.9128 16.407C74.3748 15.315 75.1308 14.496 76.6008 14.496C78.2178 14.496 78.9528 15.609 78.9528 17.373V25.29C78.9528 25.416 78.8688 25.5 78.7428 25.5H75.8238C75.6978 25.5 75.6138 25.416 75.6138 25.29V18.633C75.6138 17.709 75.2778 17.268 74.5848 17.268C73.8708 17.268 73.4298 17.709 73.4298 18.633V25.29C73.4298 25.416 73.3458 25.5 73.2198 25.5H70.3008C70.1748 25.5 70.0908 25.416 70.0908 25.29V10.548C70.0908 10.422 70.1748 10.338 70.3008 10.338H73.2198C73.3458 10.338 73.4298 10.422 73.4298 10.548V16.323Z' fill='%231E1E1E'/%3E%3Cpath d='M100.132 16.3203C105.58 17.3761 107.272 22.4211 107.318 27.4961C107.318 27.6101 107.226 27.7041 107.112 27.7041H100.252C100.138 27.7041 100.046 27.6121 100.046 27.5001C100.026 23.5629 99.3877 20.0896 95.4865 19.9396C95.3705 19.9356 95.2725 20.0276 95.2725 20.1456V27.5001C95.2725 27.6141 95.1806 27.7061 95.0666 27.7061H88.206C88.092 27.7061 88 27.6141 88 27.5001V8.75585C88 8.64187 88.092 8.54989 88.206 8.54989H95.0686C95.1826 8.54989 95.2745 8.64187 95.2745 8.75585V15.7764C95.2745 15.8804 95.3585 15.9644 95.4625 15.9644C95.5445 15.9644 95.6185 15.9104 95.6425 15.8324C97.4081 10.0416 100.709 8.58588 106.07 8.55189C106.184 8.55189 106.276 8.64387 106.276 8.75785V15.7604C106.276 15.8744 106.184 15.9664 106.07 15.9664H100.166C100.066 15.9664 99.9856 16.0464 99.9856 16.1464C99.9856 16.2304 100.048 16.3043 100.132 16.3203ZM118.918 20.7095V16.1704C118.918 16.0564 119.01 15.9644 119.124 15.9644H124.173C124.273 15.9644 124.353 15.8844 124.353 15.7844C124.353 15.6985 124.291 15.6245 124.207 15.6085C120.256 14.8246 118.432 12.5511 118.37 8.75585C118.368 8.64387 118.458 8.54989 118.572 8.54989H125.986C126.1 8.54989 126.192 8.64187 126.192 8.75585V11.9532C126.192 12.0672 126.284 12.1592 126.398 12.1592H130.649C130.763 12.1592 130.855 12.2511 130.855 12.3651V15.7624C130.855 15.8764 130.763 15.9684 130.649 15.9684H126.398C126.284 15.9684 126.192 16.0604 126.192 16.1744V19.8356C126.192 21.1294 126.986 21.5553 128.04 21.5553C129.692 21.5553 131.323 20.8114 131.977 20.4735C132.113 20.4035 132.277 20.5015 132.277 20.6555V26.3543C132.277 26.5063 132.193 26.6463 132.059 26.7183C131.413 27.0582 129.418 28 127.136 28C122.435 27.996 118.918 26.0824 118.918 20.7095ZM109.266 27.4981V16.1704C109.266 16.0564 109.358 15.9644 109.472 15.9644H116.334C116.448 15.9644 116.54 16.0564 116.54 16.1704V27.4981C116.54 27.6121 116.448 27.7041 116.334 27.7041H109.472C109.358 27.7021 109.266 27.6101 109.266 27.4981ZM108.876 11.4913C108.876 13.4189 110.238 14.9826 112.853 14.9826C115.469 14.9826 116.83 13.4189 116.83 11.4913C116.83 9.56369 115.471 8 112.853 8C110.238 8 108.876 9.56369 108.876 11.4913Z' fill='%231E1E1E'/%3E%3C/svg%3E");
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit:hover,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit:focus {
+                background-color: #ffffff;
+                -webkit-transform: scale(1.025) perspective(1px);
+                -ms-transform: scale(1.025) perspective(1px);
+                transform: scale(1.025) perspective(1px);
+                opacity: 1;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit[data-variant="dark"],
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit[data-variant="light"] {
+                background-color: transparent;
+                border-color: transparent;
+                width: 133px;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit[data-variant="light"] {
+                color: #ffffff;
+                background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='133' height='36' viewBox='0 0 133 36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.861 25.5C0.735 25.5 0.651 25.416 0.651 25.29V10.548C0.651 10.422 0.735 10.338 0.861 10.338H6.279C9.072 10.338 10.668 11.451 10.668 13.824C10.668 15.819 9.219 16.932 8.001 17.226C7.707 17.268 7.707 17.625 8.022 17.688C9.912 18.108 11.088 19.116 11.088 21.321C11.088 23.715 9.429 25.5 6.426 25.5H0.861ZM5.397 23.085C6.825 23.085 7.518 22.224 7.518 21.006C7.518 19.683 6.825 18.948 5.397 18.948H4.2V23.085H5.397ZM5.313 16.617C6.51 16.617 7.245 15.945 7.245 14.601C7.245 13.383 6.51 12.753 5.25 12.753H4.2V16.617H5.313ZM17.9758 23.883C17.9758 23.568 17.6608 23.505 17.5348 23.799C17.0308 24.954 16.1698 25.731 14.5528 25.731C12.8728 25.731 12.0958 24.471 12.0958 22.707V14.937C12.0958 14.811 12.1798 14.727 12.3058 14.727H15.2248C15.3508 14.727 15.4348 14.811 15.4348 14.937V21.657C15.4348 22.581 15.7708 23.022 16.4638 23.022C17.1778 23.022 17.6188 22.581 17.6188 21.657V14.937C17.6188 14.811 17.7028 14.727 17.8288 14.727H20.7478C20.8738 14.727 20.9578 14.811 20.9578 14.937V25.29C20.9578 25.416 20.8738 25.5 20.7478 25.5H18.1858C18.0598 25.5 17.9758 25.416 17.9758 25.29V23.883ZM25.6141 25.29C25.6141 25.416 25.5301 25.5 25.4041 25.5H22.4851C22.3591 25.5 22.2751 25.416 22.2751 25.29V14.937C22.2751 14.811 22.3591 14.727 22.4851 14.727H25.4041C25.5301 14.727 25.6141 14.811 25.6141 14.937V25.29ZM23.9131 13.74C22.8001 13.74 22.0441 12.942 22.0441 11.934C22.0441 10.926 22.8001 10.107 23.9131 10.107C25.0051 10.107 25.7611 10.926 25.7611 11.934C25.7611 12.942 25.0051 13.74 23.9131 13.74ZM26.7883 10.548C26.7883 10.422 26.8723 10.338 26.9983 10.338H29.9173C30.0433 10.338 30.1273 10.422 30.1273 10.548V22.056C30.1273 22.749 30.2533 23.085 30.8203 23.085C31.0093 23.085 31.1983 23.043 31.3663 23.001C31.5133 22.959 31.6183 22.959 31.6183 23.127V25.059C31.6183 25.164 31.5763 25.269 31.4923 25.311C30.9673 25.521 30.2953 25.71 29.5813 25.71C27.7123 25.71 26.7883 24.639 26.7883 22.476V10.548ZM32.4237 14.727C32.8227 14.727 32.9277 14.538 32.9697 14.055L33.1167 12.039C33.1167 11.913 33.2217 11.829 33.3477 11.829H35.8887C36.0147 11.829 36.0987 11.913 36.0987 12.039V14.517C36.0987 14.643 36.1827 14.727 36.3087 14.727H38.2827C38.4087 14.727 38.4927 14.811 38.4927 14.937V16.659C38.4927 16.785 38.4087 16.869 38.2827 16.869H36.0777V22.056C36.0777 22.875 36.5397 23.085 37.0647 23.085C37.4847 23.085 37.9467 22.938 38.3247 22.707C38.4717 22.623 38.5767 22.665 38.5767 22.833V24.828C38.5767 24.933 38.5347 25.017 38.4507 25.08C37.8417 25.458 36.9807 25.71 36.0357 25.71C34.2927 25.71 32.7387 24.912 32.7387 22.476V16.869H31.8567C31.7307 16.869 31.6467 16.785 31.6467 16.659V14.937C31.6467 14.811 31.7307 14.727 31.8567 14.727H32.4237ZM51.3808 14.727C51.5068 14.727 51.5908 14.79 51.6118 14.916L52.3888 19.851L52.5778 21.174C52.6198 21.468 52.9558 21.468 52.9768 21.174C53.0398 20.712 53.0818 20.271 53.1658 19.83L53.8798 14.916C53.9008 14.79 53.9848 14.727 54.1108 14.727H56.6728C56.8198 14.727 56.8828 14.811 56.8618 14.958L54.6778 25.311C54.6568 25.437 54.5728 25.5 54.4468 25.5H51.3178C51.1918 25.5 51.1078 25.437 51.0868 25.311L50.1208 20.082L49.8898 18.633C49.8688 18.444 49.6588 18.444 49.6378 18.633L49.4068 20.103L48.5458 25.311C48.5248 25.437 48.4408 25.5 48.3148 25.5H45.2068C45.0808 25.5 44.9968 25.437 44.9758 25.311L42.8128 14.958C42.7918 14.811 42.8548 14.727 43.0018 14.727H45.9628C46.0888 14.727 46.1728 14.79 46.1938 14.916L46.9288 19.83C47.0128 20.271 47.0758 20.754 47.1388 21.195C47.2018 21.51 47.4748 21.531 47.5378 21.195L47.7478 19.872L48.6088 14.916C48.6298 14.79 48.7138 14.727 48.8398 14.727H51.3808ZM61.1582 25.29C61.1582 25.416 61.0742 25.5 60.9482 25.5H58.0292C57.9032 25.5 57.8192 25.416 57.8192 25.29V14.937C57.8192 14.811 57.9032 14.727 58.0292 14.727H60.9482C61.0742 14.727 61.1582 14.811 61.1582 14.937V25.29ZM59.4572 13.74C58.3442 13.74 57.5882 12.942 57.5882 11.934C57.5882 10.926 58.3442 10.107 59.4572 10.107C60.5492 10.107 61.3052 10.926 61.3052 11.934C61.3052 12.942 60.5492 13.74 59.4572 13.74ZM62.8154 14.727C63.2144 14.727 63.3194 14.538 63.3614 14.055L63.5084 12.039C63.5084 11.913 63.6134 11.829 63.7394 11.829H66.2804C66.4064 11.829 66.4904 11.913 66.4904 12.039V14.517C66.4904 14.643 66.5744 14.727 66.7004 14.727H68.6744C68.8004 14.727 68.8844 14.811 68.8844 14.937V16.659C68.8844 16.785 68.8004 16.869 68.6744 16.869H66.4694V22.056C66.4694 22.875 66.9314 23.085 67.4564 23.085C67.8764 23.085 68.3384 22.938 68.7164 22.707C68.8634 22.623 68.9684 22.665 68.9684 22.833V24.828C68.9684 24.933 68.9264 25.017 68.8424 25.08C68.2334 25.458 67.3724 25.71 66.4274 25.71C64.6844 25.71 63.1304 24.912 63.1304 22.476V16.869H62.2484C62.1224 16.869 62.0384 16.785 62.0384 16.659V14.937C62.0384 14.811 62.1224 14.727 62.2484 14.727H62.8154ZM73.4298 16.323C73.4298 16.638 73.7868 16.68 73.9128 16.407C74.3748 15.315 75.1308 14.496 76.6008 14.496C78.2178 14.496 78.9528 15.609 78.9528 17.373V25.29C78.9528 25.416 78.8688 25.5 78.7428 25.5H75.8238C75.6978 25.5 75.6138 25.416 75.6138 25.29V18.633C75.6138 17.709 75.2778 17.268 74.5848 17.268C73.8708 17.268 73.4298 17.709 73.4298 18.633V25.29C73.4298 25.416 73.3458 25.5 73.2198 25.5H70.3008C70.1748 25.5 70.0908 25.416 70.0908 25.29V10.548C70.0908 10.422 70.1748 10.338 70.3008 10.338H73.2198C73.3458 10.338 73.4298 10.422 73.4298 10.548V16.323Z' fill='white'/%3E%3Cpath d='M100.132 16.3203C105.58 17.3761 107.272 22.4211 107.318 27.4961C107.318 27.6101 107.226 27.7041 107.112 27.7041H100.252C100.138 27.7041 100.046 27.6121 100.046 27.5001C100.026 23.5629 99.3877 20.0896 95.4865 19.9396C95.3705 19.9356 95.2725 20.0276 95.2725 20.1456V27.5001C95.2725 27.6141 95.1806 27.7061 95.0666 27.7061H88.206C88.092 27.7061 88 27.6141 88 27.5001V8.75585C88 8.64187 88.092 8.54989 88.206 8.54989H95.0686C95.1826 8.54989 95.2745 8.64187 95.2745 8.75585V15.7764C95.2745 15.8804 95.3585 15.9644 95.4625 15.9644C95.5445 15.9644 95.6185 15.9104 95.6425 15.8324C97.4081 10.0416 100.709 8.58588 106.07 8.55189C106.184 8.55189 106.276 8.64387 106.276 8.75785V15.7604C106.276 15.8744 106.184 15.9664 106.07 15.9664H100.166C100.066 15.9664 99.9856 16.0464 99.9856 16.1464C99.9856 16.2304 100.048 16.3043 100.132 16.3203ZM118.918 20.7095V16.1704C118.918 16.0564 119.01 15.9644 119.124 15.9644H124.173C124.273 15.9644 124.353 15.8844 124.353 15.7844C124.353 15.6985 124.291 15.6245 124.207 15.6085C120.256 14.8246 118.432 12.5511 118.37 8.75585C118.368 8.64387 118.458 8.54989 118.572 8.54989H125.986C126.1 8.54989 126.192 8.64187 126.192 8.75585V11.9532C126.192 12.0672 126.284 12.1592 126.398 12.1592H130.649C130.763 12.1592 130.855 12.2511 130.855 12.3651V15.7624C130.855 15.8764 130.763 15.9684 130.649 15.9684H126.398C126.284 15.9684 126.192 16.0604 126.192 16.1744V19.8356C126.192 21.1294 126.986 21.5553 128.04 21.5553C129.692 21.5553 131.323 20.8114 131.977 20.4735C132.113 20.4035 132.277 20.5015 132.277 20.6555V26.3543C132.277 26.5063 132.193 26.6463 132.059 26.7183C131.413 27.0582 129.418 28 127.136 28C122.435 27.996 118.918 26.0824 118.918 20.7095ZM109.266 27.4981V16.1704C109.266 16.0564 109.358 15.9644 109.472 15.9644H116.334C116.448 15.9644 116.54 16.0564 116.54 16.1704V27.4981C116.54 27.6121 116.448 27.7041 116.334 27.7041H109.472C109.358 27.7021 109.266 27.6101 109.266 27.4981ZM108.876 11.4913C108.876 13.4189 110.238 14.9826 112.853 14.9826C115.469 14.9826 116.83 13.4189 116.83 11.4913C116.83 9.56369 115.471 8 112.853 8C110.238 8 108.876 9.56369 108.876 11.4913Z' fill='white'/%3E%3C/svg%3E");
+              }
+              @-webkit-keyframes formkit-bouncedelay-formkit-form-data-uid-038a3c96c1- {
+                0%,
+                80%,
+                100% {
+                  -webkit-transform: scale(0);
+                  -ms-transform: scale(0);
+                  transform: scale(0);
+                }
+                40% {
+                  -webkit-transform: scale(1);
+                  -ms-transform: scale(1);
+                  transform: scale(1);
+                }
+              }
+              @keyframes formkit-bouncedelay-formkit-form-data-uid-038a3c96c1- {
+                0%,
+                80%,
+                100% {
+                  -webkit-transform: scale(0);
+                  -ms-transform: scale(0);
+                  transform: scale(0);
+                }
+                40% {
+                  -webkit-transform: scale(1);
+                  -ms-transform: scale(1);
+                  transform: scale(1);
+                }
+              }
+              .formkit-form[data-uid="038a3c96c1"] blockquote {
+                padding: 10px 20px;
+                margin: 0 0 20px;
+                border-left: 5px solid #e1e1e1;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .seva-custom-content {
+                padding: 15px;
+                font-size: 16px;
+                color: #fff;
+                mix-blend-mode: difference;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-modal.guard {
+                max-width: 420px;
+                width: 100%;
+              }
+              .formkit-form[data-uid="038a3c96c1"] {
+                max-width: 700px;
+              }
+              .formkit-form[data-uid="038a3c96c1"] [data-style="clean"] {
+                width: 100%;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-fields {
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-flex-wrap: wrap;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                margin: 0 auto;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-field,
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit {
+                margin: 0 0 15px 0;
+                -webkit-flex: 1 0 100%;
+                -ms-flex: 1 0 100%;
+                flex: 1 0 100%;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit-container {
+                margin: 0;
+              }
+              .formkit-form[data-uid="038a3c96c1"] .formkit-submit {
+                position: static;
+              }
+              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] [data-style="clean"],
+              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] [data-style="clean"] {
+                padding: 10px;
+                padding-top: 56px;
+              }
+              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"],
+              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] {
+                margin-left: -5px;
+                margin-right: -5px;
+              }
+              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"] .formkit-field,
+              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] .formkit-field,
+              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"] .formkit-submit,
+              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] .formkit-submit {
+                margin: 0 5px 15px 5px;
+              }
+              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"] .formkit-field,
+              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] .formkit-field {
+                -webkit-flex: 100 1 auto;
+                -ms-flex: 100 1 auto;
+                flex: 100 1 auto;
+              }
+              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"] .formkit-submit,
+              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] .formkit-submit {
+                -webkit-flex: 1 1 auto;
+                -ms-flex: 1 1 auto;
+                flex: 1 1 auto;
+              }
+            </style>
+          </form>
+        </div>
+
+        <!-- One-card pull -->
+        <div class="section" role="region" aria-labelledby="daily-card-title">
+          <h2 id="daily-card-title">One-Card Pull</h2>
+          <div class="card-ui">
+            <div class="tarot" id="tarot" role="button" tabindex="0" aria-pressed="false" aria-label="Draw a card">
+              <!-- Placeholder card back -->
+              <img id="tarotImg" src="https://placehold.co/96x152/1a1d27/ffffff?text=Tap%20to%20Draw&font=source-sans-pro" alt="Card face" />
+            </div>
+            <div>
+              <div id="cardTitle" style="font-weight: 700">Your daily nudge</div>
+              <div class="reading" id="cardMsg">A gentle prompt for self-reflection.</div>
+            </div>
+          </div>
+        </div>
+
+        <footer>© <span id="year"></span> Ordinary Mystic · <a href="https://instagram.com/ordinarymysticreadings" style="color: inherit">Follow on Instagram</a></footer>
+      </div>
+    </div>
+
+    <script>
+      // Year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Deck array
+      const deck = [
+        { t: "The Fool", m: "Beginnings, spontaneity, potential", img: "/img/card/maj00.jpg" },
+        { t: "The Magician", m: "Resourcefulness, power, inspired action", img: "/img/card/maj01.jpg" },
+        { t: "The High Priestess", m: "Inner voice, intuition, mystery", img: "/img/card/maj02.jpg" },
+        { t: "The Empress", m: "Abundance, nurturing, creativity", img: "/img/card/maj03.jpg" },
+        { t: "The Emperor", m: "Structure, authority, leadership", img: "/img/card/maj04.jpg" },
+        { t: "The Hierophant", m: "Tradition, spiritual wisdom, conformity", img: "/img/card/maj05.jpg" },
+        { t: "The Lovers", m: "Love, harmony, choices", img: "/img/card/maj06.jpg" },
+        { t: "The Chariot", m: "Willpower, determination, success", img: "/img/card/maj07.jpg" },
+        { t: "Strength", m: "Courage, compassion, influence", img: "/img/card/maj08.jpg" },
+        { t: "The Hermit", m: "Solitude, introspection, guidance", img: "/img/card/maj09.jpg" },
+        { t: "Wheel of Fortune", m: "Cycles, change, destiny", img: "/img/card/maj10.jpg" },
+        { t: "Justice", m: "Fairness, truth, law", img: "/img/card/maj11.jpg" },
+        { t: "The Hanged Man", m: "Surrender, new perspective, pause", img: "/img/card/maj12.jpg" },
+        { t: "Death", m: "Endings, transformation, transition", img: "/img/card/maj13.jpg" },
+        { t: "Temperance", m: "Balance, moderation, patience", img: "/img/card/maj14.jpg" },
+        { t: "The Devil", m: "Shadow self, attachment, addiction", img: "/img/card/maj15.jpg" },
+        { t: "The Tower", m: "Sudden change, upheaval, revelation", img: "/img/card/maj16.jpg" },
+        { t: "The Star", m: "Hope, faith, renewal", img: "/img/card/maj17.jpg" },
+        { t: "The Moon", m: "Illusion, fear, intuition", img: "/img/card/maj18.jpg" },
+        { t: "The Sun", m: "Joy, success, positivity", img: "/img/card/maj19.jpg" },
+        { t: "Judgement", m: "Rebirth, inner calling, absolution", img: "/img/card/maj20.jpg" },
+        { t: "The World", m: "Completion, integration, accomplishment", img: "/img/card/maj21.jpg" },
+        { t: "Ace of Cups", m: "New feelings, compassion, creative flow", img: "/img/card/cups01.jpg" },
+        { t: "Two of Cups", m: "Unified love, partnership, attraction", img: "/img/card/cups02.jpg" },
+        { t: "Three of Cups", m: "Celebration, friendship, community", img: "/img/card/cups03.jpg" },
+        { t: "Four of Cups", m: "Apathy, contemplation, reevaluation", img: "/img/card/cups04.jpg" },
+        { t: "Five of Cups", m: "Regret, loss, grief", img: "/img/card/cups05.jpg" },
+        { t: "Six of Cups", m: "Nostalgia, memories, reunions", img: "/img/card/cups06.jpg" },
+        { t: "Seven of Cups", m: "Choices, illusion, imagination", img: "/img/card/cups07.jpg" },
+        { t: "Eight of Cups", m: "Walking away, withdrawal, seeking deeper meaning", img: "/img/card/cups08.jpg" },
+        { t: "Nine of Cups", m: "Satisfaction, emotional fulfillment, contentment", img: "/img/card/cups09.jpg" },
+        { t: "Ten of Cups", m: "Harmony, family, alignment", img: "/img/card/cups10.jpg" },
+        { t: "Page of Cups", m: "Creative opportunities, intuitive messages", img: "/img/card/cups11.jpg" },
+        { t: "Knight of Cups", m: "Romance, charm, imagination", img: "/img/card/cups12.jpg" },
+        { t: "Queen of Cups", m: "Compassion, calm, comfort", img: "/img/card/cups13.jpg" },
+        { t: "King of Cups", m: "Emotional balance, diplomacy, generosity", img: "/img/card/cups14.jpg" },
+        { t: "Ace of Pentacles", m: "Manifestation, new financial opportunity, prosperity", img: "/img/card/pents01.jpg" },
+        { t: "Two of Pentacles", m: "Balance, adaptability, time management", img: "/img/card/pents02.jpg" },
+        { t: "Three of Pentacles", m: "Teamwork, collaboration, learning", img: "/img/card/pents03.jpg" },
+        { t: "Four of Pentacles", m: "Conservation, security, control", img: "/img/card/pents04.jpg" },
+        { t: "Five of Pentacles", m: "Poverty, insecurity, hardship", img: "/img/card/pents05.jpg" },
+        { t: "Six of Pentacles", m: "Giving, receiving, sharing wealth", img: "/img/card/pents06.jpg" },
+        { t: "Seven of Pentacles", m: "Perseverance, sustainable results, investment", img: "/img/card/pents07.jpg" },
+        { t: "Eight of Pentacles", m: "Mastery, skill development, diligence", img: "/img/card/pents08.jpg" },
+        { t: "Nine of Pentacles", m: "Abundance, luxury, self‑sufficiency", img: "/img/card/pents09.jpg" },
+        { t: "Ten of Pentacles", m: "Legacy, inheritance, culmination", img: "/img/card/pents10.jpg" },
+        { t: "Page of Pentacles", m: "New job, financial opportunity, ambition", img: "/img/card/pents11.jpg" },
+        { t: "Knight of Pentacles", m: "Routine, efficiency, hard work", img: "/img/card/pents12.jpg" },
+        { t: "Queen of Pentacles", m: "Practicality, creature comforts, security", img: "/img/card/pents13.jpg" },
+        { t: "King of Pentacles", m: "Wealth, leadership, discipline", img: "/img/card/pents14.jpg" },
+        { t: "Ace of Swords", m: "Breakthrough, clarity, new ideas", img: "/img/card/swords01.jpg" },
+        { t: "Two of Swords", m: "Difficult decisions, weighing options, stalemate", img: "/img/card/swords02.jpg" },
+        { t: "Three of Swords", m: "Heartbreak, sorrow, grief", img: "/img/card/swords03.jpg" },
+        { t: "Four of Swords", m: "Rest, recuperation, contemplation", img: "/img/card/swords04.jpg" },
+        { t: "Five of Swords", m: "Conflict, tension, defeat", img: "/img/card/swords05.jpg" },
+        { t: "Six of Swords", m: "Transition, change, rite of passage", img: "/img/card/swords06.jpg" },
+        { t: "Seven of Swords", m: "Strategy, deception, tactics", img: "/img/card/swords07.jpg" },
+        { t: "Eight of Swords", m: "Imprisonment, limitation, victim mentality", img: "/img/card/swords08.jpg" },
+        { t: "Nine of Swords", m: "Anxiety, worry, fear", img: "/img/card/swords09.jpg" },
+        { t: "Ten of Swords", m: "Painful endings, betrayal, loss", img: "/img/card/swords10.jpg" },
+        { t: "Page of Swords", m: "New ideas, curiosity, alertness", img: "/img/card/swords11.jpg" },
+        { t: "Knight of Swords", m: "Action, impulsivity, defending beliefs", img: "/img/card/swords12.jpg" },
+        { t: "Queen of Swords", m: "Perception, unbiased judgment, direct communication", img: "/img/card/swords13.jpg" },
+        { t: "King of Swords", m: "Mental clarity, truth, authority", img: "/img/card/swords14.jpg" },
+        { t: "Ace of Wands", m: "Inspiration, new opportunities, growth", img: "/img/card/wands01.jpg" },
+        { t: "Two of Wands", m: "Planning, progress, personal power", img: "/img/card/wands02.jpg" },
+        { t: "Three of Wands", m: "Expansion, foresight, overseas opportunities", img: "/img/card/wands03.jpg" },
+        { t: "Four of Wands", m: "Celebration, gratitude, homecoming", img: "/img/card/wands04.jpg" },
+        { t: "Five of Wands", m: "Competition, rivalry, conflict", img: "/img/card/wands05.jpg" },
+        { t: "Six of Wands", m: "Victory, success, public recognition", img: "/img/card/wands06.jpg" },
+        { t: "Seven of Wands", m: "Challenge, perseverance, defense", img: "/img/card/wands07.jpg" },
+        { t: "Eight of Wands", m: "Movement, fast‑paced change, action", img: "/img/card/wands08.jpg" },
+        { t: "Nine of Wands", m: "Resilience, persistence, last stand", img: "/img/card/wands09.jpg" },
+        { t: "Ten of Wands", m: "Burden, responsibility, hard work", img: "/img/card/wands10.jpg" },
+        { t: "Page of Wands", m: "Exploration, discovery, free spirit", img: "/img/card/wands11.jpg" },
+        { t: "Knight of Wands", m: "Energy, passion, inspired action", img: "/img/card/wands12.jpg" },
+        { t: "Queen of Wands", m: "Courage, confidence, determination", img: "/img/card/wands13.jpg" },
+        { t: "King of Wands", m: "Leadership, vision, taking control", img: "/img/card/wands14.jpg" },
+      ];
+
+      const tarot = document.getElementById("tarot");
+      const tarotImg = document.getElementById("tarotImg");
+      const title = document.getElementById("cardTitle");
+      const msg = document.getElementById("cardMsg");
+
+      function draw() {
+        const c = deck[Math.floor(Math.random() * deck.length)];
+        title.textContent = c.t;
+        msg.textContent = c.m;
+        tarot.setAttribute("aria-pressed", "true");
+        tarotImg.src = c.img;
+        tarotImg.alt = c.t + " card";
+      }
+      tarot.addEventListener("click", draw);
+      tarot.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          draw();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -8,6 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
+      html {
+        scroll-behavior: smooth;
+      }
+
       :root {
         --bg: #0f1117;
         --panel: #14151b;
@@ -19,16 +23,9 @@
         --ring: 0 0 0 3px color(display-p3 0.49 0.4 1 / 0.35);
         --radius: 16px;
         --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-        --field-bg: rgba(255, 255, 255, 0.05);
-        --field-bg-strong: #191b24; /* stronger for dropdown list & focus */
-        --field-bd: rgba(255, 255, 255, 0.16);
       }
       * {
         box-sizing: border-box;
-      }
-      html,
-      body {
-        height: 100%;
       }
       body {
         margin: 0;
@@ -57,7 +54,6 @@
         background-repeat: no-repeat;
         filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.55));
       }
-
       .wrap {
         min-height: 100%;
         display: grid;
@@ -74,8 +70,8 @@
         box-shadow: var(--shadow);
       }
       header {
-        padding: 28px 20px 10px;
         text-align: center;
+        padding: 28px 20px 10px;
       }
       .avatar {
         width: 96px;
@@ -109,7 +105,6 @@
         font-weight: 700;
         background: linear-gradient(90deg, var(--accentA), var(--accentB));
       }
-
       .socials {
         margin: 14px auto 4px;
         display: flex;
@@ -154,155 +149,11 @@
         color: var(--subtext);
       }
 
-      /* --- Form layout fixes --- */
-      form {
-        display: grid;
-        gap: 12px;
-      }
-      .row {
-        display: grid;
-        gap: 10px;
-      }
-
-      /* minmax(0,1fr) prevents overflow from long content */
-      .two {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      }
-      .three {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
-      }
-
-      @media (max-width: 560px) {
-        .two,
-        .three {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      .field {
-        display: flex;
-        align-items: stretch;
-        gap: 10px;
-        background: var(--field-bg);
-        border: 1px solid var(--field-bd);
-        border-radius: 12px;
-        padding: 10px 12px;
-      }
-      .field label {
-        flex: 0 1 160px; /* allow wrapping instead of forcing overflow */
-        font-size: 0.9rem;
-        color: var(--subtext);
-      }
-      .field input[type="text"],
-      .field input[type="email"],
-      .field input[type="date"],
-      .field input[type="time"],
-      .field select,
-      .field textarea {
-        flex: 1 1 auto;
-        width: 100%;
-        min-width: 0; /* min-width fix prevents spill */
-        border: 0;
-        outline: 0;
-        background: transparent;
-        color: var(--text);
-        font-size: 1rem;
-      }
-      .field textarea {
-        min-height: 96px;
-        resize: vertical;
-      }
-
-      /* High-contrast, dark dropdown */
-      .field select {
-        background-color: transparent;
-        color: var(--text);
-        appearance: none;
-        /* add a subtle shaded surface so selected text is readable */
-        background-image: linear-gradient(var(--field-bg-strong), var(--field-bg-strong));
-        background-origin: border-box;
-        background-clip: padding-box;
-        border-radius: 8px;
-        padding-right: 1.6rem;
-      }
-      /* down-arrow (pure CSS) */
-      .field select {
-        background-repeat: no-repeat;
-        background-position: right 8px center;
-        background-size: 10px 10px;
-      }
-      .field select:focus-visible {
-        box-shadow: var(--ring);
-      }
-      /* Options list colors (supported in major browsers) */
-      .field select option {
-        background: var(--field-bg-strong);
-        color: var(--text);
-      }
-
-      .btn {
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        background: linear-gradient(90deg, var(--accentA), var(--accentB));
-        color: #0b0c10;
-        font-weight: 800;
-        padding: 12px 14px;
-        border-radius: 10px;
-        transition: transform 0.2s ease, filter 0.2s ease;
-        box-shadow: 0 6px 18px rgba(124, 92, 255, 0.28);
-        filter: saturate(1.1);
-      }
-      .btn:hover {
-        transform: translateY(-1px);
-        filter: saturate(1.2);
-      }
-
-      .price-note {
-        font-size: 0.86rem;
-        color: var(--muted);
-        margin-top: -4px;
-      }
-
-      .totals {
-        display: flex;
-        justify-content: flex-end;
-        gap: 12px;
-        align-items: center;
-        color: var(--subtext);
-        flex-wrap: wrap;
-      }
-      .total-pill {
-        padding: 6px 10px;
-        border-radius: 999px;
-        border: 1px solid var(--field-bd);
-        background: var(--field-bg);
-      }
-      @media (max-width: 560px) {
-        .totals {
-          flex-direction: column;
-          align-items: stretch;
-        }
-        .btn {
-          width: 100%;
-        }
-        .total-pill {
-          order: -1;
-        } /* show price above button on phones */
-      }
-
       footer {
         padding: 10px 16px 22px;
         color: var(--subtext);
         font-size: 0.8rem;
         text-align: center;
-      }
-      .hidden {
-        position: absolute !important;
-        left: -10000px !important;
-        top: auto;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
       }
       .titlebar {
         display: flex;
@@ -333,44 +184,92 @@
         height: 16px;
         flex: none;
       }
+
+      /* FAQ */
+      .faq {
+        display: grid;
+        gap: 10px;
+        margin-top: 6px;
+      }
+      .qa {
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.04);
+        overflow: hidden;
+      }
+      .qa[open] {
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+      }
+      .qa summary {
+        cursor: pointer;
+        list-style: none;
+        font-weight: 700;
+        color: #eaeaf4;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+      }
+      .qa summary::-webkit-details-marker {
+        display: none;
+      }
+      .caret {
+        margin-left: auto;
+        width: 0;
+        height: 0;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 8px solid #eaeaf4;
+        transition: transform 0.25s ease;
+      }
+      .qa[open] .caret {
+        transform: rotate(90deg);
+      } /* points down when open */
+      .qa-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.32s ease, opacity 0.25s ease;
+        opacity: 0;
+        padding: 0 12px;
+      }
+      .qa[open] .qa-body {
+        opacity: 1;
+      }
+      .qa .hint {
+        margin: 8px 0 12px;
+        font-size: 0.92rem;
+        line-height: 1.5;
+        color: var(--subtext);
+      }
     </style>
   </head>
   <body>
     <div class="stars" aria-hidden="true"></div>
-
     <div class="wrap">
-      <div class="card" role="region" aria-label="Ordinary Mystic booking form">
+      <div class="card">
         <header>
           <img class="avatar" src="img/profile-img.png" alt="Ordinary Mystic avatar" loading="lazy" />
           <h1>Ordinary Mystic</h1>
           <p class="tagline">Practical spirituality for everyday life</p>
-          <div class="badge" aria-hidden="true">✨ Tarot • Astrology • Faith • Notion</div>
-
-          <div class="socials" aria-label="Social links">
-            <a href="https://www.youtube.com/@OrdinaryMysticReadings" target="_blank" rel="noopener" aria-label="YouTube">
-              <img src="img/youtube-app-white-icon.png" alt="YT" />
-            </a>
-            <a href="https://www.tiktok.com/@ordinarymysticreadings" target="_blank" rel="noopener" aria-label="TikTok">
-              <img src="img/tiktok-white-icon.png" alt="TT" />
-            </a>
-            <a href="https://www.instagram.com/ordinarymysticreadings/" target="_blank" rel="noopener" aria-label="Instagram">
-              <img src="img/instagram-white-icon.png" alt="IG" />
-            </a>
-            <a href="mailto:ordinarymysticreadings@gmail.com" target="_blank" rel="noopener" aria-label="Email">
-              <img src="img/email-white-icon.png" alt="@" />
-            </a>
+          <div class="badge">✨ Tarot • Astrology • Faith • Notion</div>
+          <div class="socials">
+            <a href="https://www.youtube.com/@OrdinaryMysticReadings" target="_blank"><img src="img/youtube-app-white-icon.png" alt="YT" /></a>
+            <a href="https://www.tiktok.com/@ordinarymysticreadings" target="_blank"><img src="img/tiktok-white-icon.png" alt="TT" /></a>
+            <a href="https://www.instagram.com/ordinarymysticreadings/" target="_blank"><img src="img/instagram-white-icon.png" alt="IG" /></a>
+            <a href="mailto:ordinarymysticreadings@gmail.com" target="_blank"><img src="img/email-white-icon.png" alt="@" /></a>
           </div>
         </header>
 
-        <div class="section" role="region" aria-labelledby="book-title">
+        <div class="section">
           <div class="titlebar">
             <h2 id="book-title">Book a Reading</h2>
-            <a class="home-link" href="index.html" aria-label="Back to Home">
-              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M3 10.5l9-7 9 7V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round" />
-              </svg>
-              <span>Home</span>
-            </a>
+            <div style="display: flex; gap: 8px">
+              <a class="home-link" href="#faq">FAQ</a>
+              <a class="home-link" href="index.html">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 10.5l9-7 9 7V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5Z" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round" /></svg>
+                <span>Home</span>
+              </a>
+            </div>
           </div>
           <p class="hint">I offer two ways to receive your reading. Do whichever feels most comfortable for you:</p>
           <ul class="hint">
@@ -378,8 +277,43 @@
             <li>Live on Zoom</li>
           </ul>
           <p class="hint">Both options are equally high quality. It’s simply a matter of your personal preference.</p>
-          <p class="hint">After submitting the form below, I will reach out within 1-2 business days to confirm your booking and get any additional details needed. Thanks for trusting me with your reading!</p>
-          <iframe src="https://feather-rayon-0cb.notion.site/ebd/26254f57157681559f8be8d5a37323d2" width="100%" height="600" frameborder="0" allowfullscreen />
+          <p class="hint">After submitting the form below, I will reach out within 1–2 business days to confirm your booking.</p>
+          <iframe src="https://feather-rayon-0cb.notion.site/ebd/26254f57157681559f8be8d5a37323d2" width="100%" height="600" frameborder="0"></iframe>
+        </div>
+
+        <!-- FAQ -->
+        <div class="section" id="faq">
+          <h2>Frequently Asked Questions</h2>
+          <div class="faq">
+            <details class="qa">
+              <summary>How do I pay you?<span class="caret"></span></summary>
+              <div class="qa-body"><p class="hint">I accept PayPal, Cash App, and all major credit cards. I’ll send a secure payment link with your confirmation.</p></div>
+            </details>
+            <details class="qa">
+              <summary>How long does a reading take?<span class="caret"></span></summary>
+              <div class="qa-body"><p class="hint">As long as it needs to. It may be 30 minutes or 2 hours. Quality and clarity come first.</p></div>
+            </details>
+            <details class="qa">
+              <summary>How soon will I receive a recorded reading?<span class="caret"></span></summary>
+              <div class="qa-body"><p class="hint">Usually within 3–5 business days. If timing is sensitive, note that on the form and I’ll do my best to accommodate.</p></div>
+            </details>
+            <details class="qa">
+              <summary>What do I need to provide?<span class="caret"></span></summary>
+              <div class="qa-body"><p class="hint">A brief intention or area of focus helps. For astrology, your birth date, time, and place make charts more precise.</p></div>
+            </details>
+            <details class="qa">
+              <summary>What kinds of questions are welcome?<span class="caret"></span></summary>
+              <div class="qa-body"><p class="hint">Life direction, relationships, creativity, vocation, and spiritual growth are great fits. I don’t do medical, legal, or lottery predictions.</p></div>
+            </details>
+            <details class="qa">
+              <summary>What’s your rescheduling or cancellation policy?<span class="caret"></span></summary>
+              <div class="qa-body"><p class="hint">Please give 24 hours’ notice to reschedule. If something urgent comes up, email me and we’ll find a new time.</p></div>
+            </details>
+            <details class="qa">
+              <summary>What if the reading doesn’t resonate?<span class="caret"></span></summary>
+              <div class="qa-body"><p class="hint">If something feels off, reply to the confirmation email within a week. I’ll offer a brief clarifying follow-up.</p></div>
+            </details>
+          </div>
         </div>
 
         <footer>
@@ -389,30 +323,37 @@
     </div>
 
     <script>
-      // price preview + subject enrichment
-      const select = document.getElementById("reading");
-      const priceNote = document.getElementById("priceNote");
-      const priceDisplay = document.getElementById("priceDisplay");
-      const subj = document.getElementById("subjectField");
-      const nameEl = document.getElementById("name");
-
-      function updatePrice() {
-        const opt = select.options[select.selectedIndex];
-        const p = opt && opt.dataset.price ? Number(opt.dataset.price) : NaN;
-        if (!isNaN(p)) {
-          priceDisplay.textContent = `$${p.toFixed(0)}`;
-          priceNote.textContent = "Suggested price shown — sliding scale available.";
-        } else {
-          priceDisplay.textContent = "$—";
-          priceNote.textContent = "Select a reading to see the suggested price.";
+      // Accordion one-open + slide animation
+      (function () {
+        const acc = Array.from(document.querySelectorAll(".qa"));
+        function setMaxHeights() {
+          acc.forEach((d) => {
+            const body = d.querySelector(".qa-body");
+            if (body) body.style.maxHeight = d.open ? body.scrollHeight + "px" : 0;
+          });
         }
-      }
-      select.addEventListener("change", updatePrice);
-
-      document.getElementById("bookingForm").addEventListener("submit", function () {
-        const who = nameEl.value ? ` from ${nameEl.value}` : "";
-        subj.value = `Booking request${who}: ${select.value || "Reading"}`;
-      });
+        acc.forEach((d) => {
+          const body = d.querySelector(".qa-body");
+          if (!body) return;
+          body.style.maxHeight = 0;
+          d.addEventListener("toggle", () => {
+            if (d.open) {
+              acc.forEach((o) => {
+                if (o !== d) {
+                  o.open = false;
+                  const b = o.querySelector(".qa-body");
+                  if (b) b.style.maxHeight = 0;
+                }
+              });
+              body.style.maxHeight = body.scrollHeight + "px";
+            } else {
+              body.style.maxHeight = 0;
+            }
+          });
+        });
+        window.addEventListener("resize", setMaxHeights);
+        document.fonts && document.fonts.ready.then(setMaxHeights);
+      })();
     </script>
   </body>
 </html>

@@ -3,12 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Ordinary Mystic — Links</title>
+    <title>Ordinary Mystic — Practical Spirituality</title>
     <meta name="description" content="Practical spirituality for everyday life. Tarot, astrology, community." />
     <meta name="theme-color" content="#14151b" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="live-config.js"></script>
     <style>
+      /* ===== CSS VARIABLES ===== */
       :root {
         --bg: #0f1117;
         --panel: #14151b;
@@ -21,20 +25,28 @@
         --radius: 16px;
         --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
       }
+
+      /* ===== GLOBAL RESETS ===== */
       * {
         box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
       }
       html,
       body {
         height: 100%;
-      }
-      body {
         margin: 0;
+      }
+
+      body {
         font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans";
         color: var(--text);
         background: var(--bg);
         overflow-x: hidden;
       }
+
+      /* ===== BACKGROUND GRADIENT ===== */
       body::before {
         content: "";
         position: fixed;
@@ -46,6 +58,8 @@
         background-repeat: no-repeat;
         filter: saturate(1.05);
       }
+
+      /* ===== STARS OVERLAY ===== */
       .stars {
         position: fixed;
         inset: 0;
@@ -55,12 +69,15 @@
         background-repeat: no-repeat;
         filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.55));
       }
+
+      /* ===== LAYOUT ===== */
       .wrap {
         min-height: 100%;
         display: grid;
         place-items: center;
         padding: 24px;
       }
+
       .card {
         width: 100%;
         max-width: 680px;
@@ -70,51 +87,107 @@
         border-radius: 24px;
         box-shadow: var(--shadow);
       }
+
+      /* ===== HEADER ===== */
       header {
-        padding: 28px 20px 10px;
-        text-align: center;
+        padding: 16px 20px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 12px;
       }
+
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .logo-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        text-decoration: none;
+        color: inherit;
+        transition: opacity 0.2s ease;
+      }
+
+      .logo-link:hover {
+        opacity: 0.85;
+      }
+
       .avatar {
-        width: 96px;
-        height: 96px;
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
         border: 2px solid rgba(255, 255, 255, 0.25);
         object-fit: cover;
         background: #222;
-        display: block;
-        margin: 0 auto 14px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        flex-shrink: 0;
       }
+
       h1 {
-        font-size: 1.35rem;
-        margin: 6px 0 4px;
-      }
-      .tagline {
-        color: var(--subtext);
-        font-size: 0.95rem;
+        font-size: 1.1rem;
         margin: 0;
+        white-space: nowrap;
       }
+
+      .tagline {
+        display: none;
+      }
+
       .badge {
-        display: inline-flex;
+        display: none;
+      }
+
+      .header-nav {
+        display: flex;
         gap: 8px;
         align-items: center;
-        padding: 6px 10px;
-        margin-top: 10px;
-        border-radius: 999px;
-        font-size: 0.8rem;
-        color: #0a0b0f;
-        font-weight: 700;
+        margin-left: auto;
+      }
+
+      .header-nav .nav-link {
+        padding: 6px 12px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--subtext);
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        background: transparent;
+        border: 1px solid transparent;
+        white-space: nowrap;
+      }
+
+      .header-nav .nav-link:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .header-nav .nav-link.active {
+        color: #0b0c10;
         background: linear-gradient(90deg, var(--accentA), var(--accentB));
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(124, 92, 255, 0.3);
       }
+
       .socials {
-        margin: 14px auto 4px;
+        width: 100%;
+        padding: 8px 20px 12px;
         display: flex;
-        gap: 12px;
+        gap: 10px;
         justify-content: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       }
+
       .socials a {
-        width: 38px;
-        height: 38px;
+        width: 34px;
+        height: 34px;
         display: grid;
         place-items: center;
         border-radius: 999px;
@@ -122,24 +195,58 @@
         border: 1px solid rgba(255, 255, 255, 0.12);
         transition: 0.2s ease;
       }
+
       .socials a:hover {
         transform: translateY(-1px);
         background: rgba(255, 255, 255, 0.1);
         border-color: rgba(255, 255, 255, 0.2);
       }
+
       .socials img {
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
         border-radius: 4px;
       }
 
+      /* ===== FOOTER ===== */
+      footer {
+        padding: 10px 16px 22px;
+        color: var(--subtext);
+        font-size: 0.8rem;
+        text-align: center;
+      }
+
+      /* ===== PAGE SECTIONS ===== */
+      .page {
+        display: none;
+        animation: fadeIn 0.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+      }
+
+      .page.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(8px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ===== NAVIGATION LINKS ===== */
       nav {
         padding: 10px 16px 22px;
       }
+
       .links {
         display: grid;
         gap: 12px;
       }
+
       .link {
         display: flex;
         align-items: center;
@@ -147,42 +254,51 @@
         text-decoration: none;
         padding: 14px 16px;
         border-radius: var(--radius);
-        background: rgba(255, 255, 255, 0.06); /* slightly brighter so they don't look disabled */
+        background: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(255, 255, 255, 0.18);
         transition: transform 0.28s cubic-bezier(0.22, 0.61, 0.36, 1), background 0.28s, border-color 0.28s, box-shadow 0.28s;
         color: var(--text);
         outline: 0;
+        cursor: pointer;
       }
+
       .link:visited {
         color: var(--text);
       }
+
       .link:hover {
         transform: translateY(-2px);
         background: rgba(255, 255, 255, 0.09);
         border-color: rgba(255, 255, 255, 0.28);
         box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
       }
+
       .link:focus-visible {
         box-shadow: var(--ring);
       }
+
       .link .ico {
         width: 22px;
         height: 22px;
         flex: none;
         border-radius: 4px;
       }
+
       .link .txt {
         flex: 1;
       }
+
       .link .title {
         font-weight: 700;
         font-size: 0.98rem;
       }
+
       .link .sub {
         color: var(--muted);
         font-size: 0.86rem;
         line-height: 1.35;
       }
+
       .link .cta {
         inline-size: 100px;
         text-align: center;
@@ -196,8 +312,74 @@
         font-weight: 800;
         box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.06) inset, 0 6px 18px rgba(124, 92, 255, 0.28);
         filter: saturate(1.15);
+        transition: transform 0.2s, filter 0.2s;
       }
 
+      .link:hover .cta {
+        filter: saturate(1.3) brightness(1.05);
+        transform: scale(1.02);
+      }
+
+      /* ===== NAVIGATION BAR ===== */
+      .navbar {
+        display: none;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav-link {
+        padding: 8px 16px;
+        border-radius: 8px;
+        text-decoration: none;
+        color: var(--subtext);
+        font-size: 0.9rem;
+        font-weight: 600;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        background: transparent;
+        border: 1px solid transparent;
+      }
+
+      .nav-link:hover {
+        color: var(--text);
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.12);
+      }
+
+      .nav-link.active {
+        color: #0b0c10;
+        background: linear-gradient(90deg, var(--accentA), var(--accentB));
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(124, 92, 255, 0.3);
+      }
+
+      /* ===== PAYMENT BUTTONS ===== */
+      .pay-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 20px;
+      }
+
+      .pay-grid .btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 16px;
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      @media (max-width: 560px) {
+        .pay-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ===== SECTIONS ===== */
       .section {
         margin: 10px 16px 22px;
         padding: 14px;
@@ -205,63 +387,190 @@
         border: 1px dashed rgba(255, 255, 255, 0.16);
         background: rgba(255, 255, 255, 0.03);
       }
+
       .section h2 {
         font-size: 1rem;
         margin: 0 0 10px;
         color: #eaeaf4;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
       }
 
-      form {
-        display: grid;
-        gap: 10px;
+      .live-indicator {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        background: linear-gradient(135deg, #ff3b3b, #ff5555);
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: #fff;
+        box-shadow: 0 4px 12px rgba(255, 59, 59, 0.4);
+        animation: pulse 2s ease-in-out infinite;
       }
-      .field {
+
+      .live-dot {
+        width: 8px;
+        height: 8px;
+        background: #fff;
+        border-radius: 50%;
+        animation: blink 1.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+      }
+
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .hint {
+        font-size: 0.82rem;
+        color: var(--subtext);
+        line-height: 1.5;
+      }
+
+      .payment-links {
         display: flex;
-        gap: 10px;
-        align-items: stretch;
+        gap: 12px;
+        margin-top: 16px;
+        justify-content: center;
         flex-wrap: wrap;
-        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .payment-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.85rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 2px solid;
+      }
+
+      .payment-link.cashapp {
+        background: #00d64b;
+        color: #fff;
+        border-color: #00d64b;
+        box-shadow: 0 4px 12px rgba(0, 214, 75, 0.3);
+      }
+
+      .payment-link.paypal {
+        background: #0070ba;
+        color: #fff;
+        border-color: #0070ba;
+        box-shadow: 0 4px 12px rgba(0, 112, 186, 0.3);
+      }
+
+      .payment-link:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+      }
+
+      .payment-link img {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* ===== FORMS ===== */
+      .form-field {
+        margin-bottom: 12px;
+      }
+
+      .form-field label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--subtext);
+      }
+
+      .form-field input,
+      .form-field textarea,
+      .form-field select {
+        width: 100%;
+        padding: 10px 12px;
+        font-size: 0.95rem;
         border: 1px solid rgba(255, 255, 255, 0.16);
-        border-radius: 12px;
-        padding: 8px;
-      }
-      .field input[type="email"] {
-        flex: 1;
-        min-width: 200px;
-        padding: 12px 12px;
-        font-size: 1rem;
-        border: 0;
-        outline: 0;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.3);
         color: var(--text);
-        background: transparent;
+        font-family: inherit;
+        transition: border-color 0.2s ease, background 0.2s ease;
       }
+
+      .form-field select option {
+        background: var(--panel);
+        color: var(--text);
+      }
+
+      .form-field input[type="date"]::-webkit-calendar-picker-indicator,
+      .form-field input[type="time"]::-webkit-calendar-picker-indicator {
+        filter: invert(1) brightness(2);
+        cursor: pointer;
+      }
+
+      .form-field input:focus,
+      .form-field textarea:focus,
+      .form-field select:focus {
+        outline: none;
+        border-color: var(--accentA);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .form-field textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
       .btn {
         cursor: pointer;
         border: 1px solid rgba(255, 255, 255, 0.2);
         background: linear-gradient(90deg, var(--accentA), var(--accentB));
         color: #0b0c10;
         font-weight: 800;
-        padding: 12px 14px;
+        padding: 12px 20px;
         border-radius: 10px;
         transition: transform 0.2s ease, filter 0.2s ease;
         box-shadow: 0 6px 18px rgba(124, 92, 255, 0.28);
         filter: saturate(1.1);
+        font-size: 0.95rem;
+        width: 100%;
       }
+
       .btn:hover {
         transform: translateY(-1px);
         filter: saturate(1.2);
       }
-      .hint {
-        font-size: 0.82rem;
-        color: var(--subtext);
-      }
 
+      /* ===== TAROT CARD PULL ===== */
       .card-ui {
         display: grid;
         grid-template-columns: 96px 1fr;
         gap: 12px;
         align-items: center;
       }
+
       .tarot {
         width: 96px;
         height: 152px;
@@ -274,67 +583,453 @@
         transition: transform 0.25s ease;
         user-select: none;
         overflow: hidden;
+        cursor: pointer;
       }
+
       .tarot:hover {
         transform: rotate(-1.5deg) scale(1.02);
       }
+
       .tarot img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         border-radius: inherit;
       }
+
       .reading {
         font-size: 0.92rem;
         color: var(--subtext);
         margin-top: 2px;
       }
 
-      footer {
-        padding: 10px 16px 22px;
-        color: var(--subtext);
+      /* ===== HOME LINK ===== */
+      .titlebar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+
+      .home-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        text-decoration: none;
+        color: var(--text);
         font-size: 0.8rem;
-        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.06);
+        transition: 0.2s ease;
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        .link,
-        .btn,
-        .tarot {
-          transition: none;
-        }
+      .home-link:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.28);
+        transform: translateY(-1px);
       }
 
-      /* Mobile: icon + title side-by-side, description below, CTA on bottom row */
+      .home-link svg {
+        width: 16px;
+        height: 16px;
+        flex: none;
+      }
+
+      /* ===== FAQ ACCORDION ===== */
+      .faq {
+        display: grid;
+        gap: 10px;
+        margin-top: 6px;
+      }
+
+      .qa {
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.04);
+        overflow: hidden;
+      }
+
+      .qa[open] {
+        background: rgba(255, 255, 255, 0.06);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+      }
+
+      .qa summary {
+        cursor: pointer;
+        list-style: none;
+        font-weight: 700;
+        color: #eaeaf4;
+        padding: 12px;
+        display: flex;
+        align-items: center;
+      }
+
+      .qa summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .caret {
+        margin-left: auto;
+        width: 0;
+        height: 0;
+        border-top: 6px solid transparent;
+        border-bottom: 6px solid transparent;
+        border-left: 8px solid #eaeaf4;
+        transition: transform 0.25s ease;
+      }
+
+      .qa[open] .caret {
+        transform: rotate(90deg);
+      }
+
+      .qa-body {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.32s ease, opacity 0.25s ease;
+        opacity: 0;
+        padding: 0 12px;
+      }
+
+      .qa[open] .qa-body {
+        opacity: 1;
+        display: block;
+      }
+
+      .qa .hint {
+        margin: 8px 0 12px;
+      }
+
+      /* ===== BLOG STYLES ===== */
+      #blog,
+      #post {
+        display: none !important;
+      }
+
+      /* ===== RESOURCES GRID ===== */
+      .link.featured {
+        position: relative;
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        gap: 16px;
+        padding: 14px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.05));
+        border: 1px solid rgba(124, 92, 255, 0.45);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+        margin-bottom: 24px;
+      }
+
+      .discount-badge {
+        padding: 6px 12px;
+        border-radius: 6px;
+        background: linear-gradient(135deg, #ff6b6b, #ee5a6f);
+        color: #fff;
+        font-weight: 800;
+        font-size: 0.75rem;
+        letter-spacing: 0.5px;
+        box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        white-space: nowrap;
+      }
+
+      .link.featured .hero {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        width: 100%;
+        height: 200px;
+        border-radius: 10px;
+        object-fit: cover;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+      }
+
+      .link.featured .txt {
+        grid-column: 1;
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .link.featured .title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 800;
+        font-size: 1.02rem;
+        margin-bottom: 8px;
+      }
+
+      .link.featured .cta {
+        inline-size: auto;
+        white-space: nowrap;
+        padding-inline: 16px;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 8px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        color: #dfe1ea;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .chip.type {
+        border-color: rgba(124, 92, 255, 0.45);
+      }
+
+      .chip.tag {
+        border-color: rgba(47, 216, 199, 0.35);
+      }
+
+      .aff-dot {
+        width: 14px;
+        height: 14px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(90deg, var(--accentA), var(--accentB));
+        color: #0b0c10;
+        font-weight: 900;
+        font-size: 0.68rem;
+        line-height: 1;
+        box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) inset, 0 6px 12px rgba(124, 92, 255, 0.22);
+      }
+
+      [data-tip] {
+        position: relative;
+      }
+
+      [data-tip]:hover::after,
+      [data-tip]:focus-visible::after {
+        content: attr(data-tip);
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        background: #0b0c10;
+        color: #fff;
+        padding: 6px 8px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        font-size: 0.72rem;
+        white-space: nowrap;
+        box-shadow: var(--shadow);
+        z-index: 2;
+      }
+
+      [data-tip]:hover::before,
+      [data-tip]:focus-visible::before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 6px;
+        border: 6px solid transparent;
+        border-bottom-color: #0b0c10;
+      }
+
+      .resource-item {
+        display: grid;
+        grid-template-columns: 80px 1fr auto;
+        gap: 12px;
+        align-items: center;
+        padding: 12px;
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        text-decoration: none;
+        color: var(--text);
+        transition: 0.2s ease;
+        margin-bottom: 12px;
+      }
+
+      .resource-item:hover {
+        background: rgba(255, 255, 255, 0.07);
+        border-color: rgba(255, 255, 255, 0.22);
+        transform: translateY(-2px);
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.25);
+      }
+
+      .resource-item img {
+        width: 80px;
+        height: 120px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .resource-info h3 {
+        margin: 0 0 4px;
+        font-size: 0.95rem;
+        font-weight: 700;
+      }
+
+      .resource-info p {
+        margin: 0 0 6px;
+        font-size: 0.85rem;
+        color: var(--subtext);
+      }
+
+      .resource-tags {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+
+      .tag {
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        background: rgba(124, 92, 255, 0.2);
+        border: 1px solid rgba(124, 92, 255, 0.3);
+      }
+
+      .affiliate-badge {
+        font-size: 0.7rem;
+        color: var(--accentB);
+        font-weight: 700;
+      }
+
+      .resource-cta {
+        padding: 8px 16px;
+        border-radius: 8px;
+        background: linear-gradient(90deg, var(--accentA), var(--accentB));
+        color: #0b0c10;
+        font-weight: 700;
+        font-size: 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 12px rgba(124, 92, 255, 0.25);
+        transition: transform 0.2s, filter 0.2s;
+        white-space: nowrap;
+      }
+
+      .resource-item:hover .resource-cta {
+        transform: scale(1.05);
+        filter: saturate(1.2) brightness(1.05);
+      }
+
+      /* ===== MOBILE ADJUSTMENTS ===== */
       @media (max-width: 560px) {
+        header {
+          padding: 12px 16px 8px;
+          justify-content: center;
+        }
+
+        .header-left {
+          flex-basis: 100%;
+          justify-content: center;
+          order: 1;
+        }
+
+        .header-nav {
+          flex-basis: 100%;
+          justify-content: center;
+          order: 2;
+        }
+
+        .header-nav .nav-link {
+          padding: 6px 10px;
+          font-size: 0.8rem;
+        }
+
+        .socials {
+          padding: 8px 16px 12px;
+        }
+
+        .navbar {
+          padding: 12px 8px;
+        }
+
+        .nav-links {
+          gap: 2px;
+        }
+
+        .nav-link {
+          padding: 6px 10px;
+          font-size: 0.8rem;
+        }
+
+        .breadcrumb {
+          font-size: 0.75rem;
+        }
+
         .link {
           display: grid;
-          grid-template-columns: 28px 1fr; /* icon | text */
-          grid-template-rows: auto auto auto; /* title | desc | button */
+          grid-template-columns: 28px 1fr;
+          grid-template-rows: auto auto auto;
           column-gap: 10px;
           align-items: start;
         }
+
         .link .ico {
           grid-column: 1;
-          grid-row: 1; /* sits next to the title */
+          grid-row: 1;
           width: 22px;
           height: 22px;
           margin: 0;
           align-self: center;
         }
+
         .link .txt {
           grid-column: 2;
-          grid-row: 1 / 3; /* title (row 1) + description (row 2) */
+          grid-row: 1 / 3;
         }
-        .link .title {
-          margin-top: 0;
-        } /* ensure no extra top gap */
+
         .link .cta {
-          grid-column: 1 / -1; /* span full width */
-          grid-row: 3; /* bottom row */
+          grid-column: 1 / -1;
+          grid-row: 3;
           width: 100%;
           margin-left: 0;
           margin-top: 10px;
+        }
+
+        .link.featured {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto auto;
+        }
+
+        .link.featured .cta {
+          grid-column: 1;
+          grid-row: 3;
+          width: 100%;
+          justify-self: stretch;
+          margin-top: 6px;
+        }
+
+        .link.featured .hero {
+          height: 150px;
+        }
+
+        .resource-item {
+          grid-template-columns: 60px 1fr;
+          grid-template-rows: auto auto;
+        }
+
+        .resource-item img {
+          width: 60px;
+          height: 90px;
+          grid-row: 1 / 3;
+        }
+
+        .resource-info {
+          grid-column: 2;
+          grid-row: 1;
+        }
+
+        .resource-cta {
+          grid-column: 2;
+          grid-row: 2;
+          margin-top: 8px;
+          text-align: center;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          transition: none !important;
         }
       }
     </style>
@@ -343,620 +1038,539 @@
     <div class="stars" aria-hidden="true"></div>
 
     <div class="wrap">
-      <div class="card" role="region" aria-label="Ordinary Mystic link hub">
-        <header>
-          <img class="avatar" src="img/profile-img.png" alt="Ordinary Mystic avatar" loading="lazy" />
-          <h1>Ordinary Mystic</h1>
-          <p class="tagline">Practical spirituality for everyday life</p>
-          <div class="badge" aria-hidden="true">✨ Tarot • Astrology • Faith • Notion</div>
-
-          <!-- Social icons via placehold.co -->
-          <div class="socials" aria-label="Social links">
-            <a href="https://www.youtube.com/@OrdinaryMysticReadings" target="_blank" rel="noopener" aria-label="YouTube">
-              <img src="img/youtube-app-white-icon.png" alt="YT" />
-            </a>
-            <a href="https://www.tiktok.com/@ordinarymysticreadings" target="_blank" rel="noopener" aria-label="TikTok">
-              <img src="img/tiktok-white-icon.png" alt="TT" />
-            </a>
-            <a href="https://www.instagram.com/ordinarymysticreadings/" target="_blank" rel="noopener" aria-label="Instagram">
-              <img src="img/instagram-white-icon.png" alt="IG" />
-            </a>
-            <a href="mailto:ordinarymysticreadings@gmail.com" target="_blank" rel="noopener" aria-label="Email">
-              <img src="img/email-white-icon.png" alt="@" />
-            </a>
-          </div>
-        </header>
-
-        <nav aria-label="Primary links">
-          <div class="links">
-            <a class="link" href="bookings.html" rel="noopener" aria-label="Book a tarot or astrology reading">
-              <img class="ico" src="img/calendar-white-icon.png" alt="Calendar" />
-              <div class="txt">
-                <div class="title">Book a Reading</div>
-                <div class="sub">Get personal tarot and birth chart readings, live or via email.</div>
-              </div>
-              <span class="cta" aria-hidden="true">Book</span>
-            </a>
-
-            <a class="link" href="https://www.etsy.com/shop/TheOrdinaryMystic?section_id=55086245" target="_blank" rel="noopener" aria-label="Open Notion templates">
-              <img class="ico" src="img/notion.jpg" alt="Notion" />
-              <div class="txt">
-                <div class="title">Notion Templates</div>
-                <div class="sub">Organize your practice with astro journals, tarot spread libraries, client trackers and more.</div>
-              </div>
-              <span class="cta" aria-hidden="true">Browse</span>
-            </a>
-
-            <a class="link" href="recs.html" rel="noopener" aria-label="Open Recommended Resources">
-              <img class="ico" src="img/resources.jpg" alt="Resources" />
-              <div class="txt">
-                <div class="title">Resources</div>
-                <div class="sub">Check out the tools and resources I use daily</div>
-              </div>
-              <span class="cta" aria-hidden="true">Learn</span>
-            </a>
-
-            <a class="link" href="https://discord.gg/XUNY66GAxV" target="_blank" rel="noopener" aria-label="Join the Ordinary Mystic Discord">
-              <img class="ico" src="img/discord.jpg" alt="Discord" />
-              <div class="txt">
-                <div class="title">Community Discord</div>
-                <div class="sub">Safe, inclusive, and faith-aware space for everyday mystics</div>
-              </div>
-              <span class="cta" aria-hidden="true">Join</span>
-            </a>
+      <div class="card">
+        <!-- ===== NAVIGATION BAR ===== -->
+        <nav class="navbar" id="navbar" aria-label="Main navigation">
+          <div class="nav-links">
+            <a href="#home" class="nav-link" data-page="home">Home</a>
+            <a href="#resources" class="nav-link" data-page="resources">Resources</a>
+            <a href="#faq" class="nav-link" data-page="faq">FAQ</a>
           </div>
         </nav>
 
-        <!-- Email signup -->
-        <div class="section" role="region" aria-labelledby="newsletter-title">
-          <h2 id="newsletter-title">Get Your Free Notion Ephemeris</h2>
-          <p class="hint" style="margin-top: -4px">
-            An ephemeris lists where the planets are each day. The Notion version includes: <strong>5 years</strong> of ephemeris data, a <strong>calendar view</strong> for a quick week-at-a-glance, plus <strong>table views</strong> to dig down deepy. You’ll also get my weekly
-            Astro-Tarot email (unsubscribe anytime and keep the ephemeris).
-          </p>
-          <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
-          <form
-            action="https://app.kit.com/forms/8507439/subscriptions"
-            class="seva-form formkit-form"
-            method="post"
-            data-sv-form="8507439"
-            data-uid="038a3c96c1"
-            data-format="inline"
-            data-version="5"
-            data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"analytics":{"google":null,"fathom":null,"facebook":null,"segment":null,"pinterest":null,"sparkloop":null,"googletagmanager":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":false,"url":"https://kit.com/features/forms?utm_campaign=poweredby&amp;utm_content=form&amp;utm_medium=referral&amp;utm_source=dynamic"},"recaptcha":{"enabled":false},"return_visitor":{"action":"show","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
-            min-width="400 500 600 700 800"
-          >
-            <div data-style="clean">
-              <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
-              <div data-element="fields" data-stacked="false" class="seva-fields formkit-fields">
-                <div class="formkit-field"><input class="formkit-input" aria-label="First Name" name="fields[first_name]" placeholder="First Name" type="text" style="color: rgb(0, 0, 0); border-color: rgb(227, 227, 227); border-radius: 4px; font-weight: 400" /></div>
-                <div class="formkit-field">
-                  <input class="formkit-input" name="email_address" aria-label="Email Address" placeholder="Email Address" required="" type="email" style="color: rgb(0, 0, 0); border-color: rgb(227, 227, 227); border-radius: 4px; font-weight: 400" />
-                </div>
-                <button data-element="submit" class="formkit-submit formkit-submit" style="color: rgb(255, 255, 255); background-color: rgb(124, 92, 255); border-radius: 4px; font-weight: 400">
-                  <div class="formkit-spinner">
-                    <div></div>
-                    <div></div>
-                    <div></div>
-                  </div>
-                  <span class="">Subscribe</span>
-                </button>
-              </div>
-            </div>
-            <style>
-              .formkit-form[data-uid="038a3c96c1"] * {
-                box-sizing: border-box;
-              }
-              .formkit-form[data-uid="038a3c96c1"] {
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-              }
-              .formkit-form[data-uid="038a3c96c1"] legend {
-                border: none;
-                font-size: inherit;
-                margin-bottom: 10px;
-                padding: 0;
-                position: relative;
-                display: table;
-              }
-              .formkit-form[data-uid="038a3c96c1"] fieldset {
-                border: 0;
-                padding: 0.01em 0 0 0;
-                margin: 0;
-                min-width: 0;
-              }
-              .formkit-form[data-uid="038a3c96c1"] body:not(:-moz-handler-blocked) fieldset {
-                display: table-cell;
-              }
-              .formkit-form[data-uid="038a3c96c1"] h1,
-              .formkit-form[data-uid="038a3c96c1"] h2,
-              .formkit-form[data-uid="038a3c96c1"] h3,
-              .formkit-form[data-uid="038a3c96c1"] h4,
-              .formkit-form[data-uid="038a3c96c1"] h5,
-              .formkit-form[data-uid="038a3c96c1"] h6 {
-                color: inherit;
-                font-size: inherit;
-                font-weight: inherit;
-              }
-              .formkit-form[data-uid="038a3c96c1"] h2 {
-                font-size: 1.5em;
-                margin: 1em 0;
-              }
-              .formkit-form[data-uid="038a3c96c1"] h3 {
-                font-size: 1.17em;
-                margin: 1em 0;
-              }
-              .formkit-form[data-uid="038a3c96c1"] p {
-                color: inherit;
-                font-size: inherit;
-                font-weight: inherit;
-              }
-              .formkit-form[data-uid="038a3c96c1"] ol:not([template-default]),
-              .formkit-form[data-uid="038a3c96c1"] ul:not([template-default]),
-              .formkit-form[data-uid="038a3c96c1"] blockquote:not([template-default]) {
-                text-align: left;
-              }
-              .formkit-form[data-uid="038a3c96c1"] p:not([template-default]),
-              .formkit-form[data-uid="038a3c96c1"] hr:not([template-default]),
-              .formkit-form[data-uid="038a3c96c1"] blockquote:not([template-default]),
-              .formkit-form[data-uid="038a3c96c1"] ol:not([template-default]),
-              .formkit-form[data-uid="038a3c96c1"] ul:not([template-default]) {
-                color: inherit;
-                font-style: initial;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .ordered-list,
-              .formkit-form[data-uid="038a3c96c1"] .unordered-list {
-                list-style-position: outside !important;
-                padding-left: 1em;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .list-item {
-                padding-left: 0;
-              }
-              .formkit-form[data-uid="038a3c96c1"][data-format="modal"] {
-                display: none;
-              }
-              .formkit-form[data-uid="038a3c96c1"][data-format="slide in"] {
-                display: none;
-              }
-              .formkit-form[data-uid="038a3c96c1"][data-format="sticky bar"] {
-                display: none;
-              }
-              .formkit-sticky-bar .formkit-form[data-uid="038a3c96c1"][data-format="sticky bar"] {
-                display: block;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-input,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-select,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-checkboxes {
-                width: 100%;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-button,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit {
-                border: 0;
-                border-radius: 5px;
-                color: #ffffff;
-                cursor: pointer;
-                display: inline-block;
-                text-align: center;
-                font-size: 15px;
-                font-weight: 500;
-                cursor: pointer;
-                margin-bottom: 15px;
-                overflow: hidden;
-                padding: 0;
-                position: relative;
-                vertical-align: middle;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-button:hover,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit:hover,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-button:focus,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit:focus {
-                outline: none;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-button:hover > span,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit:hover > span,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-button:focus > span,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit:focus > span {
-                background-color: rgba(0, 0, 0, 0.1);
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-button > span,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit > span {
-                display: block;
-                -webkit-transition: all 300ms ease-in-out;
-                transition: all 300ms ease-in-out;
-                padding: 12px 24px;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-input {
-                background: #ffffff;
-                font-size: 15px;
-                padding: 12px;
-                border: 1px solid #e3e3e3;
-                -webkit-flex: 1 0 auto;
-                -ms-flex: 1 0 auto;
-                flex: 1 0 auto;
-                line-height: 1.4;
-                margin: 0;
-                -webkit-transition: border-color ease-out 300ms;
-                transition: border-color ease-out 300ms;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-input:focus {
-                outline: none;
-                border-color: #1677be;
-                -webkit-transition: border-color ease 300ms;
-                transition: border-color ease 300ms;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-input::-webkit-input-placeholder {
-                color: inherit;
-                opacity: 0.8;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-input::-moz-placeholder {
-                color: inherit;
-                opacity: 0.8;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-input:-ms-input-placeholder {
-                color: inherit;
-                opacity: 0.8;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-input::placeholder {
-                color: inherit;
-                opacity: 0.8;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="dropdown"] {
-                position: relative;
-                display: inline-block;
-                width: 100%;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="dropdown"]::before {
-                content: "";
-                top: calc(50% - 2.5px);
-                right: 10px;
-                position: absolute;
-                pointer-events: none;
-                border-color: #4f4f4f transparent transparent transparent;
-                border-style: solid;
-                border-width: 6px 6px 0 6px;
-                height: 0;
-                width: 0;
-                z-index: 999;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="dropdown"] select {
-                height: auto;
-                width: 100%;
-                cursor: pointer;
-                color: #333333;
-                line-height: 1.4;
-                margin-bottom: 0;
-                padding: 0 6px;
-                -webkit-appearance: none;
-                -moz-appearance: none;
-                appearance: none;
-                font-size: 15px;
-                padding: 12px;
-                padding-right: 25px;
-                border: 1px solid #e3e3e3;
-                background: #ffffff;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="dropdown"] select:focus {
-                outline: none;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] {
-                text-align: left;
-                margin: 0;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] {
-                margin-bottom: 10px;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] * {
-                cursor: pointer;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"]:last-of-type {
-                margin-bottom: 0;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] input[type="checkbox"] {
-                display: none;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] input[type="checkbox"] + label::after {
-                content: none;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] input[type="checkbox"]:checked + label::after {
-                border-color: #ffffff;
-                content: "";
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] input[type="checkbox"]:checked + label::before {
-                background: #10bf7a;
-                border-color: #10bf7a;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label {
-                position: relative;
-                display: inline-block;
-                padding-left: 28px;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label::before,
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label::after {
-                position: absolute;
-                content: "";
-                display: inline-block;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label::before {
-                height: 16px;
-                width: 16px;
-                border: 1px solid #e3e3e3;
-                background: #ffffff;
-                left: 0px;
-                top: 3px;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-group="checkboxes"] [data-group="checkbox"] label::after {
-                height: 4px;
-                width: 8px;
-                border-left: 2px solid #4d4d4d;
-                border-bottom: 2px solid #4d4d4d;
-                -webkit-transform: rotate(-45deg);
-                -ms-transform: rotate(-45deg);
-                transform: rotate(-45deg);
-                left: 4px;
-                top: 8px;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-alert {
-                background: #f9fafb;
-                border: 1px solid #e3e3e3;
-                border-radius: 5px;
-                -webkit-flex: 1 0 auto;
-                -ms-flex: 1 0 auto;
-                flex: 1 0 auto;
-                list-style: none;
-                margin: 25px auto;
-                padding: 12px;
-                text-align: center;
-                width: 100%;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-alert:empty {
-                display: none;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-alert-success {
-                background: #d3fbeb;
-                border-color: #10bf7a;
-                color: #0c905c;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-alert-error {
-                background: #fde8e2;
-                border-color: #f2643b;
-                color: #ea4110;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-spinner {
-                display: -webkit-box;
-                display: -webkit-flex;
-                display: -ms-flexbox;
-                display: flex;
-                height: 0px;
-                width: 0px;
-                margin: 0 auto;
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                width: 0px;
-                overflow: hidden;
-                text-align: center;
-                -webkit-transition: all 300ms ease-in-out;
-                transition: all 300ms ease-in-out;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-spinner > div {
-                margin: auto;
-                width: 12px;
-                height: 12px;
-                background-color: #fff;
-                opacity: 0.3;
-                border-radius: 100%;
-                display: inline-block;
-                -webkit-animation: formkit-bouncedelay-formkit-form-data-uid-038a3c96c1- 1.4s infinite ease-in-out both;
-                animation: formkit-bouncedelay-formkit-form-data-uid-038a3c96c1- 1.4s infinite ease-in-out both;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-spinner > div:nth-child(1) {
-                -webkit-animation-delay: -0.32s;
-                animation-delay: -0.32s;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-spinner > div:nth-child(2) {
-                -webkit-animation-delay: -0.16s;
-                animation-delay: -0.16s;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit[data-active] .formkit-spinner {
-                opacity: 1;
-                height: 100%;
-                width: 50px;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit[data-active] .formkit-spinner ~ span {
-                opacity: 0;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by[data-active="false"] {
-                opacity: 0.35;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit-container {
-                display: -webkit-box;
-                display: -webkit-flex;
-                display: -ms-flexbox;
-                display: flex;
-                width: 100%;
-                margin: 10px 0;
-                position: relative;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit-container[data-active="false"] {
-                opacity: 0.35;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit {
-                -webkit-align-items: center;
-                -webkit-box-align: center;
-                -ms-flex-align: center;
-                align-items: center;
-                background-color: #ffffff;
-                border-radius: 9px;
-                color: #3d3d3d;
-                cursor: pointer;
-                display: block;
-                height: 36px;
-                margin: 0 auto;
-                opacity: 0.95;
-                padding: 0;
-                -webkit-text-decoration: none;
-                text-decoration: none;
-                text-indent: 100%;
-                -webkit-transition: ease-in-out all 200ms;
-                transition: ease-in-out all 200ms;
-                white-space: nowrap;
-                overflow: hidden;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                width: 157px;
-                background-repeat: no-repeat;
-                background-position: center;
-                background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='133' height='36' viewBox='0 0 133 36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.861 25.5C0.735 25.5 0.651 25.416 0.651 25.29V10.548C0.651 10.422 0.735 10.338 0.861 10.338H6.279C9.072 10.338 10.668 11.451 10.668 13.824C10.668 15.819 9.219 16.932 8.001 17.226C7.707 17.268 7.707 17.625 8.022 17.688C9.912 18.108 11.088 19.116 11.088 21.321C11.088 23.715 9.429 25.5 6.426 25.5H0.861ZM5.397 23.085C6.825 23.085 7.518 22.224 7.518 21.006C7.518 19.683 6.825 18.948 5.397 18.948H4.2V23.085H5.397ZM5.313 16.617C6.51 16.617 7.245 15.945 7.245 14.601C7.245 13.383 6.51 12.753 5.25 12.753H4.2V16.617H5.313ZM17.9758 23.883C17.9758 23.568 17.6608 23.505 17.5348 23.799C17.0308 24.954 16.1698 25.731 14.5528 25.731C12.8728 25.731 12.0958 24.471 12.0958 22.707V14.937C12.0958 14.811 12.1798 14.727 12.3058 14.727H15.2248C15.3508 14.727 15.4348 14.811 15.4348 14.937V21.657C15.4348 22.581 15.7708 23.022 16.4638 23.022C17.1778 23.022 17.6188 22.581 17.6188 21.657V14.937C17.6188 14.811 17.7028 14.727 17.8288 14.727H20.7478C20.8738 14.727 20.9578 14.811 20.9578 14.937V25.29C20.9578 25.416 20.8738 25.5 20.7478 25.5H18.1858C18.0598 25.5 17.9758 25.416 17.9758 25.29V23.883ZM25.6141 25.29C25.6141 25.416 25.5301 25.5 25.4041 25.5H22.4851C22.3591 25.5 22.2751 25.416 22.2751 25.29V14.937C22.2751 14.811 22.3591 14.727 22.4851 14.727H25.4041C25.5301 14.727 25.6141 14.811 25.6141 14.937V25.29ZM23.9131 13.74C22.8001 13.74 22.0441 12.942 22.0441 11.934C22.0441 10.926 22.8001 10.107 23.9131 10.107C25.0051 10.107 25.7611 10.926 25.7611 11.934C25.7611 12.942 25.0051 13.74 23.9131 13.74ZM26.7883 10.548C26.7883 10.422 26.8723 10.338 26.9983 10.338H29.9173C30.0433 10.338 30.1273 10.422 30.1273 10.548V22.056C30.1273 22.749 30.2533 23.085 30.8203 23.085C31.0093 23.085 31.1983 23.043 31.3663 23.001C31.5133 22.959 31.6183 22.959 31.6183 23.127V25.059C31.6183 25.164 31.5763 25.269 31.4923 25.311C30.9673 25.521 30.2953 25.71 29.5813 25.71C27.7123 25.71 26.7883 24.639 26.7883 22.476V10.548ZM32.4237 14.727C32.8227 14.727 32.9277 14.538 32.9697 14.055L33.1167 12.039C33.1167 11.913 33.2217 11.829 33.3477 11.829H35.8887C36.0147 11.829 36.0987 11.913 36.0987 12.039V14.517C36.0987 14.643 36.1827 14.727 36.3087 14.727H38.2827C38.4087 14.727 38.4927 14.811 38.4927 14.937V16.659C38.4927 16.785 38.4087 16.869 38.2827 16.869H36.0777V22.056C36.0777 22.875 36.5397 23.085 37.0647 23.085C37.4847 23.085 37.9467 22.938 38.3247 22.707C38.4717 22.623 38.5767 22.665 38.5767 22.833V24.828C38.5767 24.933 38.5347 25.017 38.4507 25.08C37.8417 25.458 36.9807 25.71 36.0357 25.71C34.2927 25.71 32.7387 24.912 32.7387 22.476V16.869H31.8567C31.7307 16.869 31.6467 16.785 31.6467 16.659V14.937C31.6467 14.811 31.7307 14.727 31.8567 14.727H32.4237ZM51.3808 14.727C51.5068 14.727 51.5908 14.79 51.6118 14.916L52.3888 19.851L52.5778 21.174C52.6198 21.468 52.9558 21.468 52.9768 21.174C53.0398 20.712 53.0818 20.271 53.1658 19.83L53.8798 14.916C53.9008 14.79 53.9848 14.727 54.1108 14.727H56.6728C56.8198 14.727 56.8828 14.811 56.8618 14.958L54.6778 25.311C54.6568 25.437 54.5728 25.5 54.4468 25.5H51.3178C51.1918 25.5 51.1078 25.437 51.0868 25.311L50.1208 20.082L49.8898 18.633C49.8688 18.444 49.6588 18.444 49.6378 18.633L49.4068 20.103L48.5458 25.311C48.5248 25.437 48.4408 25.5 48.3148 25.5H45.2068C45.0808 25.5 44.9968 25.437 44.9758 25.311L42.8128 14.958C42.7918 14.811 42.8548 14.727 43.0018 14.727H45.9628C46.0888 14.727 46.1728 14.79 46.1938 14.916L46.9288 19.83C47.0128 20.271 47.0758 20.754 47.1388 21.195C47.2018 21.51 47.4748 21.531 47.5378 21.195L47.7478 19.872L48.6088 14.916C48.6298 14.79 48.7138 14.727 48.8398 14.727H51.3808ZM61.1582 25.29C61.1582 25.416 61.0742 25.5 60.9482 25.5H58.0292C57.9032 25.5 57.8192 25.416 57.8192 25.29V14.937C57.8192 14.811 57.9032 14.727 58.0292 14.727H60.9482C61.0742 14.727 61.1582 14.811 61.1582 14.937V25.29ZM59.4572 13.74C58.3442 13.74 57.5882 12.942 57.5882 11.934C57.5882 10.926 58.3442 10.107 59.4572 10.107C60.5492 10.107 61.3052 10.926 61.3052 11.934C61.3052 12.942 60.5492 13.74 59.4572 13.74ZM62.8154 14.727C63.2144 14.727 63.3194 14.538 63.3614 14.055L63.5084 12.039C63.5084 11.913 63.6134 11.829 63.7394 11.829H66.2804C66.4064 11.829 66.4904 11.913 66.4904 12.039V14.517C66.4904 14.643 66.5744 14.727 66.7004 14.727H68.6744C68.8004 14.727 68.8844 14.811 68.8844 14.937V16.659C68.8844 16.785 68.8004 16.869 68.6744 16.869H66.4694V22.056C66.4694 22.875 66.9314 23.085 67.4564 23.085C67.8764 23.085 68.3384 22.938 68.7164 22.707C68.8634 22.623 68.9684 22.665 68.9684 22.833V24.828C68.9684 24.933 68.9264 25.017 68.8424 25.08C68.2334 25.458 67.3724 25.71 66.4274 25.71C64.6844 25.71 63.1304 24.912 63.1304 22.476V16.869H62.2484C62.1224 16.869 62.0384 16.785 62.0384 16.659V14.937C62.0384 14.811 62.1224 14.727 62.2484 14.727H62.8154ZM73.4298 16.323C73.4298 16.638 73.7868 16.68 73.9128 16.407C74.3748 15.315 75.1308 14.496 76.6008 14.496C78.2178 14.496 78.9528 15.609 78.9528 17.373V25.29C78.9528 25.416 78.8688 25.5 78.7428 25.5H75.8238C75.6978 25.5 75.6138 25.416 75.6138 25.29V18.633C75.6138 17.709 75.2778 17.268 74.5848 17.268C73.8708 17.268 73.4298 17.709 73.4298 18.633V25.29C73.4298 25.416 73.3458 25.5 73.2198 25.5H70.3008C70.1748 25.5 70.0908 25.416 70.0908 25.29V10.548C70.0908 10.422 70.1748 10.338 70.3008 10.338H73.2198C73.3458 10.338 73.4298 10.422 73.4298 10.548V16.323Z' fill='%231E1E1E'/%3E%3Cpath d='M100.132 16.3203C105.58 17.3761 107.272 22.4211 107.318 27.4961C107.318 27.6101 107.226 27.7041 107.112 27.7041H100.252C100.138 27.7041 100.046 27.6121 100.046 27.5001C100.026 23.5629 99.3877 20.0896 95.4865 19.9396C95.3705 19.9356 95.2725 20.0276 95.2725 20.1456V27.5001C95.2725 27.6141 95.1806 27.7061 95.0666 27.7061H88.206C88.092 27.7061 88 27.6141 88 27.5001V8.75585C88 8.64187 88.092 8.54989 88.206 8.54989H95.0686C95.1826 8.54989 95.2745 8.64187 95.2745 8.75585V15.7764C95.2745 15.8804 95.3585 15.9644 95.4625 15.9644C95.5445 15.9644 95.6185 15.9104 95.6425 15.8324C97.4081 10.0416 100.709 8.58588 106.07 8.55189C106.184 8.55189 106.276 8.64387 106.276 8.75785V15.7604C106.276 15.8744 106.184 15.9664 106.07 15.9664H100.166C100.066 15.9664 99.9856 16.0464 99.9856 16.1464C99.9856 16.2304 100.048 16.3043 100.132 16.3203ZM118.918 20.7095V16.1704C118.918 16.0564 119.01 15.9644 119.124 15.9644H124.173C124.273 15.9644 124.353 15.8844 124.353 15.7844C124.353 15.6985 124.291 15.6245 124.207 15.6085C120.256 14.8246 118.432 12.5511 118.37 8.75585C118.368 8.64387 118.458 8.54989 118.572 8.54989H125.986C126.1 8.54989 126.192 8.64187 126.192 8.75585V11.9532C126.192 12.0672 126.284 12.1592 126.398 12.1592H130.649C130.763 12.1592 130.855 12.2511 130.855 12.3651V15.7624C130.855 15.8764 130.763 15.9684 130.649 15.9684H126.398C126.284 15.9684 126.192 16.0604 126.192 16.1744V19.8356C126.192 21.1294 126.986 21.5553 128.04 21.5553C129.692 21.5553 131.323 20.8114 131.977 20.4735C132.113 20.4035 132.277 20.5015 132.277 20.6555V26.3543C132.277 26.5063 132.193 26.6463 132.059 26.7183C131.413 27.0582 129.418 28 127.136 28C122.435 27.996 118.918 26.0824 118.918 20.7095ZM109.266 27.4981V16.1704C109.266 16.0564 109.358 15.9644 109.472 15.9644H116.334C116.448 15.9644 116.54 16.0564 116.54 16.1704V27.4981C116.54 27.6121 116.448 27.7041 116.334 27.7041H109.472C109.358 27.7021 109.266 27.6101 109.266 27.4981ZM108.876 11.4913C108.876 13.4189 110.238 14.9826 112.853 14.9826C115.469 14.9826 116.83 13.4189 116.83 11.4913C116.83 9.56369 115.471 8 112.853 8C110.238 8 108.876 9.56369 108.876 11.4913Z' fill='%231E1E1E'/%3E%3C/svg%3E");
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit:hover,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit:focus {
-                background-color: #ffffff;
-                -webkit-transform: scale(1.025) perspective(1px);
-                -ms-transform: scale(1.025) perspective(1px);
-                transform: scale(1.025) perspective(1px);
-                opacity: 1;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit[data-variant="dark"],
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit[data-variant="light"] {
-                background-color: transparent;
-                border-color: transparent;
-                width: 133px;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit[data-variant="light"] {
-                color: #ffffff;
-                background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='133' height='36' viewBox='0 0 133 36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.861 25.5C0.735 25.5 0.651 25.416 0.651 25.29V10.548C0.651 10.422 0.735 10.338 0.861 10.338H6.279C9.072 10.338 10.668 11.451 10.668 13.824C10.668 15.819 9.219 16.932 8.001 17.226C7.707 17.268 7.707 17.625 8.022 17.688C9.912 18.108 11.088 19.116 11.088 21.321C11.088 23.715 9.429 25.5 6.426 25.5H0.861ZM5.397 23.085C6.825 23.085 7.518 22.224 7.518 21.006C7.518 19.683 6.825 18.948 5.397 18.948H4.2V23.085H5.397ZM5.313 16.617C6.51 16.617 7.245 15.945 7.245 14.601C7.245 13.383 6.51 12.753 5.25 12.753H4.2V16.617H5.313ZM17.9758 23.883C17.9758 23.568 17.6608 23.505 17.5348 23.799C17.0308 24.954 16.1698 25.731 14.5528 25.731C12.8728 25.731 12.0958 24.471 12.0958 22.707V14.937C12.0958 14.811 12.1798 14.727 12.3058 14.727H15.2248C15.3508 14.727 15.4348 14.811 15.4348 14.937V21.657C15.4348 22.581 15.7708 23.022 16.4638 23.022C17.1778 23.022 17.6188 22.581 17.6188 21.657V14.937C17.6188 14.811 17.7028 14.727 17.8288 14.727H20.7478C20.8738 14.727 20.9578 14.811 20.9578 14.937V25.29C20.9578 25.416 20.8738 25.5 20.7478 25.5H18.1858C18.0598 25.5 17.9758 25.416 17.9758 25.29V23.883ZM25.6141 25.29C25.6141 25.416 25.5301 25.5 25.4041 25.5H22.4851C22.3591 25.5 22.2751 25.416 22.2751 25.29V14.937C22.2751 14.811 22.3591 14.727 22.4851 14.727H25.4041C25.5301 14.727 25.6141 14.811 25.6141 14.937V25.29ZM23.9131 13.74C22.8001 13.74 22.0441 12.942 22.0441 11.934C22.0441 10.926 22.8001 10.107 23.9131 10.107C25.0051 10.107 25.7611 10.926 25.7611 11.934C25.7611 12.942 25.0051 13.74 23.9131 13.74ZM26.7883 10.548C26.7883 10.422 26.8723 10.338 26.9983 10.338H29.9173C30.0433 10.338 30.1273 10.422 30.1273 10.548V22.056C30.1273 22.749 30.2533 23.085 30.8203 23.085C31.0093 23.085 31.1983 23.043 31.3663 23.001C31.5133 22.959 31.6183 22.959 31.6183 23.127V25.059C31.6183 25.164 31.5763 25.269 31.4923 25.311C30.9673 25.521 30.2953 25.71 29.5813 25.71C27.7123 25.71 26.7883 24.639 26.7883 22.476V10.548ZM32.4237 14.727C32.8227 14.727 32.9277 14.538 32.9697 14.055L33.1167 12.039C33.1167 11.913 33.2217 11.829 33.3477 11.829H35.8887C36.0147 11.829 36.0987 11.913 36.0987 12.039V14.517C36.0987 14.643 36.1827 14.727 36.3087 14.727H38.2827C38.4087 14.727 38.4927 14.811 38.4927 14.937V16.659C38.4927 16.785 38.4087 16.869 38.2827 16.869H36.0777V22.056C36.0777 22.875 36.5397 23.085 37.0647 23.085C37.4847 23.085 37.9467 22.938 38.3247 22.707C38.4717 22.623 38.5767 22.665 38.5767 22.833V24.828C38.5767 24.933 38.5347 25.017 38.4507 25.08C37.8417 25.458 36.9807 25.71 36.0357 25.71C34.2927 25.71 32.7387 24.912 32.7387 22.476V16.869H31.8567C31.7307 16.869 31.6467 16.785 31.6467 16.659V14.937C31.6467 14.811 31.7307 14.727 31.8567 14.727H32.4237ZM51.3808 14.727C51.5068 14.727 51.5908 14.79 51.6118 14.916L52.3888 19.851L52.5778 21.174C52.6198 21.468 52.9558 21.468 52.9768 21.174C53.0398 20.712 53.0818 20.271 53.1658 19.83L53.8798 14.916C53.9008 14.79 53.9848 14.727 54.1108 14.727H56.6728C56.8198 14.727 56.8828 14.811 56.8618 14.958L54.6778 25.311C54.6568 25.437 54.5728 25.5 54.4468 25.5H51.3178C51.1918 25.5 51.1078 25.437 51.0868 25.311L50.1208 20.082L49.8898 18.633C49.8688 18.444 49.6588 18.444 49.6378 18.633L49.4068 20.103L48.5458 25.311C48.5248 25.437 48.4408 25.5 48.3148 25.5H45.2068C45.0808 25.5 44.9968 25.437 44.9758 25.311L42.8128 14.958C42.7918 14.811 42.8548 14.727 43.0018 14.727H45.9628C46.0888 14.727 46.1728 14.79 46.1938 14.916L46.9288 19.83C47.0128 20.271 47.0758 20.754 47.1388 21.195C47.2018 21.51 47.4748 21.531 47.5378 21.195L47.7478 19.872L48.6088 14.916C48.6298 14.79 48.7138 14.727 48.8398 14.727H51.3808ZM61.1582 25.29C61.1582 25.416 61.0742 25.5 60.9482 25.5H58.0292C57.9032 25.5 57.8192 25.416 57.8192 25.29V14.937C57.8192 14.811 57.9032 14.727 58.0292 14.727H60.9482C61.0742 14.727 61.1582 14.811 61.1582 14.937V25.29ZM59.4572 13.74C58.3442 13.74 57.5882 12.942 57.5882 11.934C57.5882 10.926 58.3442 10.107 59.4572 10.107C60.5492 10.107 61.3052 10.926 61.3052 11.934C61.3052 12.942 60.5492 13.74 59.4572 13.74ZM62.8154 14.727C63.2144 14.727 63.3194 14.538 63.3614 14.055L63.5084 12.039C63.5084 11.913 63.6134 11.829 63.7394 11.829H66.2804C66.4064 11.829 66.4904 11.913 66.4904 12.039V14.517C66.4904 14.643 66.5744 14.727 66.7004 14.727H68.6744C68.8004 14.727 68.8844 14.811 68.8844 14.937V16.659C68.8844 16.785 68.8004 16.869 68.6744 16.869H66.4694V22.056C66.4694 22.875 66.9314 23.085 67.4564 23.085C67.8764 23.085 68.3384 22.938 68.7164 22.707C68.8634 22.623 68.9684 22.665 68.9684 22.833V24.828C68.9684 24.933 68.9264 25.017 68.8424 25.08C68.2334 25.458 67.3724 25.71 66.4274 25.71C64.6844 25.71 63.1304 24.912 63.1304 22.476V16.869H62.2484C62.1224 16.869 62.0384 16.785 62.0384 16.659V14.937C62.0384 14.811 62.1224 14.727 62.2484 14.727H62.8154ZM73.4298 16.323C73.4298 16.638 73.7868 16.68 73.9128 16.407C74.3748 15.315 75.1308 14.496 76.6008 14.496C78.2178 14.496 78.9528 15.609 78.9528 17.373V25.29C78.9528 25.416 78.8688 25.5 78.7428 25.5H75.8238C75.6978 25.5 75.6138 25.416 75.6138 25.29V18.633C75.6138 17.709 75.2778 17.268 74.5848 17.268C73.8708 17.268 73.4298 17.709 73.4298 18.633V25.29C73.4298 25.416 73.3458 25.5 73.2198 25.5H70.3008C70.1748 25.5 70.0908 25.416 70.0908 25.29V10.548C70.0908 10.422 70.1748 10.338 70.3008 10.338H73.2198C73.3458 10.338 73.4298 10.422 73.4298 10.548V16.323Z' fill='white'/%3E%3Cpath d='M100.132 16.3203C105.58 17.3761 107.272 22.4211 107.318 27.4961C107.318 27.6101 107.226 27.7041 107.112 27.7041H100.252C100.138 27.7041 100.046 27.6121 100.046 27.5001C100.026 23.5629 99.3877 20.0896 95.4865 19.9396C95.3705 19.9356 95.2725 20.0276 95.2725 20.1456V27.5001C95.2725 27.6141 95.1806 27.7061 95.0666 27.7061H88.206C88.092 27.7061 88 27.6141 88 27.5001V8.75585C88 8.64187 88.092 8.54989 88.206 8.54989H95.0686C95.1826 8.54989 95.2745 8.64187 95.2745 8.75585V15.7764C95.2745 15.8804 95.3585 15.9644 95.4625 15.9644C95.5445 15.9644 95.6185 15.9104 95.6425 15.8324C97.4081 10.0416 100.709 8.58588 106.07 8.55189C106.184 8.55189 106.276 8.64387 106.276 8.75785V15.7604C106.276 15.8744 106.184 15.9664 106.07 15.9664H100.166C100.066 15.9664 99.9856 16.0464 99.9856 16.1464C99.9856 16.2304 100.048 16.3043 100.132 16.3203ZM118.918 20.7095V16.1704C118.918 16.0564 119.01 15.9644 119.124 15.9644H124.173C124.273 15.9644 124.353 15.8844 124.353 15.7844C124.353 15.6985 124.291 15.6245 124.207 15.6085C120.256 14.8246 118.432 12.5511 118.37 8.75585C118.368 8.64387 118.458 8.54989 118.572 8.54989H125.986C126.1 8.54989 126.192 8.64187 126.192 8.75585V11.9532C126.192 12.0672 126.284 12.1592 126.398 12.1592H130.649C130.763 12.1592 130.855 12.2511 130.855 12.3651V15.7624C130.855 15.8764 130.763 15.9684 130.649 15.9684H126.398C126.284 15.9684 126.192 16.0604 126.192 16.1744V19.8356C126.192 21.1294 126.986 21.5553 128.04 21.5553C129.692 21.5553 131.323 20.8114 131.977 20.4735C132.113 20.4035 132.277 20.5015 132.277 20.6555V26.3543C132.277 26.5063 132.193 26.6463 132.059 26.7183C131.413 27.0582 129.418 28 127.136 28C122.435 27.996 118.918 26.0824 118.918 20.7095ZM109.266 27.4981V16.1704C109.266 16.0564 109.358 15.9644 109.472 15.9644H116.334C116.448 15.9644 116.54 16.0564 116.54 16.1704V27.4981C116.54 27.6121 116.448 27.7041 116.334 27.7041H109.472C109.358 27.7021 109.266 27.6101 109.266 27.4981ZM108.876 11.4913C108.876 13.4189 110.238 14.9826 112.853 14.9826C115.469 14.9826 116.83 13.4189 116.83 11.4913C116.83 9.56369 115.471 8 112.853 8C110.238 8 108.876 9.56369 108.876 11.4913Z' fill='white'/%3E%3C/svg%3E");
-              }
-              @-webkit-keyframes formkit-bouncedelay-formkit-form-data-uid-038a3c96c1- {
-                0%,
-                80%,
-                100% {
-                  -webkit-transform: scale(0);
-                  -ms-transform: scale(0);
-                  transform: scale(0);
-                }
-                40% {
-                  -webkit-transform: scale(1);
-                  -ms-transform: scale(1);
-                  transform: scale(1);
-                }
-              }
-              @keyframes formkit-bouncedelay-formkit-form-data-uid-038a3c96c1- {
-                0%,
-                80%,
-                100% {
-                  -webkit-transform: scale(0);
-                  -ms-transform: scale(0);
-                  transform: scale(0);
-                }
-                40% {
-                  -webkit-transform: scale(1);
-                  -ms-transform: scale(1);
-                  transform: scale(1);
-                }
-              }
-              .formkit-form[data-uid="038a3c96c1"] blockquote {
-                padding: 10px 20px;
-                margin: 0 0 20px;
-                border-left: 5px solid #e1e1e1;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .seva-custom-content {
-                padding: 15px;
-                font-size: 16px;
-                color: #fff;
-                mix-blend-mode: difference;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-modal.guard {
-                max-width: 420px;
-                width: 100%;
-              }
-              .formkit-form[data-uid="038a3c96c1"] {
-                max-width: 700px;
-              }
-              .formkit-form[data-uid="038a3c96c1"] [data-style="clean"] {
-                width: 100%;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-fields {
-                display: -webkit-box;
-                display: -webkit-flex;
-                display: -ms-flexbox;
-                display: flex;
-                -webkit-flex-wrap: wrap;
-                -ms-flex-wrap: wrap;
-                flex-wrap: wrap;
-                margin: 0 auto;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-field,
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit {
-                margin: 0 0 15px 0;
-                -webkit-flex: 1 0 100%;
-                -ms-flex: 1 0 100%;
-                flex: 1 0 100%;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-powered-by-convertkit-container {
-                margin: 0;
-              }
-              .formkit-form[data-uid="038a3c96c1"] .formkit-submit {
-                position: static;
-              }
-              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] [data-style="clean"],
-              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] [data-style="clean"] {
-                padding: 10px;
-                padding-top: 56px;
-              }
-              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"],
-              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] {
-                margin-left: -5px;
-                margin-right: -5px;
-              }
-              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"] .formkit-field,
-              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] .formkit-field,
-              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"] .formkit-submit,
-              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] .formkit-submit {
-                margin: 0 5px 15px 5px;
-              }
-              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"] .formkit-field,
-              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] .formkit-field {
-                -webkit-flex: 100 1 auto;
-                -ms-flex: 100 1 auto;
-                flex: 100 1 auto;
-              }
-              .formkit-form[data-uid="038a3c96c1"][min-width~="700"] .formkit-fields[data-stacked="false"] .formkit-submit,
-              .formkit-form[data-uid="038a3c96c1"][min-width~="800"] .formkit-fields[data-stacked="false"] .formkit-submit {
-                -webkit-flex: 1 1 auto;
-                -ms-flex: 1 1 auto;
-                flex: 1 1 auto;
-              }
-            </style>
-          </form>
+        <!-- ===== SHARED HEADER ===== -->
+        <header id="mainHeader">
+          <div class="header-left">
+            <a href="#home" class="logo-link">
+              <img class="avatar" src="img/profile-img.png" alt="Ordinary Mystic avatar" loading="lazy" />
+              <h1>Ordinary Mystic</h1>
+            </a>
+          </div>
+          <nav class="header-nav" aria-label="Main navigation">
+            <a href="#home" class="nav-link" data-page="home">Home</a>
+            <a href="#resources" class="nav-link" data-page="resources">Resources</a>
+            <a href="#faq" class="nav-link" data-page="faq">FAQ</a>
+          </nav>
+        </header>
+
+        <div class="socials">
+          <a href="https://www.tiktok.com/@ordinarymysticreadings" target="_blank" rel="noopener" aria-label="TikTok">
+            <img src="img/tiktok-white-icon.png" alt="TT" />
+          </a>
+          <a href="https://www.youtube.com/@OrdinaryMysticReadings" target="_blank" rel="noopener" aria-label="YouTube">
+            <img src="img/youtube-app-white-icon.png" alt="YT" />
+          </a>
+          <a href="https://paypal.me/ordinarymystic" target="_blank" rel="noopener" aria-label="PayPal">
+            <img src="img/paypal-white-icon.png" alt="PayPal" />
+          </a>
+          <a href="https://cash.app/$ordinarymystic" target="_blank" rel="noopener" aria-label="Cash App">
+            <img src="img/cashapp-white-icon.png" alt="Cash App" />
+          </a>
+          <a href="mailto:ordinarymysticreadings@gmail.com" target="_blank" rel="noopener" aria-label="Email">
+            <img src="img/email-white-icon.png" alt="@" />
+          </a>
         </div>
 
-        <!-- One-card pull -->
-        <div class="section" role="region" aria-labelledby="daily-card-title">
-          <h2 id="daily-card-title">One-Card Pull</h2>
-          <div class="card-ui">
-            <div class="tarot" id="tarot" role="button" tabindex="0" aria-pressed="false" aria-label="Draw a card">
-              <!-- Placeholder card back -->
-              <img id="tarotImg" src="https://placehold.co/96x152/1a1d27/ffffff?text=Tap%20to%20Draw&font=source-sans-pro" alt="Card face" />
-            </div>
-            <div>
-              <div id="cardTitle" style="font-weight: 700">Your daily nudge</div>
-              <div class="reading" id="cardMsg">A gentle prompt for self-reflection.</div>
+        <!-- ===== PAGE: HOME ===== -->
+        <section id="home" class="page active">
+          <!-- Booking Form -->
+          <div class="section">
+            <h2 id="formTitle">Book a Reading</h2>
+
+            <p class="hint" id="formDescription" style="margin-bottom: 16px"></p>
+
+            <p class="hint" id="formInstructions" style="margin-bottom: 20px"></p>
+
+            <form action="https://formspree.io/f/mjkaebbq" method="POST" id="bookingForm">
+              <!-- Form fields will be dynamically generated -->
+            </form>
+
+            <div id="paymentLinks" class="payment-links" style="display: none">
+              <a href="https://cash.app/$ordinarymystic" target="_blank" rel="noopener" class="payment-link cashapp">
+                <img src="img/cashapp-white-icon.png" alt="Cash App" />
+                Pay via Cash App
+              </a>
+              <a href="https://paypal.me/ordinarymystic" target="_blank" rel="noopener" class="payment-link paypal">
+                <img src="img/paypal-white-icon.png" alt="PayPal" />
+                Pay via PayPal
+              </a>
             </div>
           </div>
-        </div>
+        </section>
 
-        <footer>© <span id="year"></span> Ordinary Mystic · <a href="https://instagram.com/ordinarymysticreadings" style="color: inherit">Follow on Instagram</a></footer>
+        <!-- ===== PAGE: FAQ ===== -->
+        <section id="faq" class="page">
+          <div class="section">
+            <h2>Frequently Asked Questions</h2>
+
+            <h3 style="margin-top: 20px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #eaeaf4">Booking & Logistics</h3>
+            <div class="faq">
+              <details class="qa">
+                <summary>How quickly will I hear back after booking?<span class="caret"></span></summary>
+                <div class="qa-body"><p class="hint">I'll respond within 1 business day with next steps. For recorded readings, expect delivery in 5–7 business days. For live readings, we'll schedule within 1–2 business days.</p></div>
+              </details>
+              <details class="qa">
+                <summary>How are recordings delivered?<span class="caret"></span></summary>
+                <div class="qa-body"><p class="hint">Via private YouTube link sent directly to your email.</p></div>
+              </details>
+              <details class="qa">
+                <summary>What if I need to reschedule or cancel?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    Life happens! Please give 24 hours notice if possible. Cancellations made with at least 24 hours notice are eligible for a full refund. Cancellations within 24 hours of your scheduled reading are non-refundable, but we can work together to reschedule when
+                    possible.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            <h3 style="margin-top: 32px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #eaeaf4">Types of Readings & What to Expect</h3>
+            <div class="faq">
+              <details class="qa">
+                <summary>What readings do you offer?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    <strong>Full Birth Chart Reading (90 minutes):</strong> Deep dive into your natal chart plus timing techniques to understand your life story and what's coming<br /><br /><strong>Mini Birth Chart Reading (25 minutes):</strong> Focused exploration of a single
+                    topic in your natal chart<br /><br /><strong>Birthday Reading (90 minutes):</strong> Solar return analysis, annual profections, and year-ahead forecast
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>What information do you need from me?<span class="caret"></span></summary>
+                <div class="qa-body"><p class="hint">Your birth date, exact birth time (as precise as possible), and birth location. When you fill out the booking form, let me know how certain you are about your birth time—that helps me calibrate the reading.</p></div>
+              </details>
+              <details class="qa">
+                <summary>What if I don't know my exact birth time?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    I'm probably not the best fit for you. My approach relies heavily on precise birth times for accurate house placements and timing work. I don't offer chart rectification services. If you're serious about getting a reading but don't have your birth time, I'd
+                    encourage you to work with a rectification specialist first, then bring that chart to me. I won't turn you away if you book anyway, but just know the reading will be significantly less detailed.
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>Can I ask specific questions?<span class="caret"></span></summary>
+                <div class="qa-body"><p class="hint">Absolutely—and I encourage it! General readings produce general results. The whole point is to help you understand your life and move forward with clarity. Specific questions = specific insights.</p></div>
+              </details>
+            </div>
+
+            <h3 style="margin-top: 32px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #eaeaf4">Preparing for Your Reading</h3>
+            <div class="faq">
+              <details class="qa">
+                <summary>How should I prepare?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    Come with an open mind. Think back over at least the past 1–2 years—I may ask about dates and major events. Consider bringing:<br /><br />• A calendar or your phone's camera roll to jog your memory about life events and their timing<br />• Specific questions
+                    you want to explore
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>Live vs. Recorded—what's the difference?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    <strong>Live readings</strong> are collaborative. I'll ask questions, you'll provide feedback, and we'll dig into what's most relevant together in real time (via Zoom).<br /><br /><strong>Recorded readings</strong> are essentially blind readings with no input
+                    from you during the process. You'll receive a video walkthrough of your chart. If you're not comfortable with back-and-forth dialogue, this is your best option.<br /><br />Either way, bring a willingness to hear potentially hard truths about yourself—that's
+                    where the growth happens.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            <h3 style="margin-top: 32px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #eaeaf4">My Approach & Philosophy</h3>
+            <div class="faq">
+              <details class="qa">
+                <summary>How would you describe your reading style?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    Think of it like a weather report for your life. I look at how cosmic energies have impacted you in the past, and from that we can extrapolate how those same energies are likely to show up in the future. It's all about potentials, not rigid predictions. My job
+                    is to help you prepare internally for the energies happening externally—so you can work with them instead of against them.<br /><br />I use a traditional Hellenistic framework, which means events and timing matter. But the focus is always empowering:
+                    understanding the terrain so you can navigate it wisely.
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>What topics are off-limits?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    I don't read on health issues or "when will I die" questions. I'm happy to discuss relationships (including divorce), but astrology doesn't give black-and-white answers like "this IS divorce" or "this is NOT divorce." Instead, we look at challenges and ease
+                    within relationships—what you do with that information is up to you.
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>Is astrology compatible with Christianity?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    Yes. God created the planets; Genesis tells us the sun and moon were made to mark time and festivals. Astrology doesn't involve communicating with the dead or spirits—it's about reading the energies of creation itself.<br /><br />That said, I'm a Christian who
+                    practices astrology, not a "Christian astrologer." I won't bring my faith into your reading unless you're a Christian and that's important to you. For me personally, I never trust astrology over prayer or the Holy Spirit's guidance—but I've found astrology is
+                    one way to tune into the energies of the universe God created. Surprisingly (or not), those energies often align beautifully with what I discern through prayer.
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>What if I'm not religious?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">My approach resonates regardless of your faith tradition (or lack thereof). I use traditional Hellenistic techniques that aren't tied to any one belief system. You don't need to share my worldview to get value from the reading.</p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>What about fate vs. free will?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    Free will is everything. Nothing is predetermined. Yes, cosmic energies can be strong and difficult to resist—they have a "fate-like" quality—but you always have agency. You have the power to shape your reality. Astrology just helps you see the currents so you
+                    can swim with them or against them intentionally.
+                  </p>
+                </div>
+              </details>
+            </div>
+
+            <h3 style="margin-top: 32px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #eaeaf4">Techniques & Training</h3>
+            <div class="faq">
+              <details class="qa">
+                <summary>What astrological techniques do you use?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    I work primarily from a Hellenistic/traditional framework with some modern insights:<br /><br />• Whole sign houses only (this is non-negotiable for me—I won't read your chart in Placidus unless you really insist, and even then it'll be an aside)<br />•
+                    Traditional rulership (Uranus, Neptune, and Pluto don't rule signs in my system; they move too slowly to significantly impact individual charts, and traditional rulership just works better)<br />• Timing techniques (in order of priority):<br />&nbsp;&nbsp;-
+                    Annual profections<br />&nbsp;&nbsp;- Transits<br />&nbsp;&nbsp;- Solar returns<br />&nbsp;&nbsp;- Progressed charts (rarely—only if specifically needed)<br />&nbsp;&nbsp;- Zodiacal releasing (I'm still building confidence here, so I only incorporate it if you
+                    specifically request it)
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>Tropical or sidereal?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    Always tropical. I know nothing about sidereal astrology. The system of astrology and the meanings of the signs are based on the seasons of the earth, and tropical just makes sense to me. If sidereal works for you, that's great—but I'm not a sidereal
+                    astrologer.
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>Do you work with fixed stars or calculated points?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    No. I don't look at fixed stars, asteroids, or most calculated points (except the lunar nodes, and the Arabian Lots if we're doing zodiacal releasing). There's enough to talk about for days just looking at the 10 main planets. I'd rather go deep on what
+                    matters most than spread the reading thin across every possible data point.
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>How long have you been studying astrology?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    Two years. I know that might sound short, but here's the thing: I have ADHD hyperfixations, which means I've dedicated basically all my free time to learning astrology. I've read voraciously, taken courses, and now I've hit a wall—I'm not going to learn
+                    anything else from books. The only way forward is to read as many charts as possible.<br /><br />I'm not claiming to be an expert (hence my affordable pricing). But I have good reviews, and I genuinely believe you'll get a solid, insightful reading. Plus,
+                    you're booking me now while I'm still cheap—before I become a world-renowned astrology expert charging hundreds per hour. 😉
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>What got you into astrology?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    The classic story: breakup, new hobby. I got divorced in 2023, stumbled across a TikTok about divorce and astrology that resonated deeply, booked a mini reading on a TikTok live, and was instantly hooked. Astrology helped me process my divorce and heal in ways
+                    I didn't expect. That experience taught me how powerful these symbolic systems can be for self-reflection—and I fell in love with the practice.
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>How do you see astrology?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint">
+                    I see astrology as external scaffolding for self-reflection. Humans are terrible at looking at ourselves honestly—our brains have defense mechanisms and blind spots everywhere. But when we throw our patterns into the sky and look at them through symbols?
+                    Suddenly we get curious instead of defensive. There are no blind spots in astrology. It invites us to explore who we are, who we're becoming, and how we're growing—without the usual ego interference. That's the magic.
+                  </p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>What's your sign?<span class="caret"></span></summary>
+                <div class="qa-body"><p class="hint">I'm a Pisces Sun, Leo Rising, and Aquarius Moon. ♓☀️ ♌⬆️ ♒🌙</p></div>
+              </details>
+            </div>
+
+            <h3 style="margin-top: 32px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #eaeaf4">Pricing & Payment</h3>
+            <div class="faq">
+              <details class="qa">
+                <summary>What do readings cost?<span class="caret"></span></summary>
+                <div class="qa-body">
+                  <p class="hint"><strong>TikTok Live Mini Reading:</strong> $10<br /><strong>Mini Birth Chart Reading (25 minutes):</strong> $20<br /><strong>Full Birth Chart Reading (90 minutes, live or recorded):</strong> $50</p>
+                </div>
+              </details>
+              <details class="qa">
+                <summary>Do you offer sliding scale or payment plans?<span class="caret"></span></summary>
+                <div class="qa-body"><p class="hint">Not at this time, but reach out if cost is a barrier—let's talk.</p></div>
+              </details>
+              <details class="qa">
+                <summary>What payment methods do you accept?<span class="caret"></span></summary>
+                <div class="qa-body"><p class="hint">Cash App, PayPal, and major credit cards.</p></div>
+              </details>
+            </div>
+
+            <h3 style="margin-top: 32px; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); color: #eaeaf4">Technical Details</h3>
+            <div class="faq">
+              <details class="qa">
+                <summary>Are readings virtual or in-person?<span class="caret"></span></summary>
+                <div class="qa-body"><p class="hint">All readings are virtual via Zoom. However, if you're in the Tulsa, Oklahoma area, I'm open to in-person sessions—just mention that when you book.</p></div>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- ===== PAGE: RESOURCES ===== -->
+        <section id="resources" class="page">
+          <div class="section">
+            <h2>Recommended Resources</h2>
+            <p class="hint">Everything here is something I actually use myself. Some links are affiliate links, which are marked with a star. If you buy through those links, I may earn a small commission at no extra cost to you.</p>
+          </div>
+
+          <nav aria-label="Recommendations list" style="padding: 10px 16px 22px">
+            <!-- Featured LUNA -->
+            <a class="link featured" href="https://www.lunaastrology.com/?via=ordinarymystic" target="_blank" rel="noopener">
+              <img class="hero" src="img/LUNA-Landscape-01.png" alt="LUNA Astrology" loading="lazy" />
+              <div class="txt">
+                <div class="title">
+                  LUNA Astrology
+                  <span class="chip tag">Astrology</span>
+                  <span class="chip type"><span class="dot" style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #7c5cff"></span> App</span>
+                  <span class="aff-dot" data-tip="This is an affiliate link" aria-label="Affiliate link">★</span>
+                </div>
+                <div class="sub" style="margin-bottom: 12px">My all-time favorite astrology app. Already an incredible value.</div>
+                <div style="display: flex; gap: 8px; align-items: center">
+                  <span class="discount-badge">10% OFF</span>
+                  <span class="cta">Learn More</span>
+                </div>
+              </div>
+            </a>
+
+            <!-- Regular items -->
+            <div class="links" id="resourcesList"></div>
+          </nav>
+        </section>
+
+        <!-- ===== PAGE: BLOG ===== -->
+        <section id="blog" class="page">
+          <div class="section">
+            <h2>Blog</h2>
+            <p class="hint">Reflections on spirituality, tarot, astrology, and the sacred in ordinary life.</p>
+          </div>
+
+          <div style="padding: 0 16px 22px">
+            <div class="blog-list" id="blogList"></div>
+          </div>
+        </section>
+
+        <!-- ===== PAGE: BLOG POST (DYNAMIC) ===== -->
+        <section id="post" class="page">
+          <div class="blog-post">
+            <article id="postContent"></article>
+          </div>
+        </section>
+
+        <!-- ===== SHARED FOOTER ===== -->
+        <footer>© <span id="year"></span> Ordinary Mystic</footer>
       </div>
     </div>
 
     <script>
-      // Year
-      document.getElementById("year").textContent = new Date().getFullYear();
+      // ===== DYNAMIC FORM GENERATION =====
+      function initializeForm() {
+        const formTitle = document.getElementById("formTitle");
+        const formDescription = document.getElementById("formDescription");
+        const formInstructions = document.getElementById("formInstructions");
+        const bookingForm = document.getElementById("bookingForm");
+        const paymentLinks = document.getElementById("paymentLinks");
 
-      // Deck array
+        if (isLiveOnTikTok) {
+          // TikTok Live Mode
+          formTitle.innerHTML = 'Book a TikTok Live Reading ($10) <span class="live-indicator"><span class="live-dot"></span>LIVE ON TIKTOK</span>';
+          formDescription.innerHTML = "<strong>Please send $10 to my CashApp or PayPal before submitting this form.</strong>";
+          formInstructions.textContent = "I'll read your chart live on TikTok! Fill out the form below and I'll get to you in the queue.";
+          paymentLinks.style.display = "flex";
+
+          bookingForm.innerHTML = `
+            <div class="form-field">
+              <label for="booking-birth-date">Birth Date *</label>
+              <input type="date" id="booking-birth-date" name="birth_date" required />
+            </div>
+
+            <div class="form-field">
+              <label for="booking-birth-time">Birth Time *</label>
+              <input type="time" id="booking-birth-time" name="birth_time" required />
+            </div>
+
+            <div class="form-field">
+              <label for="booking-birth-location">Birth Location *</label>
+              <input type="text" id="booking-birth-location" name="birth_location" placeholder="City, State/Province, Country" required />
+            </div>
+
+            <div class="form-field">
+              <label for="booking-tiktok">TikTok Handle *</label>
+              <input type="text" id="booking-tiktok" name="tiktok_handle" placeholder="@yourhandle" required />
+            </div>
+
+            <div class="form-field">
+              <label for="booking-time-confidence">How confident are you in your birth time? *</label>
+              <select id="booking-time-confidence" name="birth_time_confidence" required>
+                <option value="">Select one...</option>
+                <option value="positive">I'm positive</option>
+                <option value="few-minutes">It might be a few minutes off</option>
+                <option value="few-hours">It might be a few hours off</option>
+                <option value="guessed">I totally guessed my birth time</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="booking-astro-experience">How much experience do you have with astrology? *</label>
+              <select id="booking-astro-experience" name="astrology_experience" required>
+                <option value="">Select one...</option>
+                <option value="never-heard">I've never heard of it before</option>
+                <option value="big-three">I know my big three but that's it</option>
+                <option value="some-understanding">I understand birth charts some</option>
+                <option value="pro">I'm an astrology pro</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="booking-focus">Pick a single area of your life to focus on *</label>
+              <textarea id="booking-focus" name="focus" placeholder="E.g., Career, Relationships, Personal Growth..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn">Submit Booking Request</button>
+          `;
+        } else {
+          // Regular Booking Mode
+          formTitle.textContent = "Book a Reading";
+          formDescription.innerHTML = 'Visit my <a href="#faq" style="color: var(--accentB); text-decoration: underline">FAQ</a> to learn more about my approach and philosophy.';
+          formInstructions.textContent = "After you submit this form, I'll reach out within 1–2 business days to confirm your booking and lay out the next steps.";
+          paymentLinks.style.display = "none";
+
+          bookingForm.innerHTML = `
+            <div class="form-field">
+              <label for="booking-name">Name *</label>
+              <input type="text" id="booking-name" name="name" required />
+            </div>
+
+            <div class="form-field">
+              <label for="booking-email">Email *</label>
+              <input type="email" id="booking-email" name="email" required />
+            </div>
+
+            <div class="form-field">
+              <label for="booking-reading-type">Reading Type *</label>
+              <select id="booking-reading-type" name="reading_type" required>
+                <option value="">Select one...</option>
+                <option value="mini">Mini Birth Chart Reading ($20)</option>
+                <option value="full">Full Birth Chart Reading ($50)</option>
+                <option value="birthday">Year Ahead Forecast/Birthday Reading ($50)</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="booking-format">Reading Format *</label>
+              <select id="booking-format" name="reading_format" required>
+                <option value="">Select one...</option>
+                <option value="zoom">Collaborative via Zoom</option>
+                <option value="recorded">Recorded & Emailed</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="booking-birth-date">Birth Date *</label>
+              <input type="date" id="booking-birth-date" name="birth_date" required />
+            </div>
+
+            <div class="form-field">
+              <label for="booking-birth-time">Birth Time *</label>
+              <input type="time" id="booking-birth-time" name="birth_time" required />
+            </div>
+
+            <div class="form-field">
+              <label for="booking-birth-location">Birth Location *</label>
+              <input type="text" id="booking-birth-location" name="birth_location" placeholder="City, State/Province, Country" required />
+            </div>
+
+            <div class="form-field">
+              <label for="booking-time-confidence">How confident are you in your birth time? *</label>
+              <select id="booking-time-confidence" name="birth_time_confidence" required>
+                <option value="">Select one...</option>
+                <option value="positive">I'm positive</option>
+                <option value="few-minutes">It might be a few minutes off</option>
+                <option value="few-hours">It might be a few hours off</option>
+                <option value="guessed">I totally guessed my birth time</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="booking-astro-experience">How much experience do you have with astrology? *</label>
+              <select id="booking-astro-experience" name="astrology_experience" required>
+                <option value="">Select one...</option>
+                <option value="never-heard">I've never heard of it before</option>
+                <option value="big-three">I know my big three but that's it</option>
+                <option value="some-understanding">I understand birth charts some</option>
+                <option value="pro">I'm an astrology pro</option>
+              </select>
+            </div>
+
+            <div class="form-field">
+              <label for="booking-focus">What would you like to focus on?</label>
+              <textarea id="booking-focus" name="focus" placeholder="Share your intention, questions, or areas you'd like guidance on..."></textarea>
+            </div>
+
+            <button type="submit" class="btn">Submit Booking Request</button>
+          `;
+        }
+      }
+
+      // Initialize form on page load
+      initializeForm();
+
+      // ===== ROUTING =====
+      function updateNavigation(hash) {
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        // Update active nav link
+        navLinks.forEach((link) => {
+          const page = link.getAttribute("data-page");
+          if (hash === `#${page}` || (hash === "" && page === "home")) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      }
+
+      function navigateTo(hash) {
+        const pages = document.querySelectorAll(".page");
+        pages.forEach((p) => p.classList.remove("active"));
+
+        const target = document.querySelector(hash || "#home");
+        if (target) {
+          target.classList.add("active");
+          updateNavigation(hash || "#home");
+          window.scrollTo(0, 0);
+        }
+      }
+
+      window.addEventListener("hashchange", () => {
+        navigateTo(window.location.hash || "#home");
+      });
+
+      // Initial load
+      navigateTo(window.location.hash || "#home");
+
+      // ===== TAROT CARD DECK =====
       const deck = [
         { t: "The Fool", m: "Beginnings, spontaneity, potential", img: "img/card/maj00.jpg" },
         { t: "The Magician", m: "Resourcefulness, power, inspired action", img: "img/card/maj01.jpg" },
@@ -1040,24 +1654,149 @@
 
       const tarot = document.getElementById("tarot");
       const tarotImg = document.getElementById("tarotImg");
-      const title = document.getElementById("cardTitle");
-      const msg = document.getElementById("cardMsg");
+      const cardTitle = document.getElementById("cardTitle");
+      const cardMsg = document.getElementById("cardMsg");
 
-      function draw() {
-        const c = deck[Math.floor(Math.random() * deck.length)];
-        title.textContent = c.t;
-        msg.textContent = c.m;
-        tarot.setAttribute("aria-pressed", "true");
-        tarotImg.src = c.img;
-        tarotImg.alt = c.t + " card";
-      }
-      tarot.addEventListener("click", draw);
-      tarot.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          draw();
+      if (tarot && tarotImg && cardTitle && cardMsg) {
+        function drawCard() {
+          const card = deck[Math.floor(Math.random() * deck.length)];
+          cardTitle.textContent = card.t;
+          cardMsg.textContent = card.m;
+          tarotImg.src = card.img;
+          tarotImg.alt = card.t;
+          tarot.setAttribute("aria-pressed", "true");
         }
+
+        tarot.addEventListener("click", drawCard);
+        tarot.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            drawCard();
+          }
+        });
+      }
+
+      // ===== RESOURCES =====
+      const resources = [
+        {
+          title: "Planets in Youth",
+          desc: "By Robert Hand",
+          img: "img/resource/planets_in_youth.jpg",
+          url: "https://amzn.to/4mKfUwJ",
+          tags: ["Astrology", "Book"],
+          affiliate: true,
+        },
+        {
+          title: "Planets in Transit",
+          desc: "By Robert Hand",
+          img: "img/resource/planets_in_transit.jpg",
+          url: "https://amzn.to/3VsH9Qd",
+          tags: ["Astrology", "Book"],
+          affiliate: true,
+        },
+        {
+          title: "Astrology: Using the Wisdom of the Stars",
+          desc: "By Carole Taylor",
+          img: "img/resource/astrology_taylor.jpg",
+          url: "https://amzn.to/4m0saYJ",
+          tags: ["Astrology", "Book"],
+          affiliate: true,
+        },
+        {
+          title: "Easiest Way to Learn Tarot",
+          desc: "By Dusty White",
+          img: "img/resource/easiest-way-to-learn-tarot.jpg",
+          url: "https://amzn.to/47o0JEz",
+          tags: ["Tarot", "Book"],
+          affiliate: true,
+        },
+        {
+          title: "The Story of Tarot",
+          desc: "By Taylor Marie",
+          img: "img/resource/story_of_tarot.jpg",
+          url: "https://www.barnesandnoble.com/w/the-story-of-tarot-not-your-average-guidebook-taylor-marie/1145563436",
+          tags: ["Tarot", "Book"],
+          affiliate: false,
+        },
+      ];
+
+      const resourcesList = document.getElementById("resourcesList");
+      resources.forEach((r) => {
+        const a = document.createElement("a");
+        a.className = "resource-item";
+        a.href = r.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+
+        const img = document.createElement("img");
+        img.src = r.img;
+        img.alt = r.title;
+
+        const info = document.createElement("div");
+        info.className = "resource-info";
+
+        const title = document.createElement("h3");
+        title.textContent = r.title;
+
+        const desc = document.createElement("p");
+        desc.textContent = r.desc;
+
+        const tags = document.createElement("div");
+        tags.className = "resource-tags";
+
+        r.tags.forEach((t) => {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = t;
+          tags.appendChild(tag);
+        });
+
+        if (r.affiliate) {
+          const badge = document.createElement("span");
+          badge.className = "affiliate-badge";
+          badge.textContent = "★ Affiliate";
+          tags.appendChild(badge);
+        }
+
+        info.appendChild(title);
+        info.appendChild(desc);
+        info.appendChild(tags);
+
+        const cta = document.createElement("span");
+        cta.className = "resource-cta";
+        cta.textContent = "View";
+
+        a.appendChild(img);
+        a.appendChild(info);
+        a.appendChild(cta);
+        resourcesList.appendChild(a);
       });
+
+      // ===== FAQ ACCORDION =====
+      const accordions = document.querySelectorAll(".qa");
+      accordions.forEach((qa) => {
+        const body = qa.querySelector(".qa-body");
+        if (!body) return;
+
+        body.style.maxHeight = 0;
+        qa.addEventListener("toggle", () => {
+          if (qa.open) {
+            accordions.forEach((other) => {
+              if (other !== qa && other.open) {
+                other.open = false;
+                const otherBody = other.querySelector(".qa-body");
+                if (otherBody) otherBody.style.maxHeight = 0;
+              }
+            });
+            body.style.maxHeight = body.scrollHeight + "px";
+          } else {
+            body.style.maxHeight = 0;
+          }
+        });
+      });
+
+      // ===== FOOTER YEAR =====
+      document.getElementById("year").textContent = new Date().getFullYear();
     </script>
   </body>
 </html>

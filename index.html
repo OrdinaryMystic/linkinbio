@@ -1317,9 +1317,9 @@
               </select>
             </div>
 
-            <div class="form-field">
-              <label for="booking-topic">Reading Topic *</label>
-              <select id="booking-topic" name="reading_topic" required>
+            <div class="form-field" id="topic-1-field" style="display: none;">
+              <label for="booking-topic-1">Topic *</label>
+              <select id="booking-topic-1" name="topic_1">
                 <option value="">Select one...</option>
                 <option value="love">Love</option>
                 <option value="career">Career</option>
@@ -1331,6 +1331,11 @@
                 <option value="spirituality">Spirituality</option>
                 <option value="other">Other</option>
               </select>
+            </div>
+
+            <div class="form-field" id="question-1-field" style="display: none;">
+              <label for="booking-question-1">Describe the question you have for this topic *</label>
+              <textarea id="booking-question-1" name="question_1" placeholder="What specific question or area would you like guidance on for this topic?"></textarea>
             </div>
 
             <div class="form-field" id="birth-info-fields" style="display: none;">
@@ -1353,15 +1358,10 @@
               <input type="text" id="booking-tiktok" name="tiktok_handle" placeholder="@yourhandle" required />
             </div>
 
-            <div class="form-field">
-              <label for="booking-focus">Any specific questions or areas you'd like me to focus on?</label>
-              <textarea id="booking-focus" name="focus" placeholder="Optional: Share any specific questions or areas you'd like guidance on..."></textarea>
-            </div>
-
             <button type="submit" class="btn">Submit Booking Request</button>
           `;
 
-          // Show/hide birth info fields based on reading type
+          // Show/hide fields based on reading type and style
           const readingTypeSelect = bookingForm.querySelector('#booking-reading-type');
           const birthInfoFields = bookingForm.querySelector('#birth-info-fields');
           const birthTimeField = bookingForm.querySelector('#birth-time-field');
@@ -1369,6 +1369,16 @@
           const birthDateInput = bookingForm.querySelector('#booking-birth-date');
           const birthTimeInput = bookingForm.querySelector('#booking-birth-time');
           const birthLocationInput = bookingForm.querySelector('#booking-birth-location');
+          const topic1Field = bookingForm.querySelector('#topic-1-field');
+          const question1Field = bookingForm.querySelector('#question-1-field');
+          const topic1Select = bookingForm.querySelector('#booking-topic-1');
+          const question1Textarea = bookingForm.querySelector('#booking-question-1');
+
+          // TikTok Live always shows 1 topic and 1 question
+          topic1Field.style.display = 'block';
+          question1Field.style.display = 'block';
+          topic1Select.setAttribute('required', 'required');
+          question1Textarea.setAttribute('required', 'required');
 
           readingTypeSelect.addEventListener('change', function() {
             const needsBirthInfo = this.value === 'astrology' || this.value === 'tarot-astrology';
@@ -1415,8 +1425,20 @@
             </div>
 
             <div class="form-field">
-              <label for="booking-topic">Reading Topic *</label>
-              <select id="booking-topic" name="reading_topic" required>
+              <label for="booking-style">Reading Style *</label>
+              <select id="booking-style" name="reading_style" required>
+                <option value="">Select one...</option>
+                <option value="tiktok-live">TikTok Live - Free for a limited time. 1 topic, up to 20 minutes</option>
+                <option value="pre-recorded">Pre-recorded reading - $30, 30 minutes</option>
+                <option value="zoom-mini">Zoom Mini Reading - $20, 1 topic, 20 minutes</option>
+                <option value="zoom-full">Zoom Full Reading - $60, 2 topics, 60 minutes</option>
+                <option value="in-person">In-Person Full Reading (Tulsa, OK) - $60, 2 topics, 60 minutes</option>
+              </select>
+            </div>
+
+            <div class="form-field" id="topic-1-field" style="display: none;">
+              <label for="booking-topic-1">Topic 1 *</label>
+              <select id="booking-topic-1" name="topic_1">
                 <option value="">Select one...</option>
                 <option value="love">Love</option>
                 <option value="career">Career</option>
@@ -1430,15 +1452,30 @@
               </select>
             </div>
 
-            <div class="form-field">
-              <label for="booking-style">Reading Style *</label>
-              <select id="booking-style" name="reading_style" required>
+            <div class="form-field" id="question-1-field" style="display: none;">
+              <label for="booking-question-1">Describe the question you have for topic one *</label>
+              <textarea id="booking-question-1" name="question_1" placeholder="What specific question or area would you like guidance on for this topic?"></textarea>
+            </div>
+
+            <div class="form-field" id="topic-2-field" style="display: none;">
+              <label for="booking-topic-2">Topic 2 *</label>
+              <select id="booking-topic-2" name="topic_2">
                 <option value="">Select one...</option>
-                <option value="tiktok-live">TikTok Live Tarot Reading - FREE for a limited time</option>
-                <option value="mini">Mini Reading (single topic, 20 minutes) - $20</option>
-                <option value="full">Full Reading (2 topics, 60 minutes) - $60</option>
-                <option value="in-person">In Person (Tulsa, OK) - $60</option>
+                <option value="love">Love</option>
+                <option value="career">Career</option>
+                <option value="family">Family</option>
+                <option value="year-ahead">Year Ahead</option>
+                <option value="personal-growth">Personal Growth</option>
+                <option value="finances">Finances</option>
+                <option value="health">Health & Wellness</option>
+                <option value="spirituality">Spirituality</option>
+                <option value="other">Other</option>
               </select>
+            </div>
+
+            <div class="form-field" id="question-2-field" style="display: none;">
+              <label for="booking-question-2">Describe the question you have for topic two *</label>
+              <textarea id="booking-question-2" name="question_2" placeholder="What specific question or area would you like guidance on for this topic?"></textarea>
             </div>
 
             <div class="form-field" id="birth-info-fields" style="display: none;">
@@ -1467,16 +1504,12 @@
               </select>
             </div>
 
-            <div class="form-field">
-              <label for="booking-focus">Any specific questions or areas you'd like me to focus on?</label>
-              <textarea id="booking-focus" name="focus" placeholder="Optional: Share your intention, questions, or areas you'd like guidance on..."></textarea>
-            </div>
-
             <button type="submit" class="btn">Submit Booking Request</button>
           `;
 
-          // Show/hide birth info fields based on reading type
+          // Show/hide fields based on reading type and style
           const readingTypeSelect = bookingForm.querySelector('#booking-reading-type');
+          const readingStyleSelect = bookingForm.querySelector('#booking-style');
           const birthInfoFields = bookingForm.querySelector('#birth-info-fields');
           const birthTimeField = bookingForm.querySelector('#birth-time-field');
           const birthLocationField = bookingForm.querySelector('#birth-location-field');
@@ -1485,6 +1518,55 @@
           const birthTimeInput = bookingForm.querySelector('#booking-birth-time');
           const birthLocationInput = bookingForm.querySelector('#booking-birth-location');
           const timeConfidenceSelect = bookingForm.querySelector('#booking-time-confidence');
+          const topic1Field = bookingForm.querySelector('#topic-1-field');
+          const question1Field = bookingForm.querySelector('#question-1-field');
+          const topic2Field = bookingForm.querySelector('#topic-2-field');
+          const question2Field = bookingForm.querySelector('#question-2-field');
+          const topic1Select = bookingForm.querySelector('#booking-topic-1');
+          const question1Textarea = bookingForm.querySelector('#booking-question-1');
+          const topic2Select = bookingForm.querySelector('#booking-topic-2');
+          const question2Textarea = bookingForm.querySelector('#booking-question-2');
+          const question1Label = question1Field ? question1Field.querySelector('label') : null;
+
+          function updateTopicFields() {
+            const style = readingStyleSelect.value;
+            const isSingleTopic = style === 'tiktok-live' || style === 'pre-recorded' || style === 'zoom-mini';
+            const isDoubleTopic = style === 'zoom-full' || style === 'in-person';
+
+            // Show/hide topic and question fields
+            if (topic1Field) topic1Field.style.display = (isSingleTopic || isDoubleTopic) ? 'block' : 'none';
+            if (question1Field) question1Field.style.display = (isSingleTopic || isDoubleTopic) ? 'block' : 'none';
+            if (topic2Field) topic2Field.style.display = isDoubleTopic ? 'block' : 'none';
+            if (question2Field) question2Field.style.display = isDoubleTopic ? 'block' : 'none';
+
+            // Update labels for single vs double topic
+            if (question1Label) {
+              if (isSingleTopic) {
+                question1Label.textContent = 'Describe the question you have for this topic *';
+              } else if (isDoubleTopic) {
+                question1Label.textContent = 'Describe the question you have for topic one *';
+              }
+            }
+
+            // Set required attributes
+            if (isSingleTopic || isDoubleTopic) {
+              if (topic1Select) topic1Select.setAttribute('required', 'required');
+              if (question1Textarea) question1Textarea.setAttribute('required', 'required');
+            } else {
+              if (topic1Select) topic1Select.removeAttribute('required');
+              if (question1Textarea) question1Textarea.removeAttribute('required');
+            }
+
+            if (isDoubleTopic) {
+              if (topic2Select) topic2Select.setAttribute('required', 'required');
+              if (question2Textarea) question2Textarea.setAttribute('required', 'required');
+            } else {
+              if (topic2Select) topic2Select.removeAttribute('required');
+              if (question2Textarea) question2Textarea.removeAttribute('required');
+            }
+          }
+
+          readingStyleSelect.addEventListener('change', updateTopicFields);
 
           readingTypeSelect.addEventListener('change', function() {
             const needsBirthInfo = this.value === 'astrology' || this.value === 'tarot-astrology';

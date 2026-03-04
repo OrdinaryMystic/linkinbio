@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Video, Headphones, FileText, ChevronRight } from "lucide-react";
+import { Video, FileText, ChevronRight } from "lucide-react";
+import { TarotCardsIcon } from "@/components/tarot-cards-icon";
 import { Button } from "@/components/button";
 import {
   Card,
@@ -78,7 +79,7 @@ export default function BookingPage() {
         <Card>
           <CardHeader className="space-y-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2a4a] text-white">
-              <Video className="h-5 w-5" />
+              <TarotCardsIcon className="h-5 w-5" />
             </div>
             <CardTitle>Live Reading</CardTitle>
             <CardDescription>
@@ -107,7 +108,7 @@ export default function BookingPage() {
         <Card>
           <CardHeader className="space-y-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2a4a] text-white">
-              <Headphones className="h-5 w-5" />
+              <Video className="h-5 w-5" />
             </div>
             <CardTitle>Recorded Reading</CardTitle>
             <CardDescription>

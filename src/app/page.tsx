@@ -6,10 +6,10 @@ import {
   CalendarDays,
   ChevronRight,
   Video,
-  Headphones,
   FileText,
   ExternalLink,
 } from "lucide-react";
+import { TarotCardsIcon } from "@/components/tarot-cards-icon";
 import { Button } from "@/components/button";
 import {
   Card,
@@ -163,7 +163,7 @@ export default async function Home() {
             <Card>
               <CardHeader className="space-y-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2a4a] text-white">
-                  <Video className="h-5 w-5" />
+                  <TarotCardsIcon className="h-5 w-5" />
                 </div>
                 <CardTitle>Live Reading</CardTitle>
                 <CardDescription>
@@ -182,7 +182,7 @@ export default async function Home() {
             <Card>
               <CardHeader className="space-y-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2a4a] text-white">
-                  <Headphones className="h-5 w-5" />
+                  <Video className="h-5 w-5" />
                 </div>
                 <CardTitle>Recorded Reading</CardTitle>
                 <CardDescription>
@@ -291,6 +291,15 @@ export default async function Home() {
               </CardFooter>
             </Card>
           </div>
+          <p className="mt-8 text-center">
+            <Link
+              href="/tools"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 underline-offset-4 hover:text-slate-900 hover:underline"
+            >
+              Browse All Resources
+              <ChevronRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </p>
         </Container>
       </section>
     </div>

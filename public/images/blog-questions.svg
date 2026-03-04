@@ -1,0 +1,9 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#f3f4f6" />
+  <rect x="160" y="160" width="320" height="24" rx="12" fill="#111827" opacity="0.1" />
+  <rect x="160" y="210" width="420" height="18" rx="9" fill="#4b5563" opacity="0.25" />
+  <rect x="160" y="250" width="360" height="18" rx="9" fill="#6b7280" opacity="0.25" />
+  <circle cx="820" cy="260" r="96" fill="#e5e7eb" />
+  <text x="820" y="270" text-anchor="middle" font-family="system-ui, -apple-system, BlinkMacSystemFont" font-size="64" fill="#4b5563">?</text>
+</svg>
+

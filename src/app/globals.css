@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-montserrat);
+  /* Brand: gradient #151326 → #213752; buttons in that purple ballpark */
+  --color-brand-deep: #151326;
+  --color-brand-mid: #213752;
+  --color-brand-accent: #2d2a4a;
+  --color-brand-accent-hover: #3d3a6b;
+}
+
+.font-heading {
+  font-family: var(--font-montserrat), var(--font-geist-sans), system-ui, sans-serif;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  font-family: var(--font-geist-sans), system-ui, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.prose-content h2 {
+  @apply mt-6 text-lg font-semibold text-slate-900;
+}
+
+.prose-content h3 {
+  @apply mt-4 text-base font-semibold text-slate-900;
+}
+
+.prose-content p {
+  @apply mt-3 text-sm leading-relaxed text-slate-700;
+}
+
+.prose-content ul {
+  @apply mt-3 list-disc pl-5 text-sm text-slate-700;
+}
+
+.prose-content li + li {
+  @apply mt-1;
+}
+
+/* Hero background image: set --hero-bg-image in a selector that targets the hero, e.g.:
+   :root { --hero-bg-image: url('/images/hero-bg.jpg'); }
+   Or add background-image directly to .hero-bg in your own overrides. */
+

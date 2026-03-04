@@ -32,11 +32,19 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # User/org site (repo "username.github.io") → basePath "". Project site (repo "my-site") → basePath "/my-site"
-      - name: Build
-        run: npm run build
-        env:
-          NEXT_PUBLIC_BASE_PATH: ${{ github.event.repository.name == format('{0}.github.io', github.event.repository.owner.login) && '' || format('/{0}', github.event.repository.name) }}
+      # User/org site (repo "username.github.io") → basePath "". Project site → basePath "/repo-name"
+      - name: Set basePath and build
+        run: |
+          if [ "${{ github.event.repository.name }}" = "${{ github.event.repository.owner.login }}.github.io" ]; then
+            export NEXT_PUBLIC_BASE_PATH=""
+          else
+            export NEXT_PUBLIC_BASE_PATH="/${{ github.event.repository.name }}"
+          fi
+          echo "NEXT_PUBLIC_BASE_PATH=$NEXT_PUBLIC_BASE_PATH"
+          npm run build
+
+      - name: List build output
+        run: ls -la out/ && ls -la out/_next 2>/dev/null || true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

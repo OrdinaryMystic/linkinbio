@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { ExternalLink } from "lucide-react";
+import { ChevronRight, ExternalLink } from "lucide-react";
 import { Button } from "@/components/button";
 import {
   Card,
@@ -164,9 +164,18 @@ export default function ToolsIndexPage() {
             </CardFooter>
           </Card>
         </div>
+        <p className="mt-8 text-center">
+          <Link
+            href="#recommended-resources"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 underline-offset-4 hover:text-slate-900 hover:underline"
+          >
+            Browse All Resources
+            <ChevronRight className="h-4 w-4" aria-hidden />
+          </Link>
+        </p>
       </section>
 
-      <section className="space-y-6">
+      <section id="recommended-resources" className="space-y-6">
         <div>
           <h2 className="font-heading text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
             Recommended resources

@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   basePath: basePath || undefined,
   assetPrefix: basePath ? `${basePath}/` : undefined,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",

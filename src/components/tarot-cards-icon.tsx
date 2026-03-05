@@ -1,19 +1,21 @@
 import { forwardRef } from "react";
 
+type TarotCardsIconProps = React.SVGProps<SVGSVGElement> & {
+  size?: number;
+};
+
 /**
  * Two tarot-style cards at different angles, for the Live Reading card.
  * Matches Lucide icon sizing (24x24, stroke-based).
  */
-export const TarotCardsIcon = forwardRef<
-  SVGSVGElement,
-  React.SVGProps<SVGSVGElement>
->(function TarotCardsIcon({ className, size = 24, ...props }, ref) {
-  return (
-    <svg
-      ref={ref}
-      xmlns="http://www.w3.org/2000/svg"
-      width={size}
-      height={size}
+export const TarotCardsIcon = forwardRef<SVGSVGElement, TarotCardsIconProps>(
+  function TarotCardsIcon({ className, size = 24, ...props }, ref) {
+    return (
+      <svg
+        ref={ref}
+        xmlns="http://www.w3.org/2000/svg"
+        width={size}
+        height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -41,5 +43,6 @@ export const TarotCardsIcon = forwardRef<
         transform="rotate(8 15 14)"
       />
     </svg>
-  );
-});
+    );
+  }
+);

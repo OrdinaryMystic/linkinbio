@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CalendarDays, ChevronDown, Menu, X } from "lucide-react";
+import { CalendarDays, ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 
@@ -22,6 +22,7 @@ const blogMenuLinks = [
 
 export function SiteHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [blogSubmenuOpen, setBlogSubmenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-gradient-to-r from-[#151326] to-[#213752] backdrop-blur-sm">
@@ -89,7 +90,10 @@ export function SiteHeader() {
           </Link>
           <button
             type="button"
-            onClick={() => setMobileMenuOpen((o) => !o)}
+            onClick={() => {
+              setMobileMenuOpen((o) => !o);
+              if (mobileMenuOpen) setBlogSubmenuOpen(false);
+            }}
             className="flex h-10 w-10 items-center justify-center rounded-lg text-slate-200 transition-colors hover:bg-white/10 hover:text-white md:hidden"
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
@@ -106,7 +110,7 @@ export function SiteHeader() {
       {/* Mobile menu */}
       <div
         className={`overflow-hidden transition-all duration-200 ease-in-out md:hidden ${
-          mobileMenuOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
+          mobileMenuOpen ? "max-h-[420px] opacity-100" : "max-h-0 opacity-0"
         }`}
         aria-hidden={!mobileMenuOpen}
       >
@@ -114,35 +118,63 @@ export function SiteHeader() {
           <ul className="flex flex-col gap-1">
             <li>
               <Link
-                href="/blog"
+                href="/"
                 onClick={() => setMobileMenuOpen(false)}
                 className="block rounded-lg px-4 py-3 text-base font-semibold text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
               >
-                Blog
+                Home
               </Link>
             </li>
-            {blogMenuLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-base font-medium text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-            {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="block rounded-lg px-4 py-3 text-base font-medium text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            <li>
+              <button
+                type="button"
+                onClick={() => setBlogSubmenuOpen((o) => !o)}
+                className="flex w-full items-center justify-between rounded-lg px-4 py-3 text-base font-semibold text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+                aria-expanded={blogSubmenuOpen}
+              >
+                Blog
+                {blogSubmenuOpen ? (
+                  <ChevronDown className="h-4 w-4 shrink-0" aria-hidden />
+                ) : (
+                  <ChevronRight className="h-4 w-4 shrink-0" aria-hidden />
+                )}
+              </button>
+              <div
+                className={`overflow-hidden transition-all duration-200 ease-in-out ${
+                  blogSubmenuOpen ? "max-h-48 opacity-100" : "max-h-0 opacity-0"
+                }`}
+              >
+                <ul className="space-y-0.5 pl-4 py-1">
+                  {blogMenuLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link
+                        href={link.href}
+                        onClick={() => {
+                          setMobileMenuOpen(false);
+                          setBlogSubmenuOpen(false);
+                        }}
+                        className="block rounded-lg px-4 py-2.5 text-base font-medium text-slate-400 transition-colors hover:bg-white/10 hover:text-slate-200"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+            {navLinks
+              .filter((link) => link.href !== "/")
+              .map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block rounded-lg px-4 py-3 text-base font-semibold text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
             <li className="mt-2 border-t border-white/10 pt-2">
               <Link
                 href="/book"

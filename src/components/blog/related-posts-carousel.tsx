@@ -34,7 +34,7 @@ export function RelatedPostsCarousel({ items }: RelatedPostsCarouselProps) {
       </h2>
 
       <Card className="flex flex-col gap-4 p-4 sm:flex-row">
-        <div className="relative h-28 w-full overflow-hidden rounded-xl bg-slate-100 sm:h-36 sm:w-44">
+        <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:h-36 sm:w-44 sm:aspect-auto">
           <Image
             src={active.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
             alt={active.frontmatter.title}
@@ -43,7 +43,7 @@ export function RelatedPostsCarousel({ items }: RelatedPostsCarouselProps) {
           />
         </div>
 
-        <div className="flex flex-1 flex-col justify-between gap-3">
+        <div className="flex min-w-0 flex-1 flex-col justify-between gap-3">
           <CardHeader className="mb-0">
             <CardTitle>{active.frontmatter.title}</CardTitle>
             <CardDescription>
@@ -55,9 +55,9 @@ export function RelatedPostsCarousel({ items }: RelatedPostsCarouselProps) {
             </CardDescription>
           </CardHeader>
 
-          <CardFooter className="mt-0 flex items-center gap-2">
-            <Link href={`/blog/${active.slug}`}>
-              <Button size="sm">Read Post</Button>
+          <CardFooter className="mt-0 w-full">
+            <Link href={`/blog/${active.slug}`} className="block w-full sm:w-auto">
+              <Button size="sm" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
             </Link>
           </CardFooter>
         </div>

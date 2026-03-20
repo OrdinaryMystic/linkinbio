@@ -13,6 +13,7 @@ import { getAuthorBySlug } from "@/data/authors";
 import { getTaxonomyEntity } from "@/data/taxonomy";
 import { type BlogPostFrontmatter, getAllBlogPosts, getEntryBySlug } from "@/lib/content";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { withUtmParams } from "@/lib/utils";
 
 type Params = {
   slug: string;
@@ -92,7 +93,10 @@ export default async function BlogPostPage({
     fm.ctaBody ??
     "Get a practical reading in plain English focused on your actual patterns, timing, and next steps.";
   const ctaLabel = fm.ctaLabel ?? "Book a Reading";
-  const ctaUrl = fm.ctaUrl ?? "/book";
+  const ctaUrl = withUtmParams(fm.ctaUrl ?? "/book", {
+    utm_source: "blog",
+    utm_medium: "cta-card",
+  });
   const category = fm.category;
   const subcategory = fm.subcategory;
   const author = getAuthorBySlug(fm.author);

@@ -69,8 +69,8 @@ export function BlogExplorer({
   return (
     <div className="space-y-5">
       {featuredPost ? (
-        <Card className="flex flex-col gap-4 sm:flex-row">
-          <div className="relative h-44 w-full overflow-hidden rounded-xl bg-slate-100 sm:h-52 sm:w-72">
+        <Card className="flex flex-col gap-4 p-4 sm:flex-row">
+          <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:h-52 sm:w-72 sm:aspect-auto">
             <Image
               src={featuredPost.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
               alt={featuredPost.frontmatter.title}
@@ -78,7 +78,7 @@ export function BlogExplorer({
               className="object-cover"
             />
           </div>
-          <div className="flex flex-1 flex-col">
+          <div className="flex min-w-0 flex-1 flex-col">
             <CardHeader className="mb-2">
               <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
                 Featured Post
@@ -93,23 +93,23 @@ export function BlogExplorer({
               </CardTitle>
               <CardDescription>{featuredPost.frontmatter.description}</CardDescription>
             </CardHeader>
-            <CardFooter className="mt-auto flex flex-wrap items-end justify-between gap-3">
-              <div className="space-y-1 text-xs text-slate-600">
-                <p className="flex items-center gap-1.5">
-                  <CalendarDays className="h-3.5 w-3.5" />
+            <CardFooter className="mt-auto flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+              <div className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-slate-600 sm:w-auto sm:justify-start">
+                <span className="flex items-center gap-1.5">
+                  <CalendarDays className="h-3.5 w-3.5 shrink-0" />
                   {new Date(featuredPost.frontmatter.date).toLocaleDateString()}
-                </p>
-                <p className="flex items-center gap-1.5">
-                  <User className="h-3.5 w-3.5" />
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <User className="h-3.5 w-3.5 shrink-0" />
                   <Link
                     href={`/authors/${getAuthorBySlug(featuredPost.frontmatter.author).slug}`}
                     className="underline-offset-2 hover:underline"
                   >
                     {getAuthorBySlug(featuredPost.frontmatter.author).name}
                   </Link>
-                </p>
-                <p className="flex items-center gap-1.5">
-                  <FolderOpen className="h-3.5 w-3.5" />
+                </span>
+                <span className="flex items-center gap-1.5">
+                  <FolderOpen className="h-3.5 w-3.5 shrink-0" />
                   {featuredPost.frontmatter.category ? (
                     <Link
                       href={`/blog/categories/${featuredPost.frontmatter.category}`}
@@ -120,10 +120,10 @@ export function BlogExplorer({
                   ) : (
                     "Uncategorized"
                   )}
-                </p>
+                </span>
               </div>
-              <Link href={`/blog/${featuredPost.slug}`}>
-                <Button size="sm">Read Post</Button>
+              <Link href={`/blog/${featuredPost.slug}`} className="block w-full sm:w-auto sm:flex-shrink-0">
+                <Button size="sm" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
               </Link>
             </CardFooter>
           </div>

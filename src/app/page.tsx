@@ -354,29 +354,29 @@ export default async function Home() {
                       {post.frontmatter.title}
                     </Link>
                   </CardTitle>
-                  <div className="space-y-1 text-xs text-slate-600">
-                    <p className="flex items-center gap-1.5">
-                      <CalendarDays className="h-3.5 w-3.5" />
+                  <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-slate-600 md:justify-start">
+                    <span className="flex items-center gap-1.5">
+                      <CalendarDays className="h-3.5 w-3.5 shrink-0" />
                       {new Date(post.frontmatter.date).toLocaleDateString()}
-                    </p>
-                    <p className="flex items-center gap-1.5">
-                      <User className="h-3.5 w-3.5" />
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <User className="h-3.5 w-3.5 shrink-0" />
                       {getAuthorBySlug(post.frontmatter.author).name}
-                    </p>
-                    <p className="flex items-center gap-1.5">
-                      <FolderOpen className="h-3.5 w-3.5" />
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <FolderOpen className="h-3.5 w-3.5 shrink-0" />
                       {post.frontmatter.category
                         ? post.frontmatter.category
                             .split("-")
                             .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
                             .join(" ")
                         : "Uncategorized"}
-                    </p>
+                    </span>
                   </div>
                 </CardHeader>
-                <CardFooter className="mt-auto">
-                  <Link href={`/blog/${post.slug}`}>
-                    <Button type="button" size="sm">
+                <CardFooter className="mt-auto w-full">
+                  <Link href={`/blog/${post.slug}`} className="block w-full">
+                    <Button type="button" size="sm" className="w-full justify-center">
                       Read Post
                     </Button>
                   </Link>

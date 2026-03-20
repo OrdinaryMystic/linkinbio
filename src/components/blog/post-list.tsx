@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, FolderOpen, User } from "lucide-react";
 import { Button } from "@/components/button";
-import { Card, CardFooter, CardHeader, CardTitle } from "@/components/card";
+import { Card, CardHeader, CardTitle } from "@/components/card";
 import { getAuthorBySlug } from "@/data/authors";
 import type { BlogPostFrontmatter, MarkdownListItem } from "@/lib/content";
 import { formatSlugLabel } from "@/lib/blog-taxonomy-utils";
@@ -27,8 +27,8 @@ export function PostList({
   return (
     <section className={columns === 1 ? "grid gap-4" : "grid gap-4 md:grid-cols-2"}>
       {posts.map((post) => (
-        <Card key={post.slug} className="flex gap-4 p-4 sm:flex-row">
-          <div className="relative h-24 w-full overflow-hidden rounded-xl bg-slate-100 sm:h-32 sm:w-40">
+        <Card key={post.slug} className="flex flex-col gap-4 p-4 sm:flex-row">
+          <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:h-32 sm:w-40 sm:aspect-auto">
             <Image
               src={post.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
               alt={post.frontmatter.title}
@@ -36,33 +36,33 @@ export function PostList({
               className="object-cover"
             />
           </div>
-          <div className="flex flex-1 flex-col justify-between gap-3">
-            <CardHeader className="mb-0">
+          <div className="flex min-w-0 flex-1 flex-col">
+            <CardHeader className="mb-2">
               <CardTitle>
                 <Link href={`/blog/${post.slug}`} className="hover:underline underline-offset-4">
                   {post.frontmatter.title}
                 </Link>
               </CardTitle>
             </CardHeader>
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <div className="space-y-1 text-xs text-slate-600">
-                <p className="flex items-center gap-1.5">
-                  <CalendarDays className="h-3.5 w-3.5" />
+            <div className="mt-auto flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
+              <div className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-slate-600 sm:w-auto sm:justify-start">
+                <span className="flex items-center gap-1.5">
+                  <CalendarDays className="h-3.5 w-3.5 shrink-0" />
                   {new Date(post.frontmatter.date).toLocaleDateString()}
-                </p>
+                </span>
                 {showAuthorMeta ? (
-                  <p className="flex items-center gap-1.5">
-                    <User className="h-3.5 w-3.5" />
+                  <span className="flex items-center gap-1.5">
+                    <User className="h-3.5 w-3.5 shrink-0" />
                     <Link
                       href={`/authors/${getAuthorBySlug(post.frontmatter.author).slug}`}
                       className="underline-offset-2 hover:underline"
                     >
                       {getAuthorBySlug(post.frontmatter.author).name}
                     </Link>
-                  </p>
+                  </span>
                 ) : null}
-                <p className="flex items-center gap-1.5">
-                  <FolderOpen className="h-3.5 w-3.5" />
+                <span className="flex items-center gap-1.5">
+                  <FolderOpen className="h-3.5 w-3.5 shrink-0" />
                   {post.frontmatter.category ? (
                     <Link
                       href={`/blog/categories/${post.frontmatter.category}`}
@@ -73,13 +73,11 @@ export function PostList({
                   ) : (
                     "Uncategorized"
                   )}
-                </p>
+                </span>
               </div>
-              <CardFooter className="mt-0">
-              <Link href={`/blog/${post.slug}`}>
-                <Button size="sm">Read Post</Button>
+              <Link href={`/blog/${post.slug}`} className="block w-full sm:w-auto sm:flex-shrink-0">
+                <Button size="sm" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
               </Link>
-              </CardFooter>
             </div>
           </div>
         </Card>

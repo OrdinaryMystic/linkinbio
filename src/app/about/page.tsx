@@ -45,7 +45,7 @@ export default function AboutPage() {
         <h1 className="font-heading text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
           About Ordinary Mystic
         </h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+        <p className="text-sm leading-relaxed text-slate-700">
           Ordinary Mystic is for people who are curious about tarot and astrology
           but allergic to vague predictions and over-the-top mysticism.
         </p>
@@ -80,7 +80,7 @@ export default function AboutPage() {
         <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900">
           Frequently asked questions
         </h2>
-        <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+        <p className="text-sm leading-relaxed text-slate-700">
           A quick overview of how readings work, what to expect, and whether
           Ordinary Mystic is a good fit for you.
         </p>

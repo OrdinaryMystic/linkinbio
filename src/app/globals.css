@@ -38,12 +38,36 @@ body {
   @apply mt-3 text-sm leading-relaxed text-slate-700;
 }
 
+.prose-content img {
+  @apply mt-4 h-auto w-full rounded-2xl border border-slate-200 bg-slate-100 object-cover shadow-sm;
+}
+
 .prose-content ul {
   @apply mt-3 list-disc pl-5 text-sm text-slate-700;
 }
 
 .prose-content li + li {
   @apply mt-1;
+}
+
+.prose-content hr {
+  @apply my-6 ml-0 w-11/12 border-slate-300/70;
+}
+
+.prose-content ul.contains-task-list {
+  @apply list-none pl-0;
+}
+
+.prose-content ul.contains-task-list li {
+  @apply flex items-start gap-2;
+}
+
+.prose-content ul.contains-task-list li::marker {
+  content: "";
+}
+
+.prose-content ul.contains-task-list input[type="checkbox"] {
+  @apply mt-0.5 h-4 w-4 rounded border-slate-400 text-[var(--color-brand-accent)];
 }
 
 /* Hero background image: set --hero-bg-image in a selector that targets the hero, e.g.:

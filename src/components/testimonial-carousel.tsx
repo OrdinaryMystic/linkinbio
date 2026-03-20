@@ -1,0 +1,104 @@
+"use client";
+
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import type { TestimonialItem } from "@/data/testimonials";
+
+type TestimonialCarouselProps = {
+  items: TestimonialItem[];
+  intervalMs?: number;
+};
+
+export function TestimonialCarousel({ items, intervalMs = 5000 }: TestimonialCarouselProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  const total = items.length;
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const onChange = () => setPrefersReducedMotion(media.matches);
+
+    onChange();
+    media.addEventListener("change", onChange);
+    return () => media.removeEventListener("change", onChange);
+  }, []);
+
+  useEffect(() => {
+    if (prefersReducedMotion || total <= 1) return;
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % total);
+    }, intervalMs);
+
+    return () => window.clearInterval(timer);
+  }, [intervalMs, prefersReducedMotion, total]);
+
+  const active = useMemo(() => items[activeIndex], [items, activeIndex]);
+
+  if (!active) return null;
+
+  const goTo = (index: number) => setActiveIndex((index + total) % total);
+  const goPrev = () => goTo(activeIndex - 1);
+  const goNext = () => goTo(activeIndex + 1);
+
+  return (
+    <div className="mx-auto w-full max-w-4xl">
+      <div
+        className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+        aria-live="polite"
+      >
+        <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
+          <Image
+            src={active.avatarSrc}
+            alt={`${active.name} headshot`}
+            width={88}
+            height={88}
+            className="h-[5.5rem] w-[5.5rem] rounded-full border border-slate-200 object-cover"
+          />
+          <div>
+            <p className="text-base leading-relaxed text-slate-700">&ldquo;{active.quote}&rdquo;</p>
+            <p className="mt-4 text-sm font-semibold text-slate-900">{active.name}</p>
+            <p className="text-sm text-slate-500">{active.context}</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-5 flex items-center justify-between gap-3">
+        <button
+          type="button"
+          onClick={goPrev}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition-colors hover:bg-slate-50"
+          aria-label="Previous testimonial"
+        >
+          <ChevronLeft className="h-4 w-4" aria-hidden />
+        </button>
+
+        <div className="flex items-center gap-2">
+          {items.map((item, index) => (
+            <button
+              key={`${item.name}-${index}`}
+              type="button"
+              onClick={() => goTo(index)}
+              className={`h-2.5 w-2.5 rounded-full transition-all ${
+                index === activeIndex ? "bg-slate-800" : "bg-slate-300 hover:bg-slate-400"
+              }`}
+              aria-label={`Go to testimonial ${index + 1}`}
+              aria-pressed={index === activeIndex}
+            />
+          ))}
+        </div>
+
+        <button
+          type="button"
+          onClick={goNext}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition-colors hover:bg-slate-50"
+          aria-label="Next testimonial"
+        >
+          <ChevronRight className="h-4 w-4" aria-hidden />
+        </button>
+      </div>
+    </div>
+  );
+}

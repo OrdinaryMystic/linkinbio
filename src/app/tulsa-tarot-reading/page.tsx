@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 const pageTitle = "Tulsa tarot readings – grounded, practical insight";
 const pageDescription =
@@ -7,13 +8,16 @@ const pageDescription =
 export const metadata: Metadata = {
   title: pageTitle,
   description: pageDescription,
+  alternates: {
+    canonical: `${SITE_URL}/tulsa-tarot-reading`,
+  },
 };
 
 const businessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "Ordinary Mystic",
-  url: "https://ordinary.local/tulsa-tarot-reading",
+  url: `${SITE_URL}/tulsa-tarot-reading`,
   areaServed: [
     "Tulsa",
     "Downtown Tulsa",

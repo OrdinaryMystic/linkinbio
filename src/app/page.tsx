@@ -3,8 +3,11 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import {
   ArrowRight,
+  BookOpen,
   CalendarDays,
   ChevronRight,
+  FolderOpen,
+  User,
   Video,
   FileText,
   ExternalLink,
@@ -21,6 +24,7 @@ import {
 } from "@/components/card";
 import { Container } from "@/components/container";
 import { ScrollOnHash } from "@/components/scroll-on-hash";
+import { getAuthorBySlug } from "@/data/authors";
 import {
   CONTACT_EMAIL,
   DIGITAL_TAROT_APP_URL,
@@ -32,16 +36,23 @@ import {
   TIKTOK_URL,
   WRITTEN_REPORT_URL,
 } from "@/lib/config";
+import { getAllBlogPosts } from "@/lib/content";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Ordinary Mystic Readings – Practical Tarot and Astrology Without the Woo",
   description:
     "Practical tarot and astrology without the woo. Book a live reading (Zoom or Tulsa), a recorded reading, or a written PDF report.",
+  alternates: {
+    canonical: `${SITE_URL}/`,
+  },
 };
 
 const sectionPadding = "py-16 sm:py-20";
 
 export default async function Home() {
+  const recentPosts = (await getAllBlogPosts()).slice(0, 3);
+
   return (
     <div className="-mt-10 -mb-16 pb-0">
       <ScrollOnHash hash="#book" />
@@ -86,6 +97,18 @@ export default async function Home() {
                 Book a reading
               </Button>
             </a>
+            <Link href="/blog">
+              <Button
+                type="button"
+                size="lg"
+                variant="outline"
+                className="border-white/60 bg-transparent text-white hover:bg-white/10 hover:text-white focus-visible:ring-white focus-visible:ring-offset-[#151326]"
+                leftIcon={<BookOpen className="h-4 w-4" />}
+                rightIcon={<ArrowRight className="h-4 w-4" />}
+              >
+                Read blog
+              </Button>
+            </Link>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-5">
             <a
@@ -186,7 +209,7 @@ export default async function Home() {
                   </CardDescription>
                   <p className="text-sm font-medium text-slate-700">
                     20 minutes · <span className="line-through text-slate-500">$20</span>{" "}
-                    <span className="font-bold text-rose-700">$0</span> with coupon code{" "}
+                    <span className="font-bold text-rose-700">$1</span> with coupon code{" "}
                     <span className="font-bold text-slate-900">LIVE</span>
                   </p>
                 </CardHeader>
@@ -226,7 +249,7 @@ export default async function Home() {
       <section
         id="book"
         className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${sectionPadding}`}
-        style={{ backgroundColor: "#faf8f6" }}
+        style={{ backgroundColor: "#eef1f5" }}
       >
         <Container className="px-4 sm:px-6">
           <h2 className="font-heading text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
@@ -297,6 +320,76 @@ export default async function Home() {
               className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 underline-offset-4 hover:text-slate-900 hover:underline"
             >
               Learn More
+              <ChevronRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </p>
+        </Container>
+      </section>
+
+      {/* SECTION: Recent Posts — clean white */}
+      <section
+        className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${sectionPadding}`}
+        style={{ backgroundColor: "#ffffff" }}
+      >
+        <Container className="px-4 sm:px-6">
+          <h2 className="font-heading text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+            Recent Posts
+          </h2>
+          <div className="mt-10 grid gap-6 md:grid-cols-3">
+            {recentPosts.map((post) => (
+              <Card key={post.slug} className="flex flex-col p-4">
+                <div className="relative h-40 w-full overflow-hidden rounded-xl bg-slate-100">
+                  <Image
+                    src={post.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
+                    alt={post.frontmatter.title}
+                    fill
+                    priority={post.slug === recentPosts[0]?.slug}
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    className="object-cover"
+                  />
+                </div>
+                <CardHeader className="mb-2 mt-3">
+                  <CardTitle>
+                    <Link href={`/blog/${post.slug}`} className="hover:underline underline-offset-4">
+                      {post.frontmatter.title}
+                    </Link>
+                  </CardTitle>
+                  <div className="space-y-1 text-xs text-slate-600">
+                    <p className="flex items-center gap-1.5">
+                      <CalendarDays className="h-3.5 w-3.5" />
+                      {new Date(post.frontmatter.date).toLocaleDateString()}
+                    </p>
+                    <p className="flex items-center gap-1.5">
+                      <User className="h-3.5 w-3.5" />
+                      {getAuthorBySlug(post.frontmatter.author).name}
+                    </p>
+                    <p className="flex items-center gap-1.5">
+                      <FolderOpen className="h-3.5 w-3.5" />
+                      {post.frontmatter.category
+                        ? post.frontmatter.category
+                            .split("-")
+                            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                            .join(" ")
+                        : "Uncategorized"}
+                    </p>
+                  </div>
+                </CardHeader>
+                <CardFooter className="mt-auto">
+                  <Link href={`/blog/${post.slug}`}>
+                    <Button type="button" size="sm">
+                      Read Post
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
+          <p className="mt-8 text-center">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 underline-offset-4 hover:text-slate-900 hover:underline"
+            >
+              Read all posts
               <ChevronRight className="h-4 w-4" aria-hidden />
             </Link>
           </p>

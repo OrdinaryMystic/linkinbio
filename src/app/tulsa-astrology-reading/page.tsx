@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 const pageTitle = "Tulsa astrology readings – timing, patterns, and context";
 const pageDescription =
@@ -7,13 +8,16 @@ const pageDescription =
 export const metadata: Metadata = {
   title: pageTitle,
   description: pageDescription,
+  alternates: {
+    canonical: `${SITE_URL}/tulsa-astrology-reading`,
+  },
 };
 
 const businessSchema = {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   name: "Ordinary Mystic",
-  url: "https://ordinary.local/tulsa-astrology-reading",
+  url: `${SITE_URL}/tulsa-astrology-reading`,
   areaServed: [
     "Tulsa",
     "Downtown Tulsa",

@@ -1,17 +1,30 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
+import { BlogExplorer } from "@/components/blog/blog-explorer";
 import { getAllBlogPosts } from "@/lib/content";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/card";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Blog",
   description:
     "Short, grounded essays on tarot, astrology, and reflective practice—without the theatrics.",
+  alternates: {
+    canonical: `${SITE_URL}/blog`,
+  },
 };
 
-export default async function BlogIndexPage() {
+export default async function BlogIndexPage({
+  searchParams,
+}: {
+  searchParams?: Record<string, string | string[] | undefined>;
+}) {
   const posts = await getAllBlogPosts();
+  const resolvedSearchParams = searchParams ?? {};
+  const tag = Array.isArray(resolvedSearchParams?.tag)
+    ? resolvedSearchParams?.tag[0]
+    : resolvedSearchParams?.tag;
+  const archive = Array.isArray(resolvedSearchParams?.archive)
+    ? resolvedSearchParams?.archive[0]
+    : resolvedSearchParams?.archive;
 
   return (
     <div className="space-y-6">
@@ -25,41 +38,13 @@ export default async function BlogIndexPage() {
         </p>
       </header>
 
-      <section className="grid gap-4 md:grid-cols-2">
-        {posts.map((post) => {
-          const fm = post.frontmatter;
-          return (
-            <Card key={post.slug} className="flex flex-col gap-4 sm:flex-row">
-              <div className="relative h-24 w-full overflow-hidden rounded-xl bg-slate-100 sm:h-32 sm:w-40">
-                <Image
-                  src={(fm as any).image}
-                  alt={fm.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex flex-1 flex-col">
-                <CardHeader className="mb-2">
-                  <CardTitle>{fm.title}</CardTitle>
-                  <CardDescription>{fm.description}</CardDescription>
-                </CardHeader>
-                <CardFooter className="mt-auto flex items-center justify-between">
-                  <p className="text-xs text-slate-500">
-                    {new Date(fm.date).toLocaleDateString()}
-                  </p>
-                  <Link
-                    href={`/blog/${post.slug}`}
-                    className="text-sm font-medium text-slate-900 underline-offset-4 hover:underline"
-                  >
-                    Read
-                  </Link>
-                </CardFooter>
-              </div>
-            </Card>
-          );
-        })}
-      </section>
+      <BlogExplorer
+        posts={posts}
+        currentPath="/blog"
+        activeTag={tag}
+        activeArchive={archive}
+        emptyMessage="No posts match your current search."
+      />
     </div>
   );
 }
-

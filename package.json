@@ -4,12 +4,14 @@
   "description": "Ordinary Mystic Readings 2.0 — website and booking",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "ts-node scripts/ingest-content.ts && ts-node scripts/sync-csv.ts && next dev",
+    "build": "ts-node scripts/ingest-content.ts && ts-node scripts/sync-csv.ts && next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@giscus/react": "^3.1.0",
+    "@radix-ui/react-navigation-menu": "^1.2.14",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "gray-matter": "^4.0.3",
@@ -18,6 +20,7 @@
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remark": "^15.0.1",
+    "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
     "tailwind-merge": "^3.5.0"
   },
@@ -26,9 +29,11 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "csv-parse": "^6.2.1",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

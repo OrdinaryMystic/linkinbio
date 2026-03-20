@@ -3,15 +3,21 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { CalendarDays, Menu, X } from "lucide-react";
+import { CalendarDays, ChevronDown, Menu, X } from "lucide-react";
 import { Button } from "@/components/button";
 import { Container } from "@/components/container";
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/tools", label: "Tools" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/resources", label: "Resources" },
   { href: "/about", label: "About" },
+];
+
+const blogMenuLinks = [
+  { href: "/blog", label: "All Posts" },
+  { href: "/blog/categories/astrology", label: "Astrology" },
+  { href: "/blog/categories/tarot", label: "Tarot" },
+  { href: "/blog/categories/general-spirituality", label: "General Spirituality" },
 ];
 
 export function SiteHeader() {
@@ -34,7 +40,32 @@ export function SiteHeader() {
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-slate-200 md:flex">
-          {navLinks.map((link) => (
+          <Link href="/" className="transition-colors hover:text-white">
+            Home
+          </Link>
+          <div className="group relative">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-1 transition-colors hover:text-white"
+            >
+              Blog
+              <ChevronDown className="h-4 w-4" />
+            </Link>
+            <div className="invisible absolute left-0 top-full z-30 mt-2 w-56 rounded-lg border border-white/10 bg-[#1b1a2f] p-2 opacity-0 shadow-xl transition-all group-hover:visible group-hover:opacity-100">
+              {blogMenuLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="block rounded-md px-3 py-2 text-sm text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+          {navLinks
+            .filter((link) => link.href !== "/")
+            .map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -42,7 +73,7 @@ export function SiteHeader() {
             >
               {link.label}
             </Link>
-          ))}
+            ))}
         </nav>
 
         <div className="flex items-center gap-3">
@@ -81,6 +112,26 @@ export function SiteHeader() {
       >
         <nav className="border-t border-white/10 bg-[#151326] px-4 py-4">
           <ul className="flex flex-col gap-1">
+            <li>
+              <Link
+                href="/blog"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block rounded-lg px-4 py-3 text-base font-semibold text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                Blog
+              </Link>
+            </li>
+            {blogMenuLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block rounded-lg px-4 py-3 text-base font-medium text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link

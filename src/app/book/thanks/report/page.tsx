@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/config";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Thanks for your order",
   description: "Your written report order is confirmed. You'll receive your PDF once it's ready.",
+  alternates: {
+    canonical: `${SITE_URL}/book/thanks/report`,
+  },
 };
 
 export default function ThanksReportPage() {

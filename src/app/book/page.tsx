@@ -15,11 +15,15 @@ import {
   RECORDED_READING_URL,
   WRITTEN_REPORT_URL,
 } from "@/lib/config";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Book a reading",
   description:
     "Choose a live reading (Zoom or in-person in Tulsa), a recorded reading, or a written PDF report. Book directly or learn more about each option.",
+  alternates: {
+    canonical: `${SITE_URL}/book`,
+  },
 };
 
 export default function BookingPage() {

@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Account (coming soon)",
   description:
     "A future overview of client account details, upcoming sessions, and resources.",
+  alternates: {
+    canonical: `${SITE_URL}/account`,
+  },
 };
 
 export default function AccountPage() {

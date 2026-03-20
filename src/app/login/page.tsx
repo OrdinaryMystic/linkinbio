@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Client portal login (coming soon)",
   description:
     "A future home for clients to access sessions, notes, and tools. Not active yet.",
+  alternates: {
+    canonical: `${SITE_URL}/login`,
+  },
 };
 
 export default function LoginPage() {

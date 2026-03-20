@@ -51,11 +51,11 @@ Then open `http://localhost:3000` in your browser.
 
 ### Content: blog, tools, resources
 
-All content is markdown-based and lives under `content/`:
+All content is markdown-based and lives under `src/content/`:
 
-- `content/blog/*.md`
-- `content/tools/*.md`
-- `content/resources/*.md`
+- `src/content/blog/*.md`
+- `src/content/tools/*.md`
+- `src/content/resources/*.md`
 
 Frontmatter for each type:
 
@@ -116,9 +116,9 @@ The helper functions in `src/lib/content.ts` handle:
 
 #### Add a blog post
 
-1. Create a new file under `content/blog/`, e.g.:
+1. Create a new file under `src/content/blog/`, e.g.:
 
-   - `content/blog/my-new-post.md`
+   - `src/content/blog/my-new-post.md`
 
 2. Include the required frontmatter at the top (see blog example above).
 3. Write your post in markdown below the frontmatter.
@@ -132,9 +132,9 @@ The new post will appear automatically on:
 
 #### Add a tool (store item)
 
-1. Create a file under `content/tools/`, e.g.:
+1. Create a file under `src/content/tools/`, e.g.:
 
-   - `content/tools/new-tool.md`
+   - `src/content/tools/new-tool.md`
 
 2. Add the tools frontmatter, including:
 
@@ -151,9 +151,9 @@ The new tool will appear on:
 
 #### Add a recommended resource
 
-1. Create a file under `content/resources/`, e.g.:
+1. Create a file under `src/content/resources/`, e.g.:
 
-   - `content/resources/new-resources-list.md`
+   - `src/content/resources/new-resources-list.md`
 
 2. Use the resources frontmatter (title, description, category).
 3. Add markdown that includes your affiliate links or recommendations.
@@ -202,7 +202,7 @@ Square links are **not live**; they are placeholders you can replace at any time
 To wire in real Square URLs:
 
 1. Update `LIVE_SESSIONS_URL` and `RECORDED_READING_URL` in `src/app/book/page.tsx`.
-2. Update each tool’s `ctaUrl` frontmatter in `content/tools/*.md`.
+2. Update each tool’s `ctaUrl` frontmatter in `src/content/tools/*.md`.
 3. Optionally embed a real intake form or Square form in the placeholder area on `/book`.
 
 No runtime calls to external APIs are required—the site only links out to Square.

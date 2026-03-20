@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Sessions (coming soon)",
   description:
     "A placeholder page for future access to past and upcoming sessions.",
+  alternates: {
+    canonical: `${SITE_URL}/account/sessions`,
+  },
 };
 
 export default function SessionsPage() {

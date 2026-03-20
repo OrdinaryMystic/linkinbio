@@ -1,11 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { BookOpen, User } from "lucide-react";
+import Image from "next/image";
+import {
+  BookOpen,
+  User,
+} from "lucide-react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { Container } from "@/components/container";
+import { PersonJsonLd } from "@/components/seo/person-json-ld";
 import { SITE_LIVE_MODE, TIKTOK_URL } from "@/lib/config";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,10 +30,11 @@ const montserrat = Montserrat({
   weight: ["700", "900"],
 });
 
-const siteName = "Ordinary Mystic";
-const siteUrl = "https://ordinary.local";
+const siteName = SITE_NAME;
+const siteUrl = SITE_URL;
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
     default: `${siteName} – Tarot & Astrology Without the Woo`,
     template: `%s | ${siteName}`,
@@ -46,6 +53,24 @@ export const metadata: Metadata = {
     url: siteUrl,
     siteName,
     type: "website",
+    images: [
+      {
+        url: "/images/featured/horizon.png",
+        width: 1200,
+        height: 630,
+        alt: `${siteName} – Tarot & Astrology Without the Woo`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteName} – Tarot & Astrology Without the Woo`,
+    description:
+      "Tarot and astrology sessions for thoughtful skeptics. Calm, grounded readings focused on clarity, not theatrics.",
+    images: ["/images/featured/horizon.png"],
+  },
+  alternates: {
+    canonical: "/",
   },
 };
 
@@ -57,6 +82,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        <PersonJsonLd />
         {/* Google tag (gtag.js) */}
         <script
           async
@@ -107,33 +133,51 @@ export default function RootLayout({
                     href="https://www.youtube.com/@OrdinaryMysticReadings"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-200 underline-offset-4 hover:text-white hover:underline"
+                    aria-label="YouTube"
+                    title="YouTube"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-200 transition hover:border-white/40 hover:text-white"
                   >
-                    YouTube
+                    <Image
+                      src="/images/youtube-app-white-icon.png"
+                      alt=""
+                      width={20}
+                      height={20}
+                      className="h-5 w-5"
+                    />
+                    <span className="sr-only">YouTube</span>
                   </a>
                   <a
                     href={TIKTOK_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-200 underline-offset-4 hover:text-white hover:underline"
+                    aria-label="TikTok"
+                    title="TikTok"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-200 transition hover:border-white/40 hover:text-white"
                   >
-                    TikTok
+                    <Image src="/images/tiktok-white-icon.png" alt="" width={20} height={20} className="h-5 w-5" />
+                    <span className="sr-only">TikTok</span>
                   </a>
                   <a
                     href="https://cash.app/$ordinarymystic"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-200 underline-offset-4 hover:text-white hover:underline"
+                    aria-label="Cash App"
+                    title="Cash App"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-200 transition hover:border-white/40 hover:text-white"
                   >
-                    Cash App
+                    <Image src="/images/cashapp-white-icon.png" alt="" width={20} height={20} className="h-5 w-5" />
+                    <span className="sr-only">Cash App</span>
                   </a>
                   <a
                     href="https://paypal.me/ordinarymystic"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-200 underline-offset-4 hover:text-white hover:underline"
+                    aria-label="PayPal"
+                    title="PayPal"
+                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-200 transition hover:border-white/40 hover:text-white"
                   >
-                    PayPal
+                    <Image src="/images/paypal-white-icon.png" alt="" width={20} height={20} className="h-5 w-5" />
+                    <span className="sr-only">PayPal</span>
                   </a>
                 </div>
               </div>

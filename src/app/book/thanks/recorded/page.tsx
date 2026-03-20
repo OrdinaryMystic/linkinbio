@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { CONTACT_EMAIL } from "@/lib/config";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Thanks for booking",
   description: "Your recorded reading is confirmed. You'll receive your video and notes once it's ready.",
+  alternates: {
+    canonical: `${SITE_URL}/book/thanks/recorded`,
+  },
 };
 
 export default function ThanksRecordedPage() {

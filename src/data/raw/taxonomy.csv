@@ -1,0 +1,9 @@
+type,slug,title,description,related_planets,related_signs,related_houses,related_cards,related_terms
+"planets","saturn","Saturn","Discipline, structure, constraints, and long-term mastery.","","capricorn|aquarius","10th-house","","lead"
+"planets","jupiter","Jupiter","Growth, wisdom, expansion, and worldview.","","","","",""
+"signs","capricorn","Capricorn","Ambition, responsibility, and durable systems.","saturn","","10th-house","",""
+"signs","aquarius","Aquarius","Systems-thinking, social reform, and strategic distance.","","","","",""
+"houses","10th-house","10th House","Career, public reputation, achievement, and vocation.","saturn","capricorn","","",""
+"houses","7th-house","7th House","Partnerships, contracts, and one-to-one alliances.","","","","",""
+"cards","the-hermit","The Hermit","Introspection, discernment, and deliberate solitude.","saturn","","","",""
+"cards","wheel-of-fortune","Wheel of Fortune","Cycles, turning points, and changes in conditions.","","","","",""

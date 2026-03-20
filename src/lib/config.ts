@@ -1,6 +1,6 @@
 // LIVE MODE TOGGLE:
 // Set to true when you are live on TikTok.
-export const SITE_LIVE_MODE = true;
+export const SITE_LIVE_MODE = false;
 export const TIKTOK_URL = "https://www.tiktok.com/@ordinarymysticreadings";
 export const TIKTOK_LIVE_TAROT_URL = "https://buy.stripe.com/bJe9AV86gh178DI53B6Zy04";
 export const TIKTOK_LIVE_ASTROLOGY_URL = "https://buy.stripe.com/7sY00lfyI6mt2fkcw36Zy03";

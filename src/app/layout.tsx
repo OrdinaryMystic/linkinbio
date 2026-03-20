@@ -5,6 +5,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { Container } from "@/components/container";
+import { SITE_LIVE_MODE, TIKTOK_URL } from "@/lib/config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,6 +34,11 @@ export const metadata: Metadata = {
   },
   description:
     "Tarot and astrology sessions for thoughtful skeptics. Calm, grounded readings focused on clarity, not theatrics.",
+  icons: {
+    icon: "/favicon.png",
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
+  },
   openGraph: {
     title: `${siteName} – Tarot & Astrology Without the Woo`,
     description:
@@ -70,6 +76,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} min-h-screen text-slate-900 antialiased`}
         style={{ backgroundColor: "#f5f4f2" }}
+        data-site-live={SITE_LIVE_MODE ? "true" : undefined}
       >
         <div className="flex min-h-screen flex-col">
           <SiteHeader />
@@ -105,7 +112,7 @@ export default function RootLayout({
                     YouTube
                   </a>
                   <a
-                    href="https://www.tiktok.com/@ordinarymysticreadings"
+                    href={TIKTOK_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-slate-200 underline-offset-4 hover:text-white hover:underline"

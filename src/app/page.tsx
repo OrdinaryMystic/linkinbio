@@ -8,6 +8,7 @@ import {
   Video,
   FileText,
   ExternalLink,
+  Sparkles,
 } from "lucide-react";
 import { TarotCardsIcon } from "@/components/tarot-cards-icon";
 import { Button } from "@/components/button";
@@ -25,6 +26,10 @@ import {
   DIGITAL_TAROT_APP_URL,
   LIVE_READINGS_URL,
   RECORDED_READING_URL,
+  SITE_LIVE_MODE,
+  TIKTOK_LIVE_ASTROLOGY_URL,
+  TIKTOK_LIVE_TAROT_URL,
+  TIKTOK_URL,
   WRITTEN_REPORT_URL,
 } from "@/lib/config";
 
@@ -43,7 +48,7 @@ export default async function Home() {
 
       {/* HERO — full-width gradient #151326 → #213752 */}
       <section
-        className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen min-h-[32rem] flex items-center overflow-hidden bg-gradient-to-br from-[#151326] via-[#1a2742] to-[#213752]"
+        className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen min-h-[32rem] flex items-center overflow-hidden bg-gradient-to-br from-[#151326] via-[#1a2742] to-[#213752] ${SITE_LIVE_MODE ? "hero-live-pulse" : ""}`}
         aria-label="Hero"
       >
         <div
@@ -52,6 +57,17 @@ export default async function Home() {
         />
         <div className="absolute inset-0 bg-gradient-to-br from-[#151326]/90 via-[#1a2742]/90 to-[#213752]/90" aria-hidden />
         <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 py-16 sm:py-20 text-center">
+          {SITE_LIVE_MODE ? (
+            <Link
+              href={TIKTOK_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mx-auto mb-4 inline-flex items-center gap-2 rounded-full border border-rose-300/40 bg-rose-400/10 px-3 py-1.5 text-sm font-medium text-rose-100 hover:bg-rose-400/20"
+            >
+              <span className="h-2.5 w-2.5 rounded-full bg-red-500 animate-pulse" aria-hidden />
+              Live on TikTok
+            </Link>
+          ) : null}
           <h1 className="font-heading text-4xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
             Ordinary Mystic Readings
           </h1>
@@ -88,7 +104,7 @@ export default async function Home() {
               />
             </a>
             <a
-              href="https://www.tiktok.com/@ordinarymysticreadings"
+              href={TIKTOK_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="opacity-90 hover:opacity-100 transition-opacity"
@@ -149,6 +165,63 @@ export default async function Home() {
         </div>
       </section>
 
+      {SITE_LIVE_MODE ? (
+        <section
+          className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${sectionPadding}`}
+          style={{ backgroundColor: "#faf8f6" }}
+        >
+          <Container className="px-4 sm:px-6">
+            <h2 className="font-heading text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+              Book a TikTok Live Reading
+            </h2>
+            <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-2">
+              <Card>
+                <CardHeader className="space-y-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2a4a] text-white">
+                    <TarotCardsIcon className="h-5 w-5" />
+                  </div>
+                  <CardTitle>Live Tarot Reading</CardTitle>
+                  <CardDescription>
+                    A focused tarot reading live in the TikTok room. We&apos;ll keep it to one topic or one clear question in 20 minutes, with practical direction and no deep-dive detours.
+                  </CardDescription>
+                  <p className="text-sm font-medium text-slate-700">
+                    20 minutes · <span className="line-through text-slate-500">$20</span>{" "}
+                    <span className="font-bold text-rose-700">$0</span> with coupon code{" "}
+                    <span className="font-bold text-slate-900">LIVE</span>
+                  </p>
+                </CardHeader>
+                <CardFooter>
+                  <Link href={TIKTOK_LIVE_TAROT_URL} target="_blank" rel="noopener noreferrer">
+                    <Button type="button" size="sm">
+                      Book Now
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader className="space-y-3">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2a4a] text-white">
+                    <Sparkles className="h-5 w-5" />
+                  </div>
+                  <CardTitle>Live Astrology Reading</CardTitle>
+                  <CardDescription>
+                    A live 20-minute astrology reading in front of the room for one topic or one question. It&apos;s meant to be clear and concise, and an accurate birth time is required.
+                  </CardDescription>
+                  <p className="text-sm font-medium text-slate-700">20 minutes · $20</p>
+                </CardHeader>
+                <CardFooter>
+                  <Link href={TIKTOK_LIVE_ASTROLOGY_URL} target="_blank" rel="noopener noreferrer">
+                    <Button type="button" size="sm">
+                      Book Now
+                    </Button>
+                  </Link>
+                </CardFooter>
+              </Card>
+            </div>
+          </Container>
+        </section>
+      ) : null}
+
       {/* SECTION: Book a Reading — warm off-white */}
       <section
         id="book"
@@ -157,7 +230,7 @@ export default async function Home() {
       >
         <Container className="px-4 sm:px-6">
           <h2 className="font-heading text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
-            Book a Reading
+            {SITE_LIVE_MODE ? "Book a Private Reading" : "Book a Reading"}
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
             <Card>

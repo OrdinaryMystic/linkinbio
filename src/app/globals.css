@@ -50,3 +50,52 @@ body {
    :root { --hero-bg-image: url('/images/hero-bg.jpg'); }
    Or add background-image directly to .hero-bg in your own overrides. */
 
+@keyframes liveSitePulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+@keyframes liveHeroGlow {
+  0%,
+  100% {
+    box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.2);
+  }
+  50% {
+    box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.45), 0 0 60px rgba(248, 113, 113, 0.1);
+  }
+}
+
+body[data-site-live="true"]::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 100%;
+  height: 3px;
+  pointer-events: none;
+  background: linear-gradient(90deg, #f87171 0%, #fb7185 50%, #f87171 100%);
+  animation: liveSitePulse 1.8s ease-in-out infinite;
+}
+
+.hero-live-pulse {
+  animation: liveHeroGlow 2.2s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body[data-site-live="true"]::before {
+    animation: none;
+    opacity: 0.8;
+  }
+
+  .hero-live-pulse {
+    animation: none;
+    box-shadow: inset 0 0 0 1px rgba(248, 113, 113, 0.35);
+  }
+}
+

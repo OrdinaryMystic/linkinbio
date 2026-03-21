@@ -23,11 +23,24 @@ type Params = {
 };
 
 type ForecastScope = "seasonal" | "monthly" | "weekly" | "daily" | "annual";
+type ForecastTimeframe = "Current" | "Upcoming" | "Past";
 
 function parseDateOnly(value?: string): Date | null {
   if (!value) return null;
   const date = new Date(`${value}T00:00:00`);
   return Number.isNaN(date.getTime()) ? null : date;
+}
+
+function getForecastTimeframe(frontmatter: BlogPostFrontmatter): ForecastTimeframe {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const start = parseDateOnly(frontmatter.forecastStart);
+  const end = parseDateOnly(frontmatter.forecastEnd);
+
+  if (!start || !end) return "Past";
+  if (today < start) return "Upcoming";
+  if (today > end) return "Past";
+  return "Current";
 }
 
 function formatDateLabel(value?: string): string | null {
@@ -158,10 +171,11 @@ export default async function ForecastPostPage({
   const author = getAuthorBySlug(fm.author);
   const scope = getScope(fm);
   const scopeBadge = scope ? getScopeBadge(scope) : null;
+  const timeframe = getForecastTimeframe(fm);
   const absolutePostUrl = `${SITE_URL}/forecasts/${slug}`;
   const breadcrumbs = [
     { label: "Forecasts", href: "/forecasts" },
-    { label: fm.title, href: `/forecasts/${slug}` },
+    { label: timeframe, href: "/forecasts" },
   ];
 
   const currentTags = new Set(fm.tags ?? []);
@@ -290,14 +304,14 @@ export default async function ForecastPostPage({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
         <div className="absolute inset-0 shadow-inner" />
-        {scopeBadge ? (
-          <span
-            className={`absolute left-4 top-4 inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold tracking-wide ${scopeBadge.className}`}
-          >
-            {scopeBadge.label}
-          </span>
-        ) : null}
         <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
+          {scopeBadge ? (
+            <span
+              className={`mb-2 inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold tracking-wide ${scopeBadge.className}`}
+            >
+              {scopeBadge.label}
+            </span>
+          ) : null}
           <h1 className="font-heading text-2xl font-black tracking-tight text-white sm:text-4xl">
             {fm.title}
           </h1>

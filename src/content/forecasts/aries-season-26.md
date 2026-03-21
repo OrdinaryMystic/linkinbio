@@ -1,5 +1,5 @@
 ---
-title: "Aries Season 2026: The Historical Mars-Saturn-Neptune 'Pileup' Forecast"
+title: "Aries Season 2026: A Historical Pileup of Fire Energy"
 date: "2026-03-20"
 forecastStart: "2026-03-20"
 forecastEnd: "2026-04-19"

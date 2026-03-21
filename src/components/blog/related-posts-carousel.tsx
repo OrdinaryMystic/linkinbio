@@ -6,7 +6,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/button";
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/card";
-import { getAuthorBySlug } from "@/data/authors";
+import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
 import type { BlogPostFrontmatter } from "@/lib/content";
 import { formatSlugLabel } from "@/lib/blog-taxonomy-utils";
 
@@ -17,9 +17,10 @@ type RelatedPostItem = {
 
 type RelatedPostsCarouselProps = {
   items: RelatedPostItem[];
+  basePath?: string;
 };
 
-export function RelatedPostsCarousel({ items }: RelatedPostsCarouselProps) {
+export function RelatedPostsCarousel({ items, basePath = "/blog" }: RelatedPostsCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
 
   if (items.length === 0) return null;
@@ -47,8 +48,11 @@ export function RelatedPostsCarousel({ items }: RelatedPostsCarouselProps) {
           <CardHeader className="mb-0">
             <CardTitle>{active.frontmatter.title}</CardTitle>
             <CardDescription>
-              {new Date(active.frontmatter.date).toLocaleDateString()} ·{" "}
-              {getAuthorBySlug(active.frontmatter.author).name}
+              {new Date(active.frontmatter.date).toLocaleDateString()}
+              {getAuthorBySlug(active.frontmatter.author).slug !==
+              DEFAULT_AUTHOR_SLUG
+                ? ` · ${getAuthorBySlug(active.frontmatter.author).name}`
+                : ""}
               {active.frontmatter.category
                 ? ` · ${formatSlugLabel(active.frontmatter.category)}`
                 : ""}
@@ -56,7 +60,7 @@ export function RelatedPostsCarousel({ items }: RelatedPostsCarouselProps) {
           </CardHeader>
 
           <CardFooter className="mt-0 w-full">
-            <Link href={`/blog/${active.slug}`} className="block w-full sm:w-auto">
+            <Link href={`${basePath}/${active.slug}`} className="block w-full sm:w-auto">
               <Button size="sm" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
             </Link>
           </CardFooter>

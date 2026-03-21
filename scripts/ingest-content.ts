@@ -4,8 +4,26 @@ const matter = require("gray-matter") as typeof import("gray-matter");
 
 const ROOT_DIR = process.cwd();
 const INGEST_ROOT = path.join(ROOT_DIR, "src", "data", "ingest");
-const BLOG_TARGET = path.join(ROOT_DIR, "src", "content", "blog");
-const IMAGE_TARGET_ROOT = path.join(ROOT_DIR, "public", "images", "blog");
+
+const CONTENT_TARGETS = {
+  blog: path.join(ROOT_DIR, "src", "content", "blog"),
+  forecasts: path.join(ROOT_DIR, "src", "content", "forecasts"),
+  "knowledge-base": path.join(ROOT_DIR, "src", "content", "knowledge-base"),
+};
+
+const IMAGE_TARGET_ROOTS = {
+  blog: path.join(ROOT_DIR, "public", "images", "blog"),
+  forecasts: path.join(ROOT_DIR, "public", "images", "forecasts"),
+  "knowledge-base": path.join(ROOT_DIR, "public", "images", "knowledge-base"),
+};
+
+type Collection = "blog" | "forecasts" | "knowledge-base";
+
+function getCollection(parsed: { data?: { collection?: string } }): Collection {
+  const c = parsed?.data?.collection;
+  if (c === "forecasts" || c === "knowledge-base") return c;
+  return "blog";
+}
 
 function ensureDir(dirPath: string) {
   fs.mkdirSync(dirPath, { recursive: true });
@@ -28,7 +46,12 @@ function getStatus(value: unknown): "draft" | "published" | "archived" {
   return "draft";
 }
 
-function toFinalImageUrl(rawTarget: string, slug: string): string | null {
+function getImageUrlPrefix(collection: Collection, slug: string): string {
+  const dirs: Record<Collection, string> = { blog: "blog", forecasts: "forecasts", "knowledge-base": "knowledge-base" };
+  return `/images/${dirs[collection]}/${slug}`;
+}
+
+function toFinalImageUrl(rawTarget: string, slug: string, collection: Collection): string | null {
   const cleanedTarget = rawTarget.trim().replace(/^["']|["']$/g, "");
   if (
     cleanedTarget.startsWith("http://") ||
@@ -42,12 +65,13 @@ function toFinalImageUrl(rawTarget: string, slug: string): string | null {
 
   const fileName = path.basename(cleanedTarget);
   if (!fileName) return null;
-  return `/images/blog/${slug}/${fileName}`;
+  const prefix = getImageUrlPrefix(collection, slug);
+  return `${prefix}/${fileName}`;
 }
 
 const IMAGE_EXT = /\.(jpg|jpeg|png|gif|webp|avif|svg)$/i;
 
-function resolveBarePath(rawPath: string, slug: string, postImageDir: string): string | null {
+function resolveBarePath(rawPath: string, slug: string, postImageDir: string, collection: Collection): string | null {
   const cleanedTarget = rawPath.trim().replace(/^["']|["']$/g, "");
   if (
     cleanedTarget.startsWith("http://") ||
@@ -60,22 +84,23 @@ function resolveBarePath(rawPath: string, slug: string, postImageDir: string): s
   }
   const base = path.basename(cleanedTarget);
   if (!base) return null;
+  const prefix = getImageUrlPrefix(collection, slug);
 
   if (IMAGE_EXT.test(base)) {
-    return `/images/blog/${slug}/${base}`;
+    return `${prefix}/${base}`;
   }
 
-  if (!fs.existsSync(postImageDir)) return `/images/blog/${slug}/${base}`;
+  if (!fs.existsSync(postImageDir)) return `${prefix}/${base}`;
   const files = fs.readdirSync(postImageDir);
   const match = files.find((f) => path.basename(f, path.extname(f)) === base);
-  return match ? `/images/blog/${slug}/${match}` : `/images/blog/${slug}/${base}`;
+  return match ? `${prefix}/${match}` : `${prefix}/${base}`;
 }
 
-function patchImageLinks(markdown: string, slug: string, postImageDir: string): string {
+function patchImageLinks(markdown: string, slug: string, postImageDir: string, collection: Collection): string {
   let patchedMarkdown = markdown.replace(
     /!\[([^\]]*)\]\(([^)\s]+)(?:\s+"[^"]*")?\)/g,
     (full, altText, rawTarget) => {
-      const finalUrl = toFinalImageUrl(rawTarget, slug);
+      const finalUrl = toFinalImageUrl(rawTarget, slug, collection);
       return finalUrl ? `![${altText}](${finalUrl})` : full;
     },
   );
@@ -83,16 +108,16 @@ function patchImageLinks(markdown: string, slug: string, postImageDir: string): 
   patchedMarkdown = patchedMarkdown.replace(
     /<img([^>]*?)src=["']([^"']+)["']([^>]*)>/gi,
     (full, pre, src, post) => {
-      const finalUrl = toFinalImageUrl(src, slug);
+      const finalUrl = toFinalImageUrl(src, slug, collection);
       return finalUrl ? `<img${pre}src="${finalUrl}"${post}>` : full;
     },
   );
 
-  // Convert iA Writer–style bare paths (./file.jpg or ./file, optionally wrapped in **) to markdown images
+  // Convert iA Writer-style bare paths (./file.jpg or ./file, optionally wrapped in **) to markdown images
   patchedMarkdown = patchedMarkdown.replace(
     /(?:^|\n)\s*\*{0,2}(\.\\?\/)([a-zA-Z0-9_.-]+)\*{0,2}\s*(?:\n|$)/gm,
     (full, prefix, fileName) => {
-      const finalUrl = resolveBarePath(prefix + fileName, slug, postImageDir);
+      const finalUrl = resolveBarePath(prefix + fileName, slug, postImageDir, collection);
       return finalUrl ? `\n![](${finalUrl})\n` : full;
     },
   );
@@ -100,7 +125,7 @@ function patchImageLinks(markdown: string, slug: string, postImageDir: string): 
   patchedMarkdown = patchedMarkdown.replace(
     /(?:^|\s)\*{0,2}(\.\\?\/)([a-zA-Z0-9_.-]+\.(?:jpg|jpeg|png|gif|webp|avif|svg))\*{0,2}(?:[\s\n]|$)/gim,
     (full, prefix, fileName) => {
-      const finalUrl = resolveBarePath(prefix + fileName, slug, postImageDir);
+      const finalUrl = resolveBarePath(prefix + fileName, slug, postImageDir, collection);
       return finalUrl ? ` ![](${finalUrl}) ` : full;
     },
   );
@@ -140,10 +165,15 @@ function ingestFolder(folderPath: string) {
     return;
   }
 
-  const postImageDir = path.join(IMAGE_TARGET_ROOT, slug);
+  const collection: Collection = getCollection(parsed);
+  const contentTarget = CONTENT_TARGETS[collection];
+  const imageTargetRoot = IMAGE_TARGET_ROOTS[collection];
+  const postImageDir = path.join(imageTargetRoot, slug);
   ensureDir(postImageDir);
 
   const excludeNames = new Set(["frontmatter.md", `${slug}.md`]);
+  const featuredDir = path.join(ROOT_DIR, "public", "images", "featured");
+  const slugExts = [".png", ".jpg", ".jpeg", ".webp"];
   for (const entry of fs.readdirSync(folderPath, { withFileTypes: true })) {
     if (!entry.isFile() || excludeNames.has(entry.name)) continue;
     const fullPath = path.join(folderPath, entry.name);
@@ -155,24 +185,35 @@ function ingestFolder(folderPath: string) {
       destPath = path.join(postImageDir, `${stem}-${Date.now()}${ext}`);
     }
     moveFile(fullPath, destPath);
+    if ((collection === "blog" || collection === "forecasts") && slugExts.some((ext) => baseName.toLowerCase() === `${slug}${ext}`)) {
+      ensureDir(featuredDir);
+      const featuredPath = path.join(featuredDir, `${slug}${path.extname(baseName)}`);
+      try {
+        fs.copyFileSync(destPath, featuredPath);
+      } catch (_) {}
+    }
   }
 
   const manuscriptRaw = fs.readFileSync(manuscriptPath, "utf8");
   const combined = frontmatterRaw.trimEnd() + "\n\n" + manuscriptRaw.trimStart();
-  const patchedContent = patchImageLinks(combined, slug, postImageDir);
+  const patchedContent = patchImageLinks(combined, slug, postImageDir, collection);
 
-  ensureDir(BLOG_TARGET);
-  const targetMarkdownPath = path.join(BLOG_TARGET, `${slug}.md`);
+  ensureDir(contentTarget);
+  const targetMarkdownPath = path.join(contentTarget, `${slug}.md`);
   fs.writeFileSync(targetMarkdownPath, patchedContent, "utf8");
 
   fs.rmSync(folderPath, { recursive: true, force: true });
-  console.log(`🚀 Ingested ${slug}: Post published and images moved.`);
+  console.log(`🚀 Ingested ${slug} → ${collection}: Post published and images moved.`);
 }
 
 function run() {
   ensureDir(INGEST_ROOT);
-  ensureDir(BLOG_TARGET);
-  ensureDir(IMAGE_TARGET_ROOT);
+  for (const target of Object.values(CONTENT_TARGETS)) {
+    ensureDir(target);
+  }
+  for (const target of Object.values(IMAGE_TARGET_ROOTS)) {
+    ensureDir(target);
+  }
 
   const folders = getProjectFolders();
   for (const folderPath of folders) {

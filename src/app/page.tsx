@@ -24,7 +24,7 @@ import {
 } from "@/components/card";
 import { Container } from "@/components/container";
 import { ScrollOnHash } from "@/components/scroll-on-hash";
-import { getAuthorBySlug } from "@/data/authors";
+import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
 import {
   CONTACT_EMAIL,
   DIGITAL_TAROT_APP_URL,
@@ -36,7 +36,8 @@ import {
   TIKTOK_URL,
   WRITTEN_REPORT_URL,
 } from "@/lib/config";
-import { getAllBlogPosts } from "@/lib/content";
+import { CurrentForecastBanner } from "@/components/blog/current-forecast-banner";
+import { getAllBlogPosts, getAllForecasts } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -51,7 +52,11 @@ export const metadata: Metadata = {
 const sectionPadding = "py-16 sm:py-20";
 
 export default async function Home() {
-  const recentPosts = (await getAllBlogPosts()).slice(0, 3);
+  const [recentPosts, forecasts] = await Promise.all([
+    getAllBlogPosts().then((posts) => posts.slice(0, 3)),
+    getAllForecasts(),
+  ]);
+  const latestForecast = forecasts[0];
 
   return (
     <div className="-mt-10 -mb-16 pb-0">
@@ -332,6 +337,11 @@ export default async function Home() {
         style={{ backgroundColor: "#ffffff" }}
       >
         <Container className="px-4 sm:px-6">
+          {latestForecast ? (
+            <div className="mb-10">
+              <CurrentForecastBanner post={latestForecast} basePath="/forecasts" />
+            </div>
+          ) : null}
           <h2 className="font-heading text-center text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
             Recent Posts
           </h2>
@@ -359,10 +369,13 @@ export default async function Home() {
                       <CalendarDays className="h-3.5 w-3.5 shrink-0" />
                       {new Date(post.frontmatter.date).toLocaleDateString()}
                     </span>
-                    <span className="flex items-center gap-1.5">
-                      <User className="h-3.5 w-3.5 shrink-0" />
-                      {getAuthorBySlug(post.frontmatter.author).name}
-                    </span>
+                    {getAuthorBySlug(post.frontmatter.author).slug !==
+                    DEFAULT_AUTHOR_SLUG ? (
+                      <span className="flex items-center gap-1.5">
+                        <User className="h-3.5 w-3.5 shrink-0" />
+                        {getAuthorBySlug(post.frontmatter.author).name}
+                      </span>
+                    ) : null}
                     <span className="flex items-center gap-1.5">
                       <FolderOpen className="h-3.5 w-3.5 shrink-0" />
                       {post.frontmatter.category

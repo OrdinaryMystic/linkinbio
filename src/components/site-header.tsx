@@ -64,6 +64,9 @@ export function SiteHeader() {
               ))}
             </div>
           </div>
+          <Link href="/forecasts" className="transition-colors hover:text-white">
+            Forecasts
+          </Link>
           {navLinks
             .filter((link) => link.href !== "/")
             .map((link) => (
@@ -161,6 +164,15 @@ export function SiteHeader() {
                   ))}
                 </ul>
               </div>
+            </li>
+            <li>
+              <Link
+                href="/forecasts"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block rounded-lg px-4 py-3 text-base font-semibold text-slate-200 transition-colors hover:bg-white/10 hover:text-white"
+              >
+                Forecasts
+              </Link>
             </li>
             {navLinks
               .filter((link) => link.href !== "/")

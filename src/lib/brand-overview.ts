@@ -1,5 +1,5 @@
 export const BrandDNA = {
-    name: "Tyler Martin",
+    name: "Tyler, the Ordinary Mystic",
     persona: "The Ordinary Mystic",
     location: "Tulsa, OK (Art Deco/Midnight Modern aesthetic)",
     

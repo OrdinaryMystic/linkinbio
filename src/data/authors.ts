@@ -13,7 +13,7 @@ export type AuthorProfile = {
 export const AUTHORS: Record<string, AuthorProfile> = {
   "tyler-martin": {
     "slug": "tyler-martin",
-    "name": "Tyler Martin",
+    "name": "Tyler, the Ordinary Mystic",
     "bio": "Practical astrology and tarot for skeptics who want signal over noise.",
     "description": "Tyler writes grounded essays on astrology, tarot, and pattern recognition. His work translates symbolic systems into practical frameworks for decision-making, timing, and self-reflection.",
     "image": "/favicon.png",

@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  BookOpen,
-  User,
-} from "lucide-react";
+import { User } from "lucide-react";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Montserrat } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
@@ -27,7 +24,7 @@ const geistMono = Geist_Mono({
 const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  weight: ["700", "900"],
+  weight: ["600", "700", "900"],
 });
 
 const siteName = SITE_NAME;
@@ -113,8 +110,14 @@ export default function RootLayout({
             <Container className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
               <div className="space-y-2 text-sm text-slate-300">
                 <div className="flex items-center gap-2 font-medium text-white">
-                  <BookOpen className="h-4 w-4 text-slate-400" />
-                  <span>Ordinary Mystic Readings: Astrology and Tarot Without the Woo</span>
+                  <Image
+                    src="/favicon.png"
+                    alt=""
+                    width={20}
+                    height={20}
+                    className="h-5 w-5 shrink-0"
+                  />
+                  <span>Ordinary Mystic Readings</span>
                 </div>
               </div>
               <div className="flex flex-col gap-3 text-sm text-slate-300">

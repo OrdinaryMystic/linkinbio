@@ -1,13 +1,21 @@
 import type { MetadataRoute } from "next";
 import { AUTHORS } from "@/data/authors";
 import { TAXONOMY_INDEX } from "@/data/taxonomy";
-import { getAllBlogPosts } from "@/lib/content";
+import {
+  getAllBlogPosts,
+  getAllForecasts,
+  getAllKnowledgeBase,
+} from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-static";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const posts = await getAllBlogPosts();
+  const [posts, forecasts, knowledgeBase] = await Promise.all([
+    getAllBlogPosts(),
+    getAllForecasts(),
+    getAllKnowledgeBase(),
+  ]);
   const categories = new Set<string>();
   const subcategories = new Set<string>();
   const tags = new Set<string>();
@@ -21,6 +29,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     "/",
     "/blog",
+    "/forecasts",
+    "/knowledge-base",
     "/book",
     "/tools",
     "/resources",
@@ -37,6 +47,20 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     url: `${SITE_URL}/blog/${post.slug}`,
     changeFrequency: "weekly",
     priority: 0.8,
+    lastModified: post.frontmatter.date ? new Date(post.frontmatter.date) : undefined,
+  }));
+
+  const forecastRoutes: MetadataRoute.Sitemap = forecasts.map((post) => ({
+    url: `${SITE_URL}/forecasts/${post.slug}`,
+    changeFrequency: "weekly",
+    priority: 0.8,
+    lastModified: post.frontmatter.date ? new Date(post.frontmatter.date) : undefined,
+  }));
+
+  const knowledgeBaseRoutes: MetadataRoute.Sitemap = knowledgeBase.map((post) => ({
+    url: `${SITE_URL}/knowledge-base/${post.slug}`,
+    changeFrequency: "weekly",
+    priority: 0.7,
     lastModified: post.frontmatter.date ? new Date(post.frontmatter.date) : undefined,
   }));
 
@@ -78,6 +102,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...staticRoutes,
     ...blogRoutes,
+    ...forecastRoutes,
+    ...knowledgeBaseRoutes,
     ...categoryRoutes,
     ...subcategoryRoutes,
     ...tagRoutes,

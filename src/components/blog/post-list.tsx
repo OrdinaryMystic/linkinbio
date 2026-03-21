@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CalendarDays, FolderOpen, User } from "lucide-react";
 import { Button } from "@/components/button";
 import { Card, CardHeader, CardTitle } from "@/components/card";
-import { getAuthorBySlug } from "@/data/authors";
+import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
 import type { BlogPostFrontmatter, MarkdownListItem } from "@/lib/content";
 import { formatSlugLabel } from "@/lib/blog-taxonomy-utils";
 
@@ -12,6 +12,7 @@ type PostListProps = {
   emptyMessage: string;
   columns?: 1 | 2;
   showAuthorMeta?: boolean;
+  basePath?: string;
 };
 
 export function PostList({
@@ -19,6 +20,7 @@ export function PostList({
   emptyMessage,
   columns = 2,
   showAuthorMeta = true,
+  basePath = "/blog",
 }: PostListProps) {
   if (posts.length === 0) {
     return <p className="text-sm text-slate-600">{emptyMessage}</p>;
@@ -39,7 +41,7 @@ export function PostList({
           <div className="flex min-w-0 flex-1 flex-col">
             <CardHeader className="mb-2">
               <CardTitle>
-                <Link href={`/blog/${post.slug}`} className="hover:underline underline-offset-4">
+                <Link href={`${basePath}/${post.slug}`} className="hover:underline underline-offset-4">
                   {post.frontmatter.title}
                 </Link>
               </CardTitle>
@@ -50,7 +52,8 @@ export function PostList({
                   <CalendarDays className="h-3.5 w-3.5 shrink-0" />
                   {new Date(post.frontmatter.date).toLocaleDateString()}
                 </span>
-                {showAuthorMeta ? (
+                {showAuthorMeta &&
+                getAuthorBySlug(post.frontmatter.author).slug !== DEFAULT_AUTHOR_SLUG ? (
                   <span className="flex items-center gap-1.5">
                     <User className="h-3.5 w-3.5 shrink-0" />
                     <Link
@@ -75,7 +78,7 @@ export function PostList({
                   )}
                 </span>
               </div>
-              <Link href={`/blog/${post.slug}`} className="block w-full sm:w-auto sm:flex-shrink-0">
+              <Link href={`${basePath}/${post.slug}`} className="block w-full sm:w-auto sm:flex-shrink-0">
                 <Button size="sm" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
               </Link>
             </div>

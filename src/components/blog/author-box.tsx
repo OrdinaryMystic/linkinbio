@@ -15,9 +15,10 @@ export type AuthorSummary = {
 
 type AuthorBoxProps = {
   author: AuthorSummary;
+  embedded?: boolean;
 };
 
-export function AuthorBox({ author }: AuthorBoxProps) {
+export function AuthorBox({ author, embedded = false }: AuthorBoxProps) {
   const summaryText = author.description ?? author.bio ?? "";
 
   const iconForSocial = (label: string) => {
@@ -27,7 +28,13 @@ export function AuthorBox({ author }: AuthorBoxProps) {
   };
 
   return (
-    <section className="rounded-xl border border-[#3a315d] bg-[#1f2237] p-4 text-white sm:p-6">
+    <section
+      className={
+        embedded
+          ? "rounded-b-2xl border-0 bg-[#1f2237] p-4 text-white sm:p-6"
+          : "rounded-xl border border-[#3a315d] bg-[#1f2237] p-4 text-white sm:p-6"
+      }
+    >
       <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-white/70">
         Author
       </h2>

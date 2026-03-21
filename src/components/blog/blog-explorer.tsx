@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { CalendarDays, FolderOpen, User } from "lucide-react";
 import { PostList } from "@/components/blog/post-list";
-import { getAuthorBySlug } from "@/data/authors";
+import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
 import type { BlogPostFrontmatter, MarkdownListItem } from "@/lib/content";
 import {
   filterPostsBySearchTagAndArchive,
@@ -27,6 +27,8 @@ type BlogExplorerProps = {
   activeArchive?: string;
   sidebarPrimary?: "categories" | "subcategories";
   emptyMessage: string;
+  skipFeatured?: boolean;
+  basePath?: string;
 };
 
 export function BlogExplorer({
@@ -36,6 +38,8 @@ export function BlogExplorer({
   activeArchive,
   sidebarPrimary = "categories",
   emptyMessage,
+  skipFeatured = false,
+  basePath = "/blog",
 }: BlogExplorerProps) {
   const filteredPosts = filterPostsBySearchTagAndArchive(
     posts,
@@ -43,7 +47,7 @@ export function BlogExplorer({
     activeTag,
     activeArchive,
   );
-  const shouldShowFeatured = filteredPosts.length > 1;
+  const shouldShowFeatured = !skipFeatured && filteredPosts.length > 1;
   const featuredIndex = shouldShowFeatured
     ? filteredPosts.findIndex((post) => post.frontmatter.featured)
     : -1;
@@ -85,7 +89,7 @@ export function BlogExplorer({
               </p>
               <CardTitle>
                 <Link
-                  href={`/blog/${featuredPost.slug}`}
+                  href={`${basePath}/${featuredPost.slug}`}
                   className="hover:underline underline-offset-4"
                 >
                   {featuredPost.frontmatter.title}
@@ -99,15 +103,18 @@ export function BlogExplorer({
                   <CalendarDays className="h-3.5 w-3.5 shrink-0" />
                   {new Date(featuredPost.frontmatter.date).toLocaleDateString()}
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <User className="h-3.5 w-3.5 shrink-0" />
-                  <Link
-                    href={`/authors/${getAuthorBySlug(featuredPost.frontmatter.author).slug}`}
-                    className="underline-offset-2 hover:underline"
-                  >
-                    {getAuthorBySlug(featuredPost.frontmatter.author).name}
-                  </Link>
-                </span>
+                {getAuthorBySlug(featuredPost.frontmatter.author).slug !==
+                DEFAULT_AUTHOR_SLUG ? (
+                  <span className="flex items-center gap-1.5">
+                    <User className="h-3.5 w-3.5 shrink-0" />
+                    <Link
+                      href={`/authors/${getAuthorBySlug(featuredPost.frontmatter.author).slug}`}
+                      className="underline-offset-2 hover:underline"
+                    >
+                      {getAuthorBySlug(featuredPost.frontmatter.author).name}
+                    </Link>
+                  </span>
+                ) : null}
                 <span className="flex items-center gap-1.5">
                   <FolderOpen className="h-3.5 w-3.5 shrink-0" />
                   {featuredPost.frontmatter.category ? (
@@ -122,7 +129,7 @@ export function BlogExplorer({
                   )}
                 </span>
               </div>
-              <Link href={`/blog/${featuredPost.slug}`} className="block w-full sm:w-auto sm:flex-shrink-0">
+              <Link href={`${basePath}/${featuredPost.slug}`} className="block w-full sm:w-auto sm:flex-shrink-0">
                 <Button size="sm" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
               </Link>
             </CardFooter>
@@ -131,7 +138,7 @@ export function BlogExplorer({
       ) : null}
 
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr] lg:items-start">
-        <PostList posts={restPosts} emptyMessage={emptyMessage} columns={1} />
+        <PostList posts={restPosts} emptyMessage={emptyMessage} columns={1} basePath={basePath} />
 
         <aside className="space-y-5 rounded-xl border border-slate-200 bg-white p-4">
           <section className="space-y-2">

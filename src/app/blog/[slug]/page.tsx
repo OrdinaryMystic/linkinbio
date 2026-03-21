@@ -8,8 +8,10 @@ import { AuthorBox } from "@/components/blog/author-box";
 import { Comments } from "@/components/blog/comments";
 import { PostSidebar } from "@/components/blog/post-sidebar";
 import { RelatedPostsCarousel } from "@/components/blog/related-posts-carousel";
+import { CalendarDays, FolderOpen, User } from "lucide-react";
 import { Badge } from "@/components/badge";
-import { getAuthorBySlug } from "@/data/authors";
+import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
+import { formatSlugLabel } from "@/lib/blog-taxonomy-utils";
 import { getTaxonomyEntity } from "@/data/taxonomy";
 import { type BlogPostFrontmatter, getAllBlogPosts, getEntryBySlug } from "@/lib/content";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
@@ -59,7 +61,7 @@ export async function generateMetadata({
           url: fm.image ? `${SITE_URL}${fm.image}` : `${SITE_URL}/images/featured/horizon.png`,
           width: 1200,
           height: 630,
-          alt: fm.title,
+          alt: fm.imageAlt ?? fm.title,
         },
       ],
     },
@@ -104,12 +106,11 @@ export default async function BlogPostPage({
   const breadcrumbs = [
     { label: "Blog", href: "/blog" },
     ...(category
-      ? [{ label: category.replaceAll("-", " "), href: `/blog/categories/${category}` }]
+      ? [{ label: formatSlugLabel(category), href: `/blog/categories/${category}` }]
       : []),
     ...(subcategory
-      ? [{ label: subcategory.replaceAll("-", " "), href: `/blog/subcategories/${subcategory}` }]
+      ? [{ label: formatSlugLabel(subcategory), href: `/blog/subcategories/${subcategory}` }]
       : []),
-    { label: fm.title, href: `/blog/${slug}` },
   ];
 
   const currentTags = new Set(fm.tags ?? []);
@@ -200,6 +201,22 @@ export default async function BlogPostPage({
     })),
   };
 
+  const faq = fm.faq;
+  const faqJsonLd =
+    faq?.length &&
+    ({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faq.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    });
+
   return (
     <article className="space-y-6">
       <ReaderMilestone slug={slug} />
@@ -211,6 +228,12 @@ export default async function BlogPostPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
+      {faqJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
+      ) : null}
       <header className="space-y-3">
         <nav className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide text-slate-500">
           {breadcrumbs.map((crumb, index) => (
@@ -231,7 +254,7 @@ export default async function BlogPostPage({
       <div className="relative h-60 w-full overflow-hidden rounded-2xl bg-slate-100 shadow-lg sm:h-80">
         <Image
           src={fm.image ?? "/images/placeholder-blog-1.svg"}
-          alt={fm.title}
+          alt={fm.imageAlt ?? fm.title}
           fill
           priority
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 960px"
@@ -243,21 +266,38 @@ export default async function BlogPostPage({
           <h1 className="font-heading text-2xl font-black tracking-tight text-white sm:text-4xl">
             {fm.title}
           </h1>
-          <p className="mt-2 text-xs text-white/90">
-            {new Date(fm.date).toLocaleDateString()}
-          </p>
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/90">
+            <span className="flex items-center gap-1.5">
+              <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              {new Date(fm.date).toLocaleDateString()}
+            </span>
+            {author.slug !== DEFAULT_AUTHOR_SLUG ? (
+              <span className="flex items-center gap-1.5">
+                <User className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                <Link
+                  href={`/authors/${author.slug}`}
+                  className="underline-offset-2 hover:text-white hover:underline"
+                >
+                  {author.name}
+                </Link>
+              </span>
+            ) : null}
+            <span className="flex items-center gap-1.5">
+              <FolderOpen className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              {category ? (
+                <Link
+                  href={`/blog/categories/${category}`}
+                  className="underline-offset-2 hover:text-white hover:underline"
+                >
+                  {formatSlugLabel(category)}
+                </Link>
+              ) : (
+                "Uncategorized"
+              )}
+            </span>
+          </div>
         </div>
       </div>
-
-      {linkedMetadata.length > 0 ? (
-        <section className="flex flex-wrap gap-2">
-          {linkedMetadata.map((item) => (
-            <Link key={item.href} href={item.href}>
-              <Badge className="hover:bg-slate-100">{item.label}</Badge>
-            </Link>
-          ))}
-        </section>
-      ) : null}
 
       <section
         className="prose-content max-w-none"
@@ -266,34 +306,52 @@ export default async function BlogPostPage({
 
       <PostSidebar methodology={fm.methodology} sources={fm.sources} />
 
-      <aside className="rounded-2xl border border-slate-200 bg-slate-50 p-6 shadow-sm">
-        <div className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
-            {ctaEyebrow}
-          </p>
-          <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900">
-            {ctaTitle}
-          </h2>
-          <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
-            {ctaBody}
-          </p>
-          <Link href={ctaUrl} className="inline-block pt-1">
-            <Button size="sm">{ctaLabel}</Button>
-          </Link>
-        </div>
-      </aside>
+      <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+        <aside className="rounded-t-2xl border-0 bg-slate-50 p-6">
+          <div className="space-y-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              {ctaEyebrow}
+            </p>
+            <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900">
+              {ctaTitle}
+            </h2>
+            <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+              {ctaBody}
+            </p>
+            <Link href={ctaUrl} className="inline-block pt-1">
+              <Button size="sm">{ctaLabel}</Button>
+            </Link>
+          </div>
+        </aside>
+        <AuthorBox
+          embedded
+          author={{
+            slug: author.slug,
+            name: author.name,
+            bio: author.bio,
+            image: author.image,
+            socials: author.socials,
+          }}
+        />
+      </div>
 
       <Comments />
-      <AuthorBox
-        author={{
-          slug: author.slug,
-          name: author.name,
-          bio: author.bio,
-          image: author.image,
-          socials: author.socials,
-        }}
-      />
       <RelatedPostsCarousel items={relatedPosts} />
+
+      {linkedMetadata.length > 0 ? (
+        <section className="space-y-4">
+          <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900">
+            Tags
+          </h2>
+          <div className="flex flex-wrap gap-2">
+          {linkedMetadata.map((item) => (
+            <Link key={item.href} href={item.href}>
+              <Badge className="hover:bg-slate-100">{item.label}</Badge>
+            </Link>
+          ))}
+          </div>
+        </section>
+      ) : null}
     </article>
   );
 }

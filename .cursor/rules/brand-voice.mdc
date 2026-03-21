@@ -1,0 +1,38 @@
+---
+description: Ordinary Mystic brand voice and writing standards for all content
+alwaysApply: true
+---
+
+# Ordinary Mystic Brand Voice
+
+## Em Dashes: NEVER USE THEM
+
+Ordinary Mystic has a fierce, non-negotiable hatred of em dashes (`—`). Do not use them. Ever. In blog posts, copy, component text, comments, or any written output.
+
+**Fix em dashes by:**
+- Replacing ` — ` parentheticals with a colon, comma, or by restructuring the sentence
+- Using ` - ` (space-hyphen-space) only when absolutely necessary as a separator
+- Rewriting the sentence so the interruption isn't needed
+
+```
+❌ BAD:  "This is the most volatile week — and you should be careful."
+✅ GOOD: "This is the most volatile week. Be careful."
+✅ GOOD: "This is the most volatile week, and you should be careful."
+✅ GOOD: "This is the most volatile week: be careful."
+```
+
+## Voice Principles
+
+- Direct, plain English. No mysticism theater.
+- Personal and grounded, not vague or flowery.
+- Technical accuracy matters. Don't soften astrological language to the point of uselessness.
+- Avoid filler phrases like "it's important to note," "it goes without saying," "needless to say."
+- Short sentences preferred over long compound ones.
+- No exclamation points in body copy. Use them only in CTAs or UI labels if absolutely needed.
+
+## Formatting Conventions
+
+- Blog posts use Markdown with raw HTML blocks for interactive elements (details/summary accordions, figure/figcaption, two-column layouts).
+- Image captions use `<figure>/<figcaption>` HTML, not italic text below markdown images.
+- Rising sign sections in forecast posts use `<details id="sign-name-rising">` accordion elements.
+- FAQ sections use `<details>/<summary>` accordion elements.

@@ -9,6 +9,10 @@
   --color-brand-mid: #213752;
   --color-brand-accent: #2d2a4a;
   --color-brand-accent-hover: #3d3a6b;
+  --color-brand-light: #f5f3fa;
+  --color-brand-light-mid: #ebe9f5;
+  --color-brand-light-border: #e2deef;
+  --color-brand-muted: #5c5678;
 }
 
 .font-heading {
@@ -26,16 +30,21 @@ body {
     BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.prose-content h2 {
-  @apply mt-6 text-lg font-semibold text-slate-900;
+.prose-content h1 {
+  font-family: var(--font-montserrat), var(--font-geist-sans), system-ui, sans-serif;
+  @apply mt-6 text-xl font-black text-slate-900;
 }
-
+.prose-content h2 {
+  font-family: var(--font-montserrat), var(--font-geist-sans), system-ui, sans-serif;
+  @apply mt-6 text-lg font-bold text-slate-900;
+}
 .prose-content h3 {
+  font-family: var(--font-montserrat), var(--font-geist-sans), system-ui, sans-serif;
   @apply mt-4 text-base font-semibold text-slate-900;
 }
 
 .prose-content p {
-  @apply mt-3 text-sm leading-relaxed text-slate-700;
+  @apply mt-3 text-base leading-relaxed text-slate-700;
 }
 
 .prose-content img {
@@ -43,7 +52,7 @@ body {
 }
 
 .prose-content ul {
-  @apply mt-3 list-disc pl-5 text-sm text-slate-700;
+  @apply mt-3 list-disc pl-5 text-base text-slate-700;
 }
 
 .prose-content li + li {
@@ -52,6 +61,259 @@ body {
 
 .prose-content hr {
   @apply my-6 ml-0 w-11/12 border-slate-300/70;
+}
+
+/* Tables */
+.prose-content .prose-table-scroll {
+  @apply overflow-x-auto;
+}
+@media (max-width: 639px) {
+  .prose-content .prose-table-scroll {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+.prose-content table {
+  @apply mt-6 w-full min-w-[36rem] border-collapse overflow-hidden rounded-xl border border-slate-200 text-sm;
+}
+
+.prose-content thead {
+  @apply bg-slate-100;
+}
+
+.prose-content thead tr {
+  @apply border-b-2 border-slate-200;
+}
+
+.prose-content th {
+  @apply px-4 py-2.5 text-left text-xs font-semibold uppercase tracking-wide text-slate-600;
+}
+@media (max-width: 639px) {
+  .prose-content th {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+  }
+}
+
+.prose-content td {
+  @apply border-b border-slate-100 px-4 py-2.5 text-slate-700;
+}
+@media (max-width: 639px) {
+  .prose-content td {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    padding-top: 0.875rem;
+    padding-bottom: 0.875rem;
+  }
+}
+
+.prose-content tbody tr:nth-child(odd) {
+  @apply bg-slate-50;
+}
+.prose-content tbody tr:nth-child(even) {
+  @apply bg-white;
+}
+
+.prose-content tbody tr:hover {
+  background-color: var(--color-brand-light);
+}
+
+.prose-content tbody tr:last-child td {
+  @apply border-b-0;
+}
+
+/* Figure / image captions */
+.prose-content figure {
+  @apply mt-6;
+}
+
+.prose-content figure img {
+  @apply mt-0;
+}
+
+.prose-content figcaption {
+  @apply mt-2 text-center text-xs leading-relaxed text-slate-500;
+}
+
+.prose-content figcaption a {
+  @apply underline underline-offset-2 hover:text-slate-700;
+}
+
+/* Details / summary accordion
+   Note: Do NOT use display:flex on summary - it breaks native toggle in Safari/WebKit */
+.prose-content details {
+  @apply mt-4 overflow-hidden rounded-xl border border-slate-200;
+}
+
+.prose-content details + details {
+  @apply mt-2;
+}
+
+.prose-content summary {
+  display: block;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  padding-right: 2rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #0f172a;
+  background-color: #fff;
+  user-select: none;
+  list-style: none;
+  position: relative;
+}
+
+.prose-content summary::-webkit-details-marker {
+  display: none;
+}
+
+.prose-content summary::after {
+  content: "▾";
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+.prose-content details[open] > summary {
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.prose-content details[open] > summary::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.prose-content summary:hover {
+  background-color: #f8fafc;
+}
+
+/* Rising sign accordion cards: brand gradient title bar */
+.prose-content details[id$="-rising"] {
+  border: none;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+.prose-content details[id$="-rising"] summary {
+  background: linear-gradient(to right, #151326, #213752);
+  color: white;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.prose-content details[id$="-rising"] summary .sign-house {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 400;
+  margin-left: 0.5rem;
+}
+
+.prose-content details[id$="-rising"] summary::after {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.prose-content details[id$="-rising"][open] > summary {
+  background: linear-gradient(to right, #151326, #213752);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.prose-content details[id$="-rising"] summary:hover {
+  background: linear-gradient(to right, #1b1a2f, #2a4368);
+}
+
+.prose-content .sign-details-body,
+.prose-content .faq-details-body {
+  @apply px-4 pb-4 pt-3 text-base leading-relaxed text-slate-700;
+}
+
+.prose-content .sign-details-body p,
+.prose-content .faq-details-body p {
+  @apply mt-2;
+}
+
+.prose-content .sign-details-body p:first-child,
+.prose-content .faq-details-body p:first-child {
+  @apply mt-0;
+}
+
+/* Two-column media split (e.g. GIF beside text) */
+.prose-media-split {
+  @apply mt-6 flex flex-col gap-4 sm:flex-row sm:items-start sm:gap-6;
+}
+
+.prose-media-split__text {
+  @apply flex-1 text-base leading-relaxed text-slate-700;
+}
+
+.prose-media-split__text p {
+  @apply mt-2;
+}
+
+.prose-media-split__text p:first-child {
+  @apply mt-0;
+}
+
+.prose-media-split__media {
+  @apply w-full shrink-0 sm:w-2/5;
+}
+
+.prose-media-split__media img {
+  @apply mt-0 w-full rounded-xl border border-slate-200 shadow-sm;
+}
+
+.prose-media-split__media em {
+  @apply mt-1.5 block text-center text-xs text-slate-500;
+}
+
+.prose-media-split__media em a {
+  @apply underline underline-offset-2 hover:text-slate-700;
+}
+
+/* Forecast jumper (inline in markdown; New to astrology block appears below) */
+.forecast-jumper {
+  @apply mt-6 overflow-hidden rounded-2xl px-5 py-4 shadow-lg;
+  background: linear-gradient(to right, #151326, #213752);
+}
+
+.forecast-jumper__title {
+  @apply text-sm font-semibold;
+  color: white !important;
+}
+
+.forecast-jumper__subtitle {
+  @apply mt-0.5 text-xs;
+  color: rgb(255 255 255 / 0.9) !important;
+}
+
+.forecast-jumper__grid {
+  @apply mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6;
+}
+
+.forecast-jumper__btn {
+  @apply flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-left text-sm font-medium text-white no-underline transition-colors hover:bg-white/20 hover:border-white/30;
+}
+
+.forecast-jumper__symbol {
+  @apply text-base leading-none;
+}
+
+/* Current Forecast banner: subtle image overlay on mobile only */
+.current-forecast-banner__image-overlay {
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(245 243 250 / 0.2) 100%
+  );
+}
+@media (min-width: 640px) {
+  .current-forecast-banner__image-overlay {
+    background: none;
+  }
 }
 
 .prose-content ul.contains-task-list {

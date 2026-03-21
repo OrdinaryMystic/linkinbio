@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
   output: "export",
   basePath: basePath || undefined,
   assetPrefix: basePath ? `${basePath}/` : undefined,
+  async redirects() {
+    return [
+      {
+        source: "/blog/aries-season-26",
+        destination: "/forecasts/aries-season-26",
+        permanent: true,
+      },
+    ];
+  },
   images: {
     unoptimized: true,
     remotePatterns: [

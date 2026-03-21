@@ -6,7 +6,7 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Short, grounded essays on tarot, astrology, and reflective practice—without the theatrics.",
+    "Short, grounded essays on tarot, astrology, and reflective practice, without the theatrics.",
   alternates: {
     canonical: `${SITE_URL}/blog`,
   },
@@ -33,7 +33,7 @@ export default async function BlogIndexPage({
           Blog
         </h1>
         <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
-          Essays and notes on tarot, astrology, and reflective tools—written for
+          Essays and notes on tarot, astrology, and reflective tools, written for
           people who like nuance more than predictions.
         </p>
       </header>

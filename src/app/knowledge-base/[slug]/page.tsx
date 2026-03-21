@@ -25,8 +25,14 @@ type Params = {
   slug: string;
 };
 
+/** Static export requires at least one param; remove when there is a published KB article. */
+const KB_STATIC_EXPORT_PLACEHOLDER_SLUG = "__kb_static_export_placeholder__";
+
 export async function generateStaticParams() {
   const posts = await getAllKnowledgeBase();
+  if (posts.length === 0) {
+    return [{ slug: KB_STATIC_EXPORT_PLACEHOLDER_SLUG }];
+  }
   return posts.map((post) => ({ slug: post.slug }));
 }
 

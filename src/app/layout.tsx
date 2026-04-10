@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { User } from "lucide-react";
 import { Geist, Geist_Mono } from "next/font/google";
-import { Montserrat } from "next/font/google";
+import { Newsreader } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { Container } from "@/components/container";
 import { PersonJsonLd } from "@/components/seo/person-json-ld";
-import { SITE_LIVE_MODE, TIKTOK_URL } from "@/lib/config";
+import { DIGITAL_TAROT_APP_URL, SITE_LIVE_MODE, TIKTOK_URL } from "@/lib/config";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -21,10 +20,11 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
-  weight: ["600", "700", "900"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
 const siteName = SITE_NAME;
@@ -33,20 +33,20 @@ const siteUrl = SITE_URL;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${siteName} – Tarot & Astrology Without the Woo`,
+    default: `${siteName} – Tarot & Astrology`,
     template: `%s | ${siteName}`,
   },
   description:
-    "Tarot and astrology sessions for thoughtful skeptics. Calm, grounded readings focused on clarity, not theatrics.",
+    "Readings, writing, and tools for finding meaning in the patterns of ordinary life. Tarot and astrology as structured thinking.",
   icons: {
     icon: "/favicon.png",
     shortcut: "/favicon.png",
     apple: "/favicon.png",
   },
   openGraph: {
-    title: `${siteName} – Tarot & Astrology Without the Woo`,
+    title: `${siteName} – Tarot & Astrology`,
     description:
-      "Tarot and astrology sessions for thoughtful skeptics. Calm, grounded readings focused on clarity, not theatrics.",
+      "Readings, writing, and tools for finding meaning in the patterns of ordinary life. Tarot and astrology as structured thinking.",
     url: siteUrl,
     siteName,
     type: "website",
@@ -55,15 +55,15 @@ export const metadata: Metadata = {
         url: "/images/featured/horizon.png",
         width: 1200,
         height: 630,
-        alt: `${siteName} – Tarot & Astrology Without the Woo`,
+        alt: `${siteName} – Tarot & Astrology`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteName} – Tarot & Astrology Without the Woo`,
+    title: `${siteName} – Tarot & Astrology`,
     description:
-      "Tarot and astrology sessions for thoughtful skeptics. Calm, grounded readings focused on clarity, not theatrics.",
+      "Readings, writing, and tools for finding meaning in the patterns of ordinary life. Tarot and astrology as structured thinking.",
     images: ["/images/featured/horizon.png"],
   },
   alternates: {
@@ -97,8 +97,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.variable} min-h-screen text-slate-900 antialiased`}
-        style={{ backgroundColor: "#f5f4f2" }}
+        className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} min-h-screen antialiased`}
         data-site-live={SITE_LIVE_MODE ? "true" : undefined}
       >
         <div className="flex min-h-screen flex-col">
@@ -106,83 +105,132 @@ export default function RootLayout({
           <main className="flex-1 pt-10 pb-16">
             <Container>{children}</Container>
           </main>
-          <footer className="border-t border-white/5 bg-[#0d0c14] py-10">
-            <Container className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
-              <div className="space-y-2 text-sm text-slate-300">
-                <div className="flex items-center gap-2 font-medium text-white">
-                  <Image
-                    src="/favicon.png"
-                    alt=""
-                    width={20}
-                    height={20}
-                    className="h-5 w-5 shrink-0"
-                  />
-                  <span>Ordinary Mystic Readings</span>
-                </div>
-              </div>
-              <div className="flex flex-col gap-3 text-sm text-slate-300">
-                <div className="flex items-center gap-2 font-medium text-white">
-                  <User className="h-4 w-4 text-slate-400" />
-                  <span>Contact</span>
-                </div>
-                <a
-                  href="mailto:ordinarymysticreadings@gmail.com"
-                  className="text-slate-200 underline-offset-4 hover:text-white hover:underline"
-                >
-                  ordinarymysticreadings@gmail.com
-                </a>
-                <div className="flex flex-wrap gap-x-4 gap-y-1">
-                  <a
-                    href="https://www.youtube.com/@OrdinaryMysticReadings"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="YouTube"
-                    title="YouTube"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-200 transition hover:border-white/40 hover:text-white"
-                  >
+          <footer
+            className="py-12"
+            style={{ backgroundColor: "#1a1614" }}
+          >
+            <Container>
+              <div className="grid gap-10 md:grid-cols-4">
+                {/* Brand column */}
+                <div className="md:col-span-1 space-y-3">
+                  <div className="flex items-center gap-2">
                     <Image
-                      src="/images/youtube-app-white-icon.png"
+                      src="/favicon.png"
                       alt=""
                       width={20}
                       height={20}
-                      className="h-5 w-5"
+                      className="h-5 w-5 shrink-0"
                     />
-                    <span className="sr-only">YouTube</span>
-                  </a>
-                  <a
-                    href={TIKTOK_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="TikTok"
-                    title="TikTok"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-200 transition hover:border-white/40 hover:text-white"
-                  >
-                    <Image src="/images/tiktok-white-icon.png" alt="" width={20} height={20} className="h-5 w-5" />
-                    <span className="sr-only">TikTok</span>
-                  </a>
-                  <a
-                    href="https://cash.app/$ordinarymystic"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Cash App"
-                    title="Cash App"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-200 transition hover:border-white/40 hover:text-white"
-                  >
-                    <Image src="/images/cashapp-white-icon.png" alt="" width={20} height={20} className="h-5 w-5" />
-                    <span className="sr-only">Cash App</span>
-                  </a>
-                  <a
-                    href="https://paypal.me/ordinarymystic"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="PayPal"
-                    title="PayPal"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-slate-200 transition hover:border-white/40 hover:text-white"
-                  >
-                    <Image src="/images/paypal-white-icon.png" alt="" width={20} height={20} className="h-5 w-5" />
-                    <span className="sr-only">PayPal</span>
-                  </a>
+                    <span className="font-heading text-sm font-semibold text-[#f5f0e8]">
+                      Ordinary Mystic
+                    </span>
+                  </div>
+                  <p className="text-xs leading-relaxed text-[#9a8d7d]">
+                    Finding meaning in the patterns of ordinary life.
+                  </p>
                 </div>
+
+                {/* Writing column */}
+                <div className="space-y-3">
+                  <h4 className="text-xs font-semibold uppercase tracking-widest text-[#9a8d7d]">
+                    Writing
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <Link href="/blog" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                        Blog
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/blog/categories/astrology" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                        Astrology
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/blog/categories/tarot" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                        Tarot
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/knowledge-base" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                        Knowledge Base
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Tools & Work column */}
+                <div className="space-y-3">
+                  <h4 className="text-xs font-semibold uppercase tracking-widest text-[#9a8d7d]">
+                    Tools & Work
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <Link href="/resources" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                        Resources
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/book" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                        Book a Reading
+                      </Link>
+                    </li>
+                    <li>
+                      <a href={DIGITAL_TAROT_APP_URL} target="_blank" rel="noopener noreferrer" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                        Digital Tarot
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Connect column */}
+                <div className="space-y-3">
+                  <h4 className="text-xs font-semibold uppercase tracking-widest text-[#9a8d7d]">
+                    Connect
+                  </h4>
+                  <ul className="space-y-2 text-sm">
+                    <li>
+                      <a
+                        href="mailto:ordinarymysticreadings@gmail.com"
+                        className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors"
+                      >
+                        Email
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="https://www.youtube.com/@OrdinaryMysticReadings"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors"
+                      >
+                        YouTube
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href={TIKTOK_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors"
+                      >
+                        TikTok
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div
+                className="mt-10 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+                style={{ borderTop: "1px solid #2d2620" }}
+              >
+                <p className="text-xs text-[#9a8d7d]">
+                  Tulsa, OK
+                </p>
+                <Link href="/about" className="text-xs text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                  About this project
+                </Link>
               </div>
             </Container>
           </footer>

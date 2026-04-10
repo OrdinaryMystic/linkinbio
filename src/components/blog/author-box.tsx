@@ -31,8 +31,8 @@ export function AuthorBox({ author, embedded = false }: AuthorBoxProps) {
     <section
       className={
         embedded
-          ? "rounded-b-2xl border-0 bg-[#1f2237] p-4 text-white sm:p-6"
-          : "rounded-xl border border-[#3a315d] bg-[#1f2237] p-4 text-white sm:p-6"
+          ? "rounded-b border-0 bg-[#1f2237] p-4 text-white sm:p-6"
+          : "rounded border border-[#3a315d] bg-[#1f2237] p-4 text-white sm:p-6"
       }
     >
       <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-white/70">

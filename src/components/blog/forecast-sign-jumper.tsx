@@ -24,18 +24,18 @@ export function ForecastSignJumper() {
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl bg-gradient-to-r from-[#151326] to-[#213752] px-5 py-4 shadow-lg">
-      <p className="text-xs font-semibold uppercase tracking-wide text-white/80">
+    <div className="overflow-hidden rounded px-5 py-4" style={{ backgroundColor: "var(--color-bone-raised)" }}>
+      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-bone)] opacity-80">
         Rising Sign Forecast
       </p>
-      <p className="mt-1 text-sm font-medium text-white">
+      <p className="mt-1 text-sm font-medium text-[var(--color-bone)]">
         Jump to your rising sign
       </p>
-      <p className="mt-0.5 text-xs leading-relaxed text-white/70">
+      <p className="mt-0.5 text-xs leading-relaxed text-[var(--color-bone)] opacity-70">
         Don&apos;t know yours? You need your birth time.{" "}
         <a
           href="/blog/why-birth-time"
-          className="underline underline-offset-2 hover:text-white"
+          className="underline underline-offset-2 hover:opacity-100"
         >
           Here&apos;s why it matters.
         </a>
@@ -46,7 +46,7 @@ export function ForecastSignJumper() {
             key={sign.id}
             type="button"
             onClick={() => handleClick(sign.id)}
-            className="flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-left text-sm font-medium text-white transition-colors hover:bg-white/20 hover:border-white/30"
+            className="flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-left text-sm font-medium text-[var(--color-bone)] transition-colors hover:bg-white/20 hover:border-white/30"
           >
             <span className="text-base leading-none" aria-hidden>
               {sign.symbol}

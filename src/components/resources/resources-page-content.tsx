@@ -64,20 +64,20 @@ export function ResourcesPageContent() {
   return (
     <div className="space-y-12">
       <header className="space-y-3">
-        <h1 className="font-heading text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
           Resource Hub for Ordinary Mystics
         </h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+        <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
           Clean, minimal tools that help you track readings, patterns, and
           experiments.
         </p>
       </header>
 
       <section>
-        <h2 className="font-heading text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+        <h2 className="font-heading text-xl font-bold tracking-tight text-[var(--color-ink)] sm:text-2xl">
           Tools to support your readings
         </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-slate-700">
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
           I&apos;m a Notion-certified template creator and power user, and have
           been using Notion personally and professionally for 10+ years.
           I&apos;ve built and sold templates, I&apos;ve been a Notion consultant
@@ -87,7 +87,7 @@ export function ResourcesPageContent() {
         </p>
         <div className="mt-6 grid gap-6 md:grid-cols-3">
           <Card className="flex flex-col p-0 overflow-hidden">
-            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-t-2xl bg-slate-100">
+            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-t bg-[var(--color-bone-raised)]">
               <Image
                 src="/images/resource/simple_tarot_journal.png"
                 alt=""
@@ -103,8 +103,8 @@ export function ResourcesPageContent() {
                 pulls, build a living card library, and surface past insights
                 when you need them.
               </CardDescription>
-              <p className="text-xs text-slate-500">Simple & searchable</p>
-              <p className="text-sm font-medium text-slate-700">$12</p>
+              <p className="text-xs text-[var(--color-muted)]">Simple & searchable</p>
+              <p className="text-sm font-medium text-[var(--color-ink)]">$12</p>
             </CardHeader>
             <CardFooter className="mt-auto px-6 pb-6">
               <Link
@@ -119,7 +119,7 @@ export function ResourcesPageContent() {
             </CardFooter>
           </Card>
           <Card className="flex flex-col p-0 overflow-hidden">
-            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-t-2xl bg-slate-100">
+            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-t bg-[var(--color-bone-raised)]">
               <Image
                 src="/images/resource/complete_tarot_dashboard.png"
                 alt=""
@@ -135,8 +135,8 @@ export function ResourcesPageContent() {
                 and reversed cards, contextual meanings, and statistics so your
                 practice deepens over time.
               </CardDescription>
-              <p className="text-xs text-slate-500">Advanced & flexible</p>
-              <p className="text-sm font-medium text-slate-700">$32</p>
+              <p className="text-xs text-[var(--color-muted)]">Advanced & flexible</p>
+              <p className="text-sm font-medium text-[var(--color-ink)]">$32</p>
             </CardHeader>
             <CardFooter className="mt-auto px-6 pb-6">
               <Link
@@ -151,7 +151,7 @@ export function ResourcesPageContent() {
             </CardFooter>
           </Card>
           <Card className="flex flex-col p-0 overflow-hidden">
-            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-t-2xl bg-slate-100">
+            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-t bg-[var(--color-bone-raised)]">
               <Image
                 src="/images/resource/digital_tarot.png"
                 alt=""
@@ -167,7 +167,7 @@ export function ResourcesPageContent() {
                 rearrange Tarot cards. This website is in beta, and mobile view
                 is not currently supported.
               </CardDescription>
-              <p className="text-xs text-slate-500">Free web app</p>
+              <p className="text-xs text-[var(--color-muted)]">Free web app</p>
             </CardHeader>
             <CardFooter className="mt-auto px-6 pb-6">
               <Link
@@ -188,14 +188,14 @@ export function ResourcesPageContent() {
         </div>
       </section>
 
-      <hr className="border-slate-200" />
+      <hr className="border-[var(--color-rule)]" />
 
       <section id="recommended-resources" className="space-y-6">
         <div className="space-y-2">
-          <h2 className="font-heading text-xl font-bold tracking-tight text-slate-900 sm:text-2xl">
+          <h2 className="font-heading text-xl font-bold tracking-tight text-[var(--color-ink)] sm:text-2xl">
             Recommended library
           </h2>
-          <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+          <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
             A curated set of books and digital tools I consistently recommend.
           </p>
         </div>
@@ -211,8 +211,8 @@ export function ResourcesPageContent() {
                 className={[
                   "rounded-full border px-4 py-1.5 text-xs font-medium tracking-wide transition",
                   isActive
-                    ? "border-slate-900 bg-slate-900 text-white"
-                    : "border-slate-300 text-slate-700 hover:border-slate-500",
+                    ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-[var(--color-bone)]"
+                    : "border-[var(--color-rule)] text-[var(--color-ink)] hover:border-[var(--color-muted)]",
                 ].join(" ")}
                 aria-pressed={isActive}
               >
@@ -227,13 +227,13 @@ export function ResourcesPageContent() {
             <button
               type="button"
               onClick={() => setBooksOpen((open) => !open)}
-              className="flex w-full cursor-pointer items-center justify-between border-b border-slate-200 pb-2 text-left"
+              className="flex w-full cursor-pointer items-center justify-between border-b border-[var(--color-rule)] pb-2 text-left"
               aria-expanded={booksOpen}
             >
-              <span className="text-sm font-semibold uppercase tracking-wide text-slate-700">
+              <span className="text-sm font-semibold uppercase tracking-wide text-[var(--color-ink)]">
                 Books ({books.length})
               </span>
-              <span className="relative h-4 w-4 cursor-pointer text-slate-500">
+              <span className="relative h-4 w-4 cursor-pointer text-[var(--color-muted)]">
                 <ChevronDown
                   className={[
                     "absolute inset-0 h-4 w-4 transition-all duration-250",
@@ -264,9 +264,9 @@ export function ResourcesPageContent() {
                 {books.map((resource) => (
                   <article
                     key={resource.url}
-                    className="rounded-xl border border-slate-200 bg-white p-4"
+                    className="rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-4"
                   >
-                    <h3 className="flex items-start gap-1.5 text-base font-semibold text-slate-900">
+                    <h3 className="flex items-start gap-1.5 text-base font-semibold text-[var(--color-ink)]">
                       <span>{resource.title}</span>
                       {resource.isAffiliate && (
                         <a
@@ -278,7 +278,7 @@ export function ResourcesPageContent() {
                         </a>
                       )}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--color-ink)]">
                       {resource.description}
                     </p>
                     <div className="mt-3">
@@ -303,7 +303,7 @@ export function ResourcesPageContent() {
                           resource.url,
                         )
                       }
-                      className="mt-4 inline-flex text-sm font-medium text-slate-900 underline-offset-4 hover:underline"
+                      className="mt-4 inline-flex text-sm font-medium text-[var(--color-oxblood)] underline-offset-4 hover:underline hover:text-[var(--color-oxblood-hover)]"
                     >
                       Learn More →
                     </Link>
@@ -317,13 +317,13 @@ export function ResourcesPageContent() {
             <button
               type="button"
               onClick={() => setDigitalOpen((open) => !open)}
-              className="flex w-full cursor-pointer items-center justify-between border-b border-slate-200 pb-2 text-left"
+              className="flex w-full cursor-pointer items-center justify-between border-b border-[var(--color-rule)] pb-2 text-left"
               aria-expanded={digitalOpen}
             >
-              <span className="text-sm font-semibold uppercase tracking-wide text-slate-700">
+              <span className="text-sm font-semibold uppercase tracking-wide text-[var(--color-ink)]">
                 Tools & Digital ({digital.length})
               </span>
-              <span className="relative h-4 w-4 cursor-pointer text-slate-500">
+              <span className="relative h-4 w-4 cursor-pointer text-[var(--color-muted)]">
                 <ChevronDown
                   className={[
                     "absolute inset-0 h-4 w-4 transition-all duration-250",
@@ -356,9 +356,9 @@ export function ResourcesPageContent() {
                 {digital.map((resource) => (
                   <article
                     key={resource.url}
-                    className="rounded-xl border border-slate-200 bg-white p-4"
+                    className="rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-4"
                   >
-                    <h3 className="flex items-start gap-1.5 text-base font-semibold text-slate-900">
+                    <h3 className="flex items-start gap-1.5 text-base font-semibold text-[var(--color-ink)]">
                       <span>{resource.title}</span>
                       {resource.isAffiliate && (
                         <a
@@ -370,7 +370,7 @@ export function ResourcesPageContent() {
                         </a>
                       )}
                     </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-slate-700">
+                    <p className="mt-2 text-sm leading-relaxed text-[var(--color-ink)]">
                       {resource.description}
                     </p>
                     <div className="mt-3">
@@ -395,7 +395,7 @@ export function ResourcesPageContent() {
                           resource.url,
                         )
                       }
-                      className="mt-4 inline-flex text-sm font-medium text-slate-900 underline-offset-4 hover:underline"
+                      className="mt-4 inline-flex text-sm font-medium text-[var(--color-oxblood)] underline-offset-4 hover:underline hover:text-[var(--color-oxblood-hover)]"
                     >
                       Learn More →
                     </Link>
@@ -408,9 +408,9 @@ export function ResourcesPageContent() {
 
         <div
           id="affiliate-disclosure"
-          className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-xs leading-relaxed text-slate-600"
+          className="rounded border border-[var(--color-rule)] bg-[var(--color-bone-raised)] px-4 py-3 text-xs leading-relaxed text-[var(--color-muted)]"
         >
-          <span className="inline-flex items-baseline gap-1 font-semibold text-slate-700 align-baseline">
+          <span className="inline-flex items-baseline gap-1 font-semibold text-[var(--color-ink)] align-baseline">
             <Star className="relative top-px h-3 w-3 fill-amber-500 text-amber-500" />
             Full Disclosure:
           </span>{" "}

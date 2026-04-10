@@ -13,14 +13,14 @@ export const metadata: Metadata = {
 export default function SessionsPage() {
   return (
     <div className="flex min-h-[50vh] flex-col items-center justify-center text-center">
-      <h1 className="font-heading text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+      <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
         Sessions
       </h1>
-      <p className="mt-3 max-w-md text-sm leading-relaxed text-slate-700">
+      <p className="mt-3 max-w-md text-sm leading-relaxed text-[var(--color-ink)]">
         In the future, this page will list your upcoming and past sessions with
         links to notes and recordings where appropriate.
       </p>
-      <p className="mt-4 text-xs text-slate-500">
+      <p className="mt-4 text-xs text-[var(--color-muted)]">
         For now, session details are shared directly and securely after your
         reading.
       </p>

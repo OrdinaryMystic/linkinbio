@@ -28,8 +28,8 @@ export function Comments() {
   }
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6">
-      <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+    <section className="rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-4 sm:p-6">
+      <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
         Discussion
       </h2>
       <Giscus

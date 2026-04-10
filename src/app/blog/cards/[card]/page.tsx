@@ -49,18 +49,18 @@ export default async function CardPage({
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <p className="text-xs uppercase tracking-wide text-slate-500">Card</p>
-        <h1 className="font-heading text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+        <p className="text-xs uppercase tracking-wide text-[var(--color-oxblood)]">Card</p>
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
           {pageContent?.title ?? entity.title}
         </h1>
-        <p className="max-w-3xl text-sm leading-relaxed text-slate-700">
+        <p className="max-w-3xl text-sm leading-relaxed text-[var(--color-ink)]">
           {pageContent?.description ?? entity.description}
         </p>
       </header>
 
       {pageContent?.contentHtml ? (
         <section
-          className="prose-content max-w-none rounded-xl border border-slate-200 bg-white p-5"
+          className="prose-content max-w-none rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-5"
           dangerouslySetInnerHTML={{ __html: pageContent.contentHtml }}
         />
       ) : null}

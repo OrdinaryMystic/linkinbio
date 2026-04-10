@@ -74,7 +74,7 @@ export function BlogExplorer({
     <div className="space-y-5">
       {featuredPost ? (
         <Card className="flex flex-col gap-4 p-4 sm:flex-row">
-          <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:h-52 sm:w-72 sm:aspect-auto">
+          <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded bg-[var(--color-bone-raised)] sm:h-52 sm:w-72 sm:aspect-auto">
             <Image
               src={featuredPost.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
               alt={featuredPost.frontmatter.title}
@@ -84,7 +84,7 @@ export function BlogExplorer({
           </div>
           <div className="flex min-w-0 flex-1 flex-col">
             <CardHeader className="mb-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">
                 Featured Post
               </p>
               <CardTitle>
@@ -98,7 +98,7 @@ export function BlogExplorer({
               <CardDescription>{featuredPost.frontmatter.description}</CardDescription>
             </CardHeader>
             <CardFooter className="mt-auto flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
-              <div className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-slate-600 sm:w-auto sm:justify-start">
+              <div className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)] sm:w-auto sm:justify-start">
                 <span className="flex items-center gap-1.5">
                   <CalendarDays className="h-3.5 w-3.5 shrink-0" />
                   {new Date(featuredPost.frontmatter.date).toLocaleDateString()}
@@ -140,21 +140,21 @@ export function BlogExplorer({
       <div className="grid gap-6 lg:grid-cols-[2fr_1fr] lg:items-start">
         <PostList posts={restPosts} emptyMessage={emptyMessage} columns={1} basePath={basePath} />
 
-        <aside className="space-y-5 rounded-xl border border-slate-200 bg-white p-4">
+        <aside className="space-y-5 rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-4">
           <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
               {sidebarPrimary === "subcategories" ? "Subcategories" : "Categories"}
             </h2>
-            <ul className="space-y-1 text-sm text-slate-700">
+            <ul className="space-y-1 text-sm text-[var(--color-ink)]">
               {sidebarPrimary === "subcategories"
                 ? subcategoryCounts.map(({ subcategory, count }) => (
                     <li key={subcategory}>
                       <Link
                         href={`/blog/subcategories/${subcategory}`}
-                        className="flex items-center justify-between rounded px-2 py-1 hover:bg-slate-100"
+                        className="flex items-center justify-between rounded px-2 py-1 hover:bg-[var(--color-bone-raised)]"
                       >
                         <span>{formatSlugLabel(subcategory)}</span>
-                        <span className="text-xs text-slate-500">{count}</span>
+                        <span className="text-xs text-[var(--color-muted)]">{count}</span>
                       </Link>
                     </li>
                   ))
@@ -162,10 +162,10 @@ export function BlogExplorer({
                     <li key={category}>
                       <Link
                         href={`/blog/categories/${category}`}
-                        className="flex items-center justify-between rounded px-2 py-1 hover:bg-slate-100"
+                        className="flex items-center justify-between rounded px-2 py-1 hover:bg-[var(--color-bone-raised)]"
                       >
                         <span>{formatSlugLabel(category)}</span>
-                        <span className="text-xs text-slate-500">{count}</span>
+                        <span className="text-xs text-[var(--color-muted)]">{count}</span>
                       </Link>
                     </li>
                   ))}
@@ -173,13 +173,13 @@ export function BlogExplorer({
           </section>
 
           <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
               Archives
             </h2>
             <div className="space-y-2">
               {archives.map((group) => (
                 <details key={group.year} className="rounded px-2 py-1">
-                  <summary className="cursor-pointer text-sm font-medium text-slate-700">
+                  <summary className="cursor-pointer text-sm font-medium text-[var(--color-ink)]">
                     {group.year}
                   </summary>
                   <ul className="mt-2 space-y-1 pl-4">
@@ -187,10 +187,10 @@ export function BlogExplorer({
                       <li key={`${group.year}-${month}`}>
                         <Link
                           href={`${currentPath}?archive=${group.year}-${month}`}
-                          className="flex items-center justify-between rounded px-2 py-1 text-sm text-slate-700 hover:bg-slate-100"
+                          className="flex items-center justify-between rounded px-2 py-1 text-sm text-[var(--color-ink)] hover:bg-[var(--color-bone-raised)]"
                         >
                           <span>{monthName(month)}</span>
-                          <span className="text-xs text-slate-500">{count}</span>
+                          <span className="text-xs text-[var(--color-muted)]">{count}</span>
                         </Link>
                       </li>
                     ))}
@@ -201,7 +201,7 @@ export function BlogExplorer({
           </section>
 
           <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
               Tags
             </h2>
             <div className="flex flex-wrap gap-2">
@@ -209,7 +209,7 @@ export function BlogExplorer({
                 <Link
                   key={tag}
                   href={`${currentPath}?tag=${tag}`}
-                  className="rounded-md border border-slate-200 px-2 py-1 text-xs text-slate-700 hover:bg-slate-100"
+                  className="rounded-md border border-[var(--color-rule)] px-2 py-1 text-xs text-[var(--color-ink)] hover:bg-[var(--color-bone-raised)]"
                 >
                   {formatSlugLabel(tag)} ({count})
                 </Link>

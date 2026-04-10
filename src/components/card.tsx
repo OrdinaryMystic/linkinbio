@@ -10,7 +10,7 @@ export function Card({ className, children }: CardProps) {
   return (
     <div
       className={cn(
-        "rounded-2xl border border-slate-200/80 bg-white p-6 shadow-md",
+        "rounded border border-[var(--color-rule)] bg-[var(--color-bone-raised)] p-6",
         className,
       )}
     >
@@ -37,7 +37,7 @@ interface CardTitleProps {
 
 export function CardTitle({ className, children }: CardTitleProps) {
   return (
-    <h3 className={cn("text-base font-semibold text-slate-900", className)}>
+    <h3 className={cn("text-base font-semibold text-[var(--color-ink)]", className)}>
       {children}
     </h3>
   );
@@ -50,7 +50,7 @@ interface CardDescriptionProps {
 
 export function CardDescription({ className, children }: CardDescriptionProps) {
   return (
-    <p className={cn("text-sm text-slate-600", className)}>{children}</p>
+    <p className={cn("text-sm text-[var(--color-muted)]", className)}>{children}</p>
   );
 }
 
@@ -66,4 +66,3 @@ export function CardFooter({ className, children }: CardFooterProps) {
     </div>
   );
 }
-

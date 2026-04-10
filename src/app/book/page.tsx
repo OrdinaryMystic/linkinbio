@@ -30,18 +30,18 @@ export default function BookingPage() {
   return (
     <div className="space-y-10">
       <section className="space-y-6">
-        <h1 className="font-heading text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
           Book a reading
         </h1>
 
-        <div className="space-y-5 text-sm leading-relaxed text-slate-700">
+        <div className="space-y-5 text-sm leading-relaxed text-[var(--color-ink)]">
           <p>
             I offer three main ways to work together:{" "}
-            <strong className="text-slate-900">live readings</strong> (via Zoom
+            <strong>live readings</strong> (via Zoom
             or in person in Tulsa, OK),{" "}
-            <strong className="text-slate-900">recorded readings</strong> you can
+            <strong>recorded readings</strong> you can
             watch on your own time, and{" "}
-            <strong className="text-slate-900">written reports</strong>—your
+            <strong>written reports</strong>—your
             reading delivered as a PDF. Click below to book now or to learn more
             about each option.
           </p>
@@ -54,7 +54,7 @@ export default function BookingPage() {
             to you.
           </p>
 
-          <h2 className="font-heading text-lg font-bold tracking-tight text-slate-900">
+          <h2 className="font-heading text-lg font-bold tracking-tight text-[var(--color-ink)]">
             Tarot, astrology, or both?
           </h2>
           <p>
@@ -70,7 +70,7 @@ export default function BookingPage() {
             Want to learn more?{" "}
             <Link
               href="/faq"
-              className="font-medium text-slate-900 underline-offset-4 hover:underline"
+              className="font-medium text-[var(--color-oxblood)] underline-offset-4 hover:underline hover:text-[var(--color-oxblood-hover)]"
             >
               Visit my FAQ page
             </Link>
@@ -82,7 +82,10 @@ export default function BookingPage() {
       <section className="grid gap-6 md:grid-cols-3">
         <Card>
           <CardHeader className="space-y-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2a4a] text-white">
+            <div
+              className="flex h-10 w-10 items-center justify-center rounded-full"
+              style={{ backgroundColor: "var(--color-rule)", color: "var(--color-ink)" }}
+            >
               <TarotCardsIcon className="h-5 w-5" />
             </div>
             <CardTitle>Live Reading</CardTitle>
@@ -91,7 +94,7 @@ export default function BookingPage() {
               in Tulsa, OK. Bring your questions and we&apos;ll work through them
               together.
             </CardDescription>
-            <p className="text-sm font-medium text-slate-700">1 hour · $60</p>
+            <p className="text-sm font-medium text-[var(--color-ink)]">1 hour · $60</p>
           </CardHeader>
           <CardFooter className="flex flex-wrap items-center gap-4">
             <Link href={LIVE_READINGS_URL} target="_blank">
@@ -101,7 +104,7 @@ export default function BookingPage() {
             </Link>
             <Link
               href="/faq"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 underline-offset-4 hover:text-slate-900 hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted)] underline-offset-4 hover:text-[var(--color-ink)] hover:underline"
             >
               learn more
               <ChevronRight className="h-4 w-4" aria-hidden />
@@ -111,7 +114,10 @@ export default function BookingPage() {
 
         <Card>
           <CardHeader className="space-y-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2a4a] text-white">
+            <div
+              className="flex h-10 w-10 items-center justify-center rounded-full"
+              style={{ backgroundColor: "var(--color-rule)", color: "var(--color-ink)" }}
+            >
               <Video className="h-5 w-5" />
             </div>
             <CardTitle>Recorded Reading</CardTitle>
@@ -119,7 +125,7 @@ export default function BookingPage() {
               A recorded reading you can watch on your own time. Send your
               question and context; receive a private video and notes.
             </CardDescription>
-            <p className="text-sm font-medium text-slate-700">30 minutes · $30</p>
+            <p className="text-sm font-medium text-[var(--color-ink)]">30 minutes · $30</p>
           </CardHeader>
           <CardFooter className="flex flex-wrap items-center gap-4">
             <Link href={RECORDED_READING_URL} target="_blank">
@@ -129,7 +135,7 @@ export default function BookingPage() {
             </Link>
             <Link
               href="/faq"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 underline-offset-4 hover:text-slate-900 hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted)] underline-offset-4 hover:text-[var(--color-ink)] hover:underline"
             >
               learn more
               <ChevronRight className="h-4 w-4" aria-hidden />
@@ -139,7 +145,10 @@ export default function BookingPage() {
 
         <Card>
           <CardHeader className="space-y-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2a4a] text-white">
+            <div
+              className="flex h-10 w-10 items-center justify-center rounded-full"
+              style={{ backgroundColor: "var(--color-rule)", color: "var(--color-ink)" }}
+            >
               <FileText className="h-5 w-5" />
             </div>
             <CardTitle>Written Report</CardTitle>
@@ -147,7 +156,7 @@ export default function BookingPage() {
               Your reading delivered as a PDF report. No video, no call. Ideal if
               you prefer to read and revisit at your own pace.
             </CardDescription>
-            <p className="text-sm font-medium text-slate-700">$15</p>
+            <p className="text-sm font-medium text-[var(--color-ink)]">$15</p>
           </CardHeader>
           <CardFooter className="flex flex-wrap items-center gap-4">
             <Link href={WRITTEN_REPORT_URL} target="_blank">
@@ -157,7 +166,7 @@ export default function BookingPage() {
             </Link>
             <Link
               href="/faq"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-slate-700 underline-offset-4 hover:text-slate-900 hover:underline"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted)] underline-offset-4 hover:text-[var(--color-ink)] hover:underline"
             >
               learn more
               <ChevronRight className="h-4 w-4" aria-hidden />

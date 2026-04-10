@@ -29,10 +29,10 @@ export default async function KnowledgeBaseIndexPage({
   return (
     <div className="space-y-6">
       <header className="space-y-3">
-        <h1 className="font-heading text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
           Knowledge Base
         </h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+        <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
           Reference guides and how-to articles on tarot, astrology, and reflective
           practice.
         </p>

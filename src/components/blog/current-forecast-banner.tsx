@@ -17,7 +17,7 @@ export function CurrentForecastBanner({ post, basePath = "/blog" }: Props) {
 
   return (
     <div
-      className="overflow-hidden rounded-2xl border shadow-sm"
+      className="overflow-hidden rounded border"
       style={{
         borderColor: "var(--color-brand-light-border)",
         background: "linear-gradient(to bottom right, var(--color-brand-light) 0%, var(--color-brand-light-mid) 50%, var(--color-brand-light) 100%)",
@@ -43,7 +43,7 @@ export function CurrentForecastBanner({ post, basePath = "/blog" }: Props) {
             >
               Current Forecast
             </p>
-            <h2 className="font-heading text-xl font-black leading-snug tracking-tight text-slate-900 sm:text-2xl">
+            <h2 className="font-heading text-xl font-bold leading-snug tracking-tight text-[var(--color-ink)] sm:text-2xl">
               <Link
                 href={`${basePath}/${slug}`}
                 className="hover:underline underline-offset-4"
@@ -52,14 +52,14 @@ export function CurrentForecastBanner({ post, basePath = "/blog" }: Props) {
               </Link>
             </h2>
             {frontmatter.description ? (
-              <p className="text-sm leading-relaxed text-slate-700">
+              <p className="text-sm leading-relaxed text-[var(--color-ink)]">
                 {frontmatter.description}
               </p>
             ) : null}
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex w-full flex-wrap items-center justify-start gap-x-3 gap-y-1 text-xs text-slate-600 sm:w-auto">
+            <div className="flex w-full flex-wrap items-center justify-start gap-x-3 gap-y-1 text-xs text-[var(--color-muted)] sm:w-auto">
               <span className="flex items-center gap-1.5">
                 <CalendarDays className="h-3.5 w-3.5 shrink-0" />
                 {new Date(frontmatter.date).toLocaleDateString()}

@@ -14,20 +14,20 @@ export function PostSidebar({ methodology, sources = [] }: PostSidebarProps) {
   }
 
   return (
-    <aside className="rounded-xl border border-slate-200 bg-slate-50 p-4 md:sticky md:top-24 md:p-5">
+    <aside className="rounded border border-[var(--color-rule)] bg-[var(--color-bone-raised)] p-4 md:sticky md:top-24 md:p-5">
       <div className="space-y-5">
         {hasMethodology ? (
           <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
               Methodology
             </h2>
-            <p className="text-sm leading-relaxed text-slate-700">{methodology}</p>
+            <p className="text-sm leading-relaxed text-[var(--color-ink)]">{methodology}</p>
           </section>
         ) : null}
 
         {hasSources ? (
           <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
               Sources
             </h2>
             <ul className="space-y-2">
@@ -37,7 +37,7 @@ export function PostSidebar({ methodology, sources = [] }: PostSidebarProps) {
                     href={source}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-slate-800 underline decoration-slate-300 underline-offset-4 hover:decoration-slate-500"
+                    className="text-[var(--color-oxblood)] underline decoration-[var(--color-rule)] underline-offset-4 hover:text-[var(--color-oxblood-hover)]"
                   >
                     {source}
                   </Link>

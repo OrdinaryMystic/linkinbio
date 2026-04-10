@@ -46,11 +46,11 @@ export default async function TagPage({
   return (
     <div className="space-y-6">
       <header className="space-y-2">
-        <p className="text-xs uppercase tracking-wide text-slate-500">Tag</p>
-        <h1 className="font-heading text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+        <p className="text-xs uppercase tracking-wide text-[var(--color-oxblood)]">Tag</p>
+        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
           {formatSlugLabel(tag)}
         </h1>
-        <p className="max-w-3xl text-sm leading-relaxed text-slate-700">
+        <p className="max-w-3xl text-sm leading-relaxed text-[var(--color-ink)]">
           Posts tagged with {formatSlugLabel(tag)}.
         </p>
       </header>

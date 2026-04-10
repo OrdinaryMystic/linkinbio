@@ -239,14 +239,14 @@ export default async function KnowledgeBasePostPage({
         />
       ) : null}
       <header className="space-y-3">
-        <nav className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide text-slate-500">
+        <nav className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide text-[var(--color-muted)]">
           {breadcrumbs.map((crumb, index) => (
             <span key={crumb.href} className="inline-flex items-center gap-2">
               {index > 0 ? <span>/</span> : null}
               {index === breadcrumbs.length - 1 ? (
                 <span>{crumb.label}</span>
               ) : (
-                <Link href={crumb.href} className="hover:text-slate-700 hover:underline">
+                <Link href={crumb.href} className="hover:text-[var(--color-ink)] hover:underline">
                   {crumb.label}
                 </Link>
               )}
@@ -255,7 +255,7 @@ export default async function KnowledgeBasePostPage({
         </nav>
       </header>
 
-      <div className="relative h-60 w-full overflow-hidden rounded-2xl bg-slate-100 shadow-lg sm:h-80">
+      <div className="relative h-60 w-full overflow-hidden rounded bg-[var(--color-bone-raised)] sm:h-80">
         <Image
           src={fm.image ?? "/images/placeholder-blog-1.svg"}
           alt={fm.imageAlt ?? fm.title}
@@ -265,12 +265,12 @@ export default async function KnowledgeBasePostPage({
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
-        <div className="absolute inset-0 shadow-inner" />
+        <div className="absolute inset-0" />
         <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-          <h1 className="font-heading text-2xl font-black tracking-tight text-white sm:text-4xl">
+          <h1 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-bone)] sm:text-4xl">
             {fm.title}
           </h1>
-          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-white/90">
+          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--color-bone)]/90">
             <span className="flex items-center gap-1.5">
               <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden />
               {new Date(fm.date).toLocaleDateString()}
@@ -280,7 +280,7 @@ export default async function KnowledgeBasePostPage({
                 <User className="h-3.5 w-3.5 shrink-0" aria-hidden />
                 <Link
                   href={`/authors/${author.slug}`}
-                  className="underline-offset-2 hover:text-white hover:underline"
+                  className="underline-offset-2 hover:text-[var(--color-bone)] hover:underline"
                 >
                   {author.name}
                 </Link>
@@ -291,7 +291,7 @@ export default async function KnowledgeBasePostPage({
               {category ? (
                 <Link
                   href={`/blog/categories/${category}`}
-                  className="underline-offset-2 hover:text-white hover:underline"
+                  className="underline-offset-2 hover:text-[var(--color-bone)] hover:underline"
                 >
                   {formatSlugLabel(category)}
                 </Link>
@@ -310,16 +310,16 @@ export default async function KnowledgeBasePostPage({
 
       <PostSidebar methodology={fm.methodology} sources={fm.sources} />
 
-      <div className="overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
-        <aside className="rounded-t-2xl border-0 bg-slate-50 p-6">
+      <div className="overflow-hidden rounded border border-[var(--color-rule)]">
+        <aside className="rounded-t border-0 bg-[var(--color-bone-raised)] p-6">
           <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-oxblood)]">
               {ctaEyebrow}
             </p>
-            <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900">
+            <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)]">
               {ctaTitle}
             </h2>
-            <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+            <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
               {ctaBody}
             </p>
             <Link href={ctaUrl} className="inline-block pt-1">
@@ -344,13 +344,13 @@ export default async function KnowledgeBasePostPage({
 
       {linkedMetadata.length > 0 ? (
         <section className="space-y-4">
-          <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900">
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)]">
             Tags
           </h2>
           <div className="flex flex-wrap gap-2">
           {linkedMetadata.map((item) => (
             <Link key={item.href} href={item.href}>
-              <Badge className="hover:bg-slate-100">{item.label}</Badge>
+              <Badge className="hover:bg-[var(--color-bone-raised)]">{item.label}</Badge>
             </Link>
           ))}
           </div>

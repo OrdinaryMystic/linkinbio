@@ -23,14 +23,17 @@ export function PostList({
   basePath = "/blog",
 }: PostListProps) {
   if (posts.length === 0) {
-    return <p className="text-sm text-slate-600">{emptyMessage}</p>;
+    return <p className="text-sm text-[var(--color-muted)]">{emptyMessage}</p>;
   }
 
   return (
     <section className={columns === 1 ? "grid gap-4" : "grid gap-4 md:grid-cols-2"}>
       {posts.map((post) => (
         <Card key={post.slug} className="flex flex-col gap-4 p-4 sm:flex-row">
-          <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:h-32 sm:w-40 sm:aspect-auto">
+          <div
+            className="relative aspect-video w-full shrink-0 overflow-hidden sm:h-32 sm:w-40 sm:aspect-auto"
+            style={{ border: "1px solid var(--color-rule)" }}
+          >
             <Image
               src={post.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
               alt={post.frontmatter.title}
@@ -47,7 +50,7 @@ export function PostList({
               </CardTitle>
             </CardHeader>
             <div className="mt-auto flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
-              <div className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-slate-600 sm:w-auto sm:justify-start">
+              <div className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)] sm:w-auto sm:justify-start">
                 <span className="flex items-center gap-1.5">
                   <CalendarDays className="h-3.5 w-3.5 shrink-0" />
                   {new Date(post.frontmatter.date).toLocaleDateString()}
@@ -79,7 +82,7 @@ export function PostList({
                 </span>
               </div>
               <Link href={`${basePath}/${post.slug}`} className="block w-full sm:w-auto sm:flex-shrink-0">
-                <Button size="sm" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
+                <Button size="sm" variant="outline" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
               </Link>
             </div>
           </div>

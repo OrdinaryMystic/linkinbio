@@ -46,7 +46,11 @@ export function TestimonialCarousel({ items, intervalMs = 5000 }: TestimonialCar
   return (
     <div className="mx-auto w-full max-w-4xl">
       <div
-        className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8"
+        className="p-6 sm:p-8"
+        style={{
+          backgroundColor: "var(--color-bone-raised)",
+          border: "1px solid var(--color-rule)",
+        }}
         aria-live="polite"
       >
         <div className="flex flex-col items-start gap-5 sm:flex-row sm:items-center">
@@ -55,12 +59,13 @@ export function TestimonialCarousel({ items, intervalMs = 5000 }: TestimonialCar
             alt={`${active.name} headshot`}
             width={88}
             height={88}
-            className="h-[5.5rem] w-[5.5rem] rounded-full border border-slate-200 object-cover"
+            className="h-[5.5rem] w-[5.5rem] rounded-full object-cover"
+            style={{ border: "1px solid var(--color-rule)" }}
           />
           <div>
-            <p className="text-base leading-relaxed text-slate-700">&ldquo;{active.quote}&rdquo;</p>
-            <p className="mt-4 text-sm font-semibold text-slate-900">{active.name}</p>
-            <p className="text-sm text-slate-500">{active.context}</p>
+            <p className="text-base leading-relaxed text-[var(--color-ink)]">&ldquo;{active.quote}&rdquo;</p>
+            <p className="mt-4 text-sm font-semibold text-[var(--color-ink)]">{active.name}</p>
+            <p className="text-sm text-[var(--color-muted)]">{active.context}</p>
           </div>
         </div>
       </div>
@@ -69,7 +74,8 @@ export function TestimonialCarousel({ items, intervalMs = 5000 }: TestimonialCar
         <button
           type="button"
           onClick={goPrev}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition-colors hover:bg-slate-50"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-[var(--color-ink)] transition-colors"
+          style={{ border: "1px solid var(--color-rule)" }}
           aria-label="Previous testimonial"
         >
           <ChevronLeft className="h-4 w-4" aria-hidden />
@@ -81,9 +87,10 @@ export function TestimonialCarousel({ items, intervalMs = 5000 }: TestimonialCar
               key={`${item.name}-${index}`}
               type="button"
               onClick={() => goTo(index)}
-              className={`h-2.5 w-2.5 rounded-full transition-all ${
-                index === activeIndex ? "bg-slate-800" : "bg-slate-300 hover:bg-slate-400"
-              }`}
+              className="h-2.5 w-2.5 rounded-full transition-all"
+              style={{
+                backgroundColor: index === activeIndex ? "var(--color-ink)" : "var(--color-rule)",
+              }}
               aria-label={`Go to testimonial ${index + 1}`}
               aria-pressed={index === activeIndex}
             />
@@ -93,7 +100,8 @@ export function TestimonialCarousel({ items, intervalMs = 5000 }: TestimonialCar
         <button
           type="button"
           onClick={goNext}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition-colors hover:bg-slate-50"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full text-[var(--color-ink)] transition-colors"
+          style={{ border: "1px solid var(--color-rule)" }}
           aria-label="Next testimonial"
         >
           <ChevronRight className="h-4 w-4" aria-hidden />

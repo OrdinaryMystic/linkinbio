@@ -30,12 +30,12 @@ export function RelatedPostsCarousel({ items, basePath = "/blog" }: RelatedPosts
 
   return (
     <section className="space-y-4">
-      <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900">
+      <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)]">
         Related Posts
       </h2>
 
       <Card className="flex flex-col gap-4 p-4 sm:flex-row">
-        <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-xl bg-slate-100 sm:h-36 sm:w-44 sm:aspect-auto">
+        <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded bg-[var(--color-bone-raised)] sm:h-36 sm:w-44 sm:aspect-auto">
           <Image
             src={active.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
             alt={active.frontmatter.title}
@@ -72,7 +72,7 @@ export function RelatedPostsCarousel({ items, basePath = "/blog" }: RelatedPosts
           <button
             type="button"
             onClick={() => goTo(activeIndex - 1)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition-colors hover:bg-slate-50"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-rule)] bg-[var(--color-bone)] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-bone-raised)]"
             aria-label="Previous related post"
           >
             <ChevronLeft className="h-4 w-4" />
@@ -85,7 +85,7 @@ export function RelatedPostsCarousel({ items, basePath = "/blog" }: RelatedPosts
                 type="button"
                 onClick={() => goTo(index)}
                 className={`h-2.5 w-2.5 rounded-full transition-all ${
-                  index === activeIndex ? "bg-slate-800" : "bg-slate-300 hover:bg-slate-400"
+                  index === activeIndex ? "bg-[var(--color-ink)]" : "bg-[var(--color-rule)] hover:bg-[var(--color-muted)]"
                 }`}
                 aria-label={`Go to related post ${index + 1}`}
                 aria-pressed={index === activeIndex}
@@ -96,7 +96,7 @@ export function RelatedPostsCarousel({ items, basePath = "/blog" }: RelatedPosts
           <button
             type="button"
             onClick={() => goTo(activeIndex + 1)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition-colors hover:bg-slate-50"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-rule)] bg-[var(--color-bone)] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-bone-raised)]"
             aria-label="Next related post"
           >
             <ChevronRight className="h-4 w-4" />

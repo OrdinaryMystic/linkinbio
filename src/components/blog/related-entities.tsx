@@ -27,15 +27,15 @@ export function RelatedEntities({ entity }: RelatedEntitiesProps) {
   if (!hasTerms && !hasEntities) return null;
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-5">
-      <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+    <section className="rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-5">
+      <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
         Related Entities
       </h2>
       <div className="mt-3 space-y-3">
         {relatedEntries.map(([type, values]) =>
           values.length > 0 ? (
             <div key={type} className="space-y-1">
-              <p className="text-xs uppercase tracking-wide text-slate-500">{type}</p>
+              <p className="text-xs uppercase tracking-wide text-[var(--color-muted)]">{type}</p>
               <div className="flex flex-wrap gap-2">
                 {values.map((slug) => {
                   const relatedEntity = getTaxonomyEntity(type, slug);
@@ -43,7 +43,7 @@ export function RelatedEntities({ entity }: RelatedEntitiesProps) {
                     <Link
                       key={`${type}-${slug}`}
                       href={`/blog/${routeByType[type]}/${slug}`}
-                      className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100"
+                      className="rounded-full border border-[var(--color-rule)] bg-[var(--color-bone-raised)] px-3 py-1 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-bone)]"
                     >
                       {relatedEntity?.title ?? formatSlugLabel(slug)}
                     </Link>
@@ -55,12 +55,12 @@ export function RelatedEntities({ entity }: RelatedEntitiesProps) {
         )}
         {entity.relatedTerms?.length ? (
           <div className="space-y-1">
-            <p className="text-xs uppercase tracking-wide text-slate-500">Correspondences</p>
+            <p className="text-xs uppercase tracking-wide text-[var(--color-muted)]">Correspondences</p>
             <div className="flex flex-wrap gap-2">
               {entity.relatedTerms.map((term) => (
                 <span
                   key={term}
-                  className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-xs font-medium text-slate-700"
+                  className="rounded-full border border-[var(--color-rule)] bg-[var(--color-bone-raised)] px-3 py-1 text-xs font-medium text-[var(--color-ink)]"
                 >
                   {formatSlugLabel(term)}
                 </span>

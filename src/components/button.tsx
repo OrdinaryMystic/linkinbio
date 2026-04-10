@@ -3,16 +3,16 @@ import { cn } from "@/lib/utils";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 const buttonVariants = cva(
-  "inline-flex cursor-pointer items-center justify-center rounded-full text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed ring-offset-background",
+  "inline-flex cursor-pointer items-center justify-center rounded text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
         primary:
-          "bg-[var(--color-brand-accent)] text-white hover:bg-[var(--color-brand-accent-hover)] focus-visible:ring-[var(--color-brand-accent)]",
+          "bg-[var(--color-oxblood)] text-[var(--color-bone)] hover:bg-[var(--color-oxblood-hover)] focus-visible:ring-[var(--color-oxblood)]",
         outline:
-          "border border-slate-300 text-slate-900 hover:bg-slate-100 focus-visible:ring-slate-400",
+          "border border-[var(--color-ink)] text-[var(--color-ink)] bg-transparent hover:bg-[var(--color-bone-raised)] focus-visible:ring-[var(--color-muted)]",
         ghost:
-          "text-slate-700 hover:bg-slate-100 focus-visible:ring-slate-400",
+          "text-[var(--color-ink)] hover:bg-[var(--color-bone-raised)] focus-visible:ring-[var(--color-muted)]",
       },
       size: {
         sm: "h-9 px-4",
@@ -54,4 +54,3 @@ export function Button({
     </button>
   );
 }
-

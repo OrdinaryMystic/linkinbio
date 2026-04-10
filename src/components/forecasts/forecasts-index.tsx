@@ -79,7 +79,7 @@ function getScopeBadge(scope: ForecastScope): { label: string; className: string
     case "daily":
       return { label: "Daily", className: "bg-emerald-100 text-emerald-800 border-emerald-200" };
     default:
-      return { label: "Forecast", className: "bg-slate-100 text-slate-800 border-slate-200" };
+      return { label: "Forecast", className: "bg-[var(--color-bone-raised)] text-[var(--color-ink)] border-[var(--color-rule)]" };
   }
 }
 
@@ -103,7 +103,7 @@ function getStatusStyles(status: ForecastStatus): {
     };
   }
   return {
-    cardClass: "border-slate-200 bg-white",
+    cardClass: "border-[var(--color-rule)] bg-[var(--color-bone)]",
     label: "Unverified",
     icon: null,
   };
@@ -120,7 +120,7 @@ function CurrentForecastCard({
 
   return (
     <div
-      className="overflow-hidden rounded-2xl border shadow-sm"
+      className="overflow-hidden rounded border"
       style={{
         borderColor: "var(--color-brand-light-border)",
         background:
@@ -153,19 +153,19 @@ function CurrentForecastCard({
             >
               Current Forecast
             </p>
-            <h2 className="font-heading text-xl font-black leading-snug tracking-tight text-slate-900 sm:text-2xl">
+            <h2 className="font-heading text-xl font-bold leading-snug tracking-tight text-[var(--color-ink)] sm:text-2xl">
               <Link href={`/forecasts/${slug}`} className="hover:underline underline-offset-4">
                 {frontmatter.title}
               </Link>
             </h2>
-            <p className="text-sm font-semibold text-slate-800">{getWindowLabel(frontmatter)}</p>
+            <p className="text-sm font-semibold text-[var(--color-ink)]">{getWindowLabel(frontmatter)}</p>
             {frontmatter.description ? (
-              <p className="text-sm leading-relaxed text-slate-700">{frontmatter.description}</p>
+              <p className="text-sm leading-relaxed text-[var(--color-ink)]">{frontmatter.description}</p>
             ) : null}
           </div>
 
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <div className="flex w-full flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600 sm:w-auto">
+            <div className="flex w-full flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)] sm:w-auto">
               <span className="inline-flex items-center gap-1.5">
                 <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden />
                 Written: {new Date(frontmatter.date).toLocaleDateString()}
@@ -193,11 +193,11 @@ function ForecastCard({
   const scopeBadge = scope ? getScopeBadge(scope) : null;
   const status = getVerificationStatus(frontmatter);
   const statusStyles = getStatusStyles(status);
-  const cardClass = showVerification ? statusStyles.cardClass : "border-slate-200 bg-white";
+  const cardClass = showVerification ? statusStyles.cardClass : "border-[var(--color-rule)] bg-[var(--color-bone)]";
 
   return (
     <Card key={slug} className={`flex h-full flex-col p-4 ${cardClass}`}>
-      <div className="relative h-40 w-full overflow-hidden rounded-xl bg-slate-100">
+      <div className="relative h-40 w-full overflow-hidden rounded bg-[var(--color-bone-raised)]">
         <Image
           src={frontmatter.image ?? "/images/placeholder-blog-1.svg"}
           alt={frontmatter.title}
@@ -219,8 +219,8 @@ function ForecastCard({
             {frontmatter.title}
           </Link>
         </CardTitle>
-        <p className="text-sm font-semibold text-slate-800">{getWindowLabel(frontmatter)}</p>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-slate-600">
+        <p className="text-sm font-semibold text-[var(--color-ink)]">{getWindowLabel(frontmatter)}</p>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)]">
           <span className="inline-flex items-center gap-1.5">
             <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden />
             Written: {new Date(frontmatter.date).toLocaleDateString()}
@@ -257,7 +257,7 @@ function CurrentForecastCarousel({
 
   return (
     <section className="space-y-3">
-      <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+      <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl">
         Current Forecasts
       </h2>
       <CurrentForecastCard post={active} />
@@ -265,7 +265,7 @@ function CurrentForecastCarousel({
         <div className="flex items-center justify-between">
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition-colors hover:bg-slate-50"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-rule)] bg-[var(--color-bone)] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-bone-raised)]"
             onClick={() => setIndex((prev) => (prev - 1 + total) % total)}
             aria-label="Previous current forecast"
           >
@@ -278,7 +278,7 @@ function CurrentForecastCarousel({
                 type="button"
                 onClick={() => setIndex(dotIndex)}
                 className={`h-2.5 w-2.5 rounded-full transition-all ${
-                  dotIndex === index ? "bg-slate-800" : "bg-slate-300 hover:bg-slate-400"
+                  dotIndex === index ? "bg-[var(--color-ink)]" : "bg-[var(--color-rule)] hover:bg-[var(--color-muted)]"
                 }`}
                 aria-label={`Show current forecast ${dotIndex + 1}`}
                 aria-pressed={dotIndex === index}
@@ -287,7 +287,7 @@ function CurrentForecastCarousel({
           </div>
           <button
             type="button"
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition-colors hover:bg-slate-50"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-rule)] bg-[var(--color-bone)] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-bone-raised)]"
             onClick={() => setIndex((prev) => (prev + 1) % total)}
             aria-label="Next current forecast"
           >
@@ -306,7 +306,7 @@ export function ForecastsIndex({ current, upcoming, past }: ForecastBuckets) {
   );
 
   if (!hasAnything) {
-    return <p className="text-sm text-slate-600">No forecasts yet.</p>;
+    return <p className="text-sm text-[var(--color-muted)]">No forecasts yet.</p>;
   }
 
   return (
@@ -315,7 +315,7 @@ export function ForecastsIndex({ current, upcoming, past }: ForecastBuckets) {
 
       {upcoming.length > 0 ? (
         <section className="space-y-3">
-          <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl">
             Upcoming Forecasts
           </h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -328,7 +328,7 @@ export function ForecastsIndex({ current, upcoming, past }: ForecastBuckets) {
 
       {past.length > 0 ? (
         <section className="space-y-3">
-          <h2 className="font-heading text-2xl font-black tracking-tight text-slate-900 sm:text-3xl">
+          <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-3xl">
             Past Forecasts
           </h2>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

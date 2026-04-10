@@ -39,9 +39,9 @@ export function PostShareBar({ title, url }: PostShareBarProps) {
   }
 
   return (
-    <section className="rounded-xl border border-slate-200 bg-white p-4">
+    <section className="rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-4">
       <div className="flex flex-wrap items-center gap-2">
-        <p className="mr-2 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-slate-500">
+        <p className="mr-2 inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
           <Share2 className="h-3.5 w-3.5" />
           Share
         </p>
@@ -51,7 +51,7 @@ export function PostShareBar({ title, url }: PostShareBarProps) {
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"
+            className="inline-flex items-center gap-1 rounded-full border border-[var(--color-rule)] bg-[var(--color-bone-raised)] px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-bone)]"
           >
             <Icon className="h-3.5 w-3.5" />
             {label}
@@ -60,7 +60,7 @@ export function PostShareBar({ title, url }: PostShareBarProps) {
         <button
           type="button"
           onClick={copyLink}
-          className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-700 hover:bg-slate-100"
+          className="inline-flex items-center gap-1 rounded-full border border-[var(--color-rule)] bg-[var(--color-bone-raised)] px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] hover:bg-[var(--color-bone)]"
         >
           <Copy className="h-3.5 w-3.5" />
           {copied ? "Copied" : "Copy Link"}

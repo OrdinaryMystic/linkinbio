@@ -40,17 +40,17 @@ export default function TulsaTarotPage() {
       />
       <div className="space-y-6">
         <header className="space-y-3">
-          <h1 className="font-heading text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
+          <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
             Tulsa tarot readings
           </h1>
-          <p className="max-w-2xl text-sm leading-relaxed text-slate-700">
+          <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
             Ordinary Mystic offers grounded tarot readings from Tulsa for
             thoughtful clients across Downtown, Midtown, Brookside, Cherry
             Street, Jenks, Bixby, and Broken Arrow.
           </p>
         </header>
 
-        <section className="space-y-4 text-sm leading-relaxed text-slate-700">
+        <section className="space-y-4 text-sm leading-relaxed text-[var(--color-ink)]">
           <p>
             Whether you&apos;re in a small apartment near Downtown Tulsa, a
             quiet house in Midtown, or a busy home in Jenks or Bixby, you can

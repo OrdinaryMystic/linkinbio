@@ -1,6 +1,6 @@
 ---
 title: "Why Birth Time Matters in Astrology: The Power of Your Rising Sign"
-date: "2026-03-20"
+date: "2026-01-28"
 description: "Does birth time really matter in astrology? Learn why an accurate birth time is essential for your rising sign, house placements, and your chart's interpretive accuracy."
 author: "tyler-martin"
 category: "astrology"

@@ -1,6 +1,6 @@
 ---
 title: "How to Keep a Tarot Journal (And Why Most People Do It Wrong)"
-date: "2026-03-12"
+date: "2026-02-11"
 description: "Learn how keeping a tarot journal builds a personal card vocabulary no guidebook can teach you. Covers physical, printed, and digital methods—with honest trade-offs for each."
 author: "tyler-martin"
 category: "tarot"

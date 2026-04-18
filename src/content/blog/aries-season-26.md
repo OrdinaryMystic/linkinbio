@@ -1,6 +1,6 @@
 ---
 title: "Aries Season 2026: Dates, Transits & Rising Sign Guide"
-date: "2026-03-20"
+date: "2026-03-21"
 description: "Aries season 2026 (Mar 20–Apr 19): Mars-Saturn-Neptune pileup, Mercury risks, Venus-Jupiter relief, Uranus in Gemini, plus rising-sign forecast with whole-sign houses."
 author: "tyler-martin"
 imageAlt: "Aries Season 2026 astrology forecast"

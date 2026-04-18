@@ -1,6 +1,6 @@
 ---
 title: "How to Get Started With Astrology & Tarot (Even If You're a Skeptic)"
-date: "2026-03-05"
+date: "2026-01-07"
 description: "Can a Christian skeptic find value in 'the woo'? Read how I used Hellenistic astrology and Tarot as tools for self-reflection and healing after divorce—without the superstition."
 category: "general-spirituality"
 tags:

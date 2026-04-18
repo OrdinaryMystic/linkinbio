@@ -498,9 +498,6 @@ export default async function Home() {
                 border: "1px solid var(--color-rule)",
               }}
             >
-              <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-oxblood)]">
-                Hellenistic
-              </p>
               <h3 className="font-heading text-lg font-bold tracking-tight text-[var(--color-ink)]">
                 Astrology
               </h3>

@@ -50,9 +50,9 @@ export default function BookingPage() {
             and context; the cards and charts bring structure. You leave with something concrete.
           </p>
           <p>
-            I work in tarot, Hellenistic astrology, or both. If you have a preference, note it
-            when you book. If you don&apos;t, I&apos;ll choose the approach that fits the question.
-            The best sessions often blend both.
+            Tarot, astrology, and combined sessions are each offered as distinct services. Choose
+            based on what fits your question — or book a combined session if you want both
+            systems in one conversation.
           </p>
           <p>
             For astrology readings, an accurate birth time is required. If you don&apos;t have
@@ -69,7 +69,7 @@ export default function BookingPage() {
       </section>
 
       {/* Tarot Readings */}
-      <section className="pt-12 space-y-8">
+      <section className="pt-12 pb-6 space-y-8">
         <div>
           <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-muted)]">
             Service
@@ -175,12 +175,12 @@ export default function BookingPage() {
 
       {/* Astrology Readings */}
       <section
-        className="pt-12 space-y-8"
+        className="pt-12 pb-6 space-y-8"
         style={{ borderTop: "1px solid var(--color-rule)" }}
       >
         <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-oxblood)]">
-            Service · Specialty
+          <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-muted)]">
+            Service
           </p>
           <h2 className="font-heading mt-1 text-2xl font-bold tracking-tight sm:text-3xl text-[var(--color-ink)]">
             Astrology Readings
@@ -285,7 +285,7 @@ export default function BookingPage() {
 
       {/* Combined Readings */}
       <section
-        className="pt-12 space-y-8"
+        className="pt-12 pb-6 space-y-8"
         style={{ borderTop: "1px solid var(--color-rule)" }}
       >
         <div>

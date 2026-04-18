@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/button";
 import { ReaderMilestone } from "@/components/analytics/reader-milestone";
 import { AuthorBox } from "@/components/blog/author-box";
 import { Comments } from "@/components/blog/comments";
 import { PostSidebar } from "@/components/blog/post-sidebar";
 import { RelatedPostsCarousel } from "@/components/blog/related-posts-carousel";
-import { CalendarDays, FolderOpen, User } from "lucide-react";
-import { Badge } from "@/components/badge";
 import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
 import { formatSlugLabel } from "@/lib/blog-taxonomy-utils";
 import { getTaxonomyEntity } from "@/data/taxonomy";
@@ -217,7 +216,7 @@ export default async function BlogPostPage({
     });
 
   return (
-    <article className="space-y-6">
+    <article>
       <ReaderMilestone slug={slug} />
       <script
         type="application/ld+json"
@@ -233,83 +232,120 @@ export default async function BlogPostPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       ) : null}
-      <header className="space-y-3">
-        <nav className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide text-[var(--color-muted)]">
+
+      {/* HEADER */}
+      <header className="mb-10 sm:mb-14">
+        <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]">
           {breadcrumbs.map((crumb, index) => (
             <span key={crumb.href} className="inline-flex items-center gap-2">
-              {index > 0 ? <span>/</span> : null}
+              {index > 0 ? (
+                <span className="text-[var(--color-rule)]" aria-hidden>
+                  /
+                </span>
+              ) : null}
               {index === breadcrumbs.length - 1 ? (
                 <span>{crumb.label}</span>
               ) : (
-                <Link href={crumb.href} className="hover:text-[var(--color-ink)] hover:underline">
+                <Link
+                  href={crumb.href}
+                  className="transition-colors hover:text-[var(--color-oxblood)]"
+                >
                   {crumb.label}
                 </Link>
               )}
             </span>
           ))}
         </nav>
-      </header>
 
-      <div className="space-y-3 border-b border-[var(--color-rule)] pb-6">
-        <h1 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+        {category ? (
+          <div className="mt-8 inline-flex items-center gap-3">
+            <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+            <Link
+              href={`/blog/categories/${category}`}
+              className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+            >
+              {formatSlugLabel(category)}
+            </Link>
+          </div>
+        ) : null}
+
+        <h1 className="mt-5 font-heading text-3xl font-semibold tracking-tight leading-[1.1] text-[var(--color-ink)] sm:text-4xl lg:text-5xl">
           {fm.title}
         </h1>
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)]">
-          <span className="flex items-center gap-1.5">
-            <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden />
-            {new Date(fm.date).toLocaleDateString()}
-          </span>
-          {author.slug !== DEFAULT_AUTHOR_SLUG ? (
-            <span className="flex items-center gap-1.5">
-              <User className="h-3.5 w-3.5 shrink-0" aria-hidden />
-              <Link
-                href={`/authors/${author.slug}`}
-                className="underline-offset-2 hover:text-[var(--color-ink)] hover:underline"
-              >
-                {author.name}
-              </Link>
-            </span>
-          ) : null}
-          <span className="flex items-center gap-1.5">
-            <FolderOpen className="h-3.5 w-3.5 shrink-0" aria-hidden />
-            {category ? (
-              <Link
-                href={`/blog/categories/${category}`}
-                className="underline-offset-2 hover:text-[var(--color-ink)] hover:underline"
-              >
-                {formatSlugLabel(category)}
-              </Link>
-            ) : (
-              "Uncategorized"
-            )}
-          </span>
-        </div>
-      </div>
 
+        {fm.description ? (
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">
+            {fm.description}
+          </p>
+        ) : null}
+
+        <div className="mt-8 flex flex-wrap items-center gap-4 border-t border-[var(--color-rule)] pt-5">
+          <time
+            dateTime={fm.date}
+            className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]"
+          >
+            {new Date(fm.date).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </time>
+          {author.slug !== DEFAULT_AUTHOR_SLUG ? (
+            <>
+              <span
+                className="h-px flex-1 bg-[var(--color-rule)]"
+                aria-hidden
+              />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]">
+                By{" "}
+                <Link
+                  href={`/authors/${author.slug}`}
+                  className="text-[var(--color-ink)] underline-offset-4 transition-colors hover:text-[var(--color-oxblood)] hover:underline"
+                >
+                  {author.name}
+                </Link>
+              </span>
+            </>
+          ) : null}
+        </div>
+      </header>
+
+      {/* ARTICLE BODY */}
       <section
         className="prose-content max-w-none"
         dangerouslySetInnerHTML={{ __html: entry.contentHtml }}
       />
 
-      <PostSidebar methodology={fm.methodology} sources={fm.sources} />
+      <div className="mt-10">
+        <PostSidebar methodology={fm.methodology} sources={fm.sources} />
+      </div>
 
-      <div className="overflow-hidden rounded border border-[var(--color-rule)]">
-        <aside className="rounded-t border-0 bg-[var(--color-bone-raised)] p-6">
-          <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-oxblood)]">
-              {ctaEyebrow}
-            </p>
-            <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)]">
-              {ctaTitle}
-            </h2>
-            <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
-              {ctaBody}
-            </p>
-            <Link href={ctaUrl} className="inline-block pt-1">
-              <Button size="sm">{ctaLabel}</Button>
-            </Link>
-          </div>
-        </aside>
+      {/* CTA CALLOUT */}
+      <aside className="mt-12 border-y-2 border-[var(--color-ink)] bg-[var(--color-bone-raised)] px-6 py-9 sm:px-10 sm:py-11">
+        <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+          <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+          {ctaEyebrow}
+        </span>
+        <h2 className="mt-4 max-w-2xl font-heading text-2xl font-semibold tracking-tight leading-[1.15] text-[var(--color-ink)] sm:text-3xl">
+          {ctaTitle}
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-muted)]">
+          {ctaBody}
+        </p>
+        <Link href={ctaUrl} className="mt-6 inline-block">
+          <Button
+            type="button"
+            size="md"
+            className="rounded-none bg-[var(--color-oxblood)] text-[var(--color-bone)] hover:bg-[var(--color-oxblood-hover)]"
+            rightIcon={<ArrowRight className="h-4 w-4" />}
+          >
+            {ctaLabel}
+          </Button>
+        </Link>
+      </aside>
+
+      {/* AUTHOR */}
+      <div className="mt-12">
         <AuthorBox
           embedded
           author={{
@@ -322,23 +358,36 @@ export default async function BlogPostPage({
         />
       </div>
 
-      <Comments />
-      <RelatedPostsCarousel items={relatedPosts} />
-
+      {/* TAGS */}
       {linkedMetadata.length > 0 ? (
-        <section className="space-y-4">
-          <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)]">
-            Tags
-          </h2>
-          <div className="flex flex-wrap gap-2">
-          {linkedMetadata.map((item) => (
-            <Link key={item.href} href={item.href}>
-              <Badge className="hover:bg-[var(--color-bone-raised)]">{item.label}</Badge>
-            </Link>
-          ))}
+        <section className="mt-12 border-t border-[var(--color-ink)] pt-8">
+          <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+            <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+            Filed Under
+          </span>
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+            {linkedMetadata.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm text-[var(--color-ink)] underline-offset-4 transition-colors hover:text-[var(--color-oxblood)] hover:underline"
+              >
+                {item.label}
+              </Link>
+            ))}
           </div>
         </section>
       ) : null}
+
+      {/* RELATED */}
+      <div className="mt-12">
+        <RelatedPostsCarousel items={relatedPosts} />
+      </div>
+
+      {/* COMMENTS */}
+      <div className="mt-12">
+        <Comments />
+      </div>
     </article>
   );
 }

@@ -1,11 +1,5 @@
-"use client";
-
-import Image from "next/image";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useState } from "react";
-import { Button } from "@/components/button";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/card";
+import { ArrowUpRight } from "lucide-react";
 import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
 import type { BlogPostFrontmatter } from "@/lib/content";
 import { formatSlugLabel } from "@/lib/blog-taxonomy-utils";
@@ -20,89 +14,88 @@ type RelatedPostsCarouselProps = {
   basePath?: string;
 };
 
-export function RelatedPostsCarousel({ items, basePath = "/blog" }: RelatedPostsCarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(0);
+function formatDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
 
+export function RelatedPostsCarousel({
+  items,
+  basePath = "/blog",
+}: RelatedPostsCarouselProps) {
   if (items.length === 0) return null;
 
-  const active = items[activeIndex];
-  const goTo = (index: number) => setActiveIndex((index + items.length) % items.length);
-
   return (
-    <section className="space-y-4">
-      <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)]">
-        Related Posts
+    <section>
+      <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+        <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+        Related
+      </span>
+      <h2 className="mt-3 font-heading text-2xl font-semibold tracking-tight text-[var(--color-ink)] sm:text-3xl">
+        Continue Reading
       </h2>
 
-      <Card className="flex flex-col gap-4 p-4 sm:flex-row">
-        <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded bg-[var(--color-bone-raised)] sm:h-36 sm:w-44 sm:aspect-auto">
-          <Image
-            src={active.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
-            alt={active.frontmatter.title}
-            fill
-            className="object-cover"
-          />
-        </div>
-
-        <div className="flex min-w-0 flex-1 flex-col justify-between gap-3">
-          <CardHeader className="mb-0">
-            <CardTitle>{active.frontmatter.title}</CardTitle>
-            <CardDescription>
-              {new Date(active.frontmatter.date).toLocaleDateString()}
-              {getAuthorBySlug(active.frontmatter.author).slug !==
-              DEFAULT_AUTHOR_SLUG
-                ? ` · ${getAuthorBySlug(active.frontmatter.author).name}`
-                : ""}
-              {active.frontmatter.category
-                ? ` · ${formatSlugLabel(active.frontmatter.category)}`
-                : ""}
-            </CardDescription>
-          </CardHeader>
-
-          <CardFooter className="mt-0 w-full">
-            <Link href={`${basePath}/${active.slug}`} className="block w-full sm:w-auto">
-              <Button size="sm" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
-            </Link>
-          </CardFooter>
-        </div>
-      </Card>
-
-      {items.length > 1 ? (
-        <div className="flex items-center justify-between gap-3">
-          <button
-            type="button"
-            onClick={() => goTo(activeIndex - 1)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-rule)] bg-[var(--color-bone)] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-bone-raised)]"
-            aria-label="Previous related post"
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-
-          <div className="flex items-center gap-2">
-            {items.map((item, index) => (
-              <button
-                key={item.slug}
-                type="button"
-                onClick={() => goTo(index)}
-                className={`h-2.5 w-2.5 rounded-full transition-all ${
-                  index === activeIndex ? "bg-[var(--color-ink)]" : "bg-[var(--color-rule)] hover:bg-[var(--color-muted)]"
-                }`}
-                aria-label={`Go to related post ${index + 1}`}
-                aria-pressed={index === activeIndex}
-              />
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => goTo(activeIndex + 1)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[var(--color-rule)] bg-[var(--color-bone)] text-[var(--color-ink)] transition-colors hover:bg-[var(--color-bone-raised)]"
-            aria-label="Next related post"
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      ) : null}
+      <div className="mt-8 grid border-t border-[var(--color-rule)] md:grid-cols-3 md:divide-x md:divide-[var(--color-rule)]">
+        {items.map((item, index) => {
+          const author = getAuthorBySlug(item.frontmatter.author);
+          const hasAuthor = author.slug !== DEFAULT_AUTHOR_SLUG;
+          return (
+            <article
+              key={item.slug}
+              className={`flex flex-col pt-6 pb-2 md:px-6 md:first:pl-0 md:last:pr-0 ${
+                index < items.length - 1
+                  ? "border-b border-[var(--color-rule)] pb-6 md:border-b-0 md:pb-2"
+                  : ""
+              }`}
+            >
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <time
+                  dateTime={item.frontmatter.date}
+                  className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]"
+                >
+                  {formatDate(item.frontmatter.date)}
+                </time>
+                {item.frontmatter.category ? (
+                  <>
+                    <span
+                      className="h-px w-4 bg-[var(--color-oxblood)]"
+                      aria-hidden
+                    />
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+                      {formatSlugLabel(item.frontmatter.category)}
+                    </span>
+                  </>
+                ) : null}
+              </div>
+              <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight leading-snug text-[var(--color-ink)]">
+                <Link
+                  href={`${basePath}/${item.slug}`}
+                  className="transition-colors hover:text-[var(--color-oxblood)]"
+                >
+                  {item.frontmatter.title}
+                </Link>
+              </h3>
+              {hasAuthor ? (
+                <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]">
+                  By {author.name}
+                </p>
+              ) : null}
+              <Link
+                href={`${basePath}/${item.slug}`}
+                className="mt-4 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+              >
+                Read Article
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+            </article>
+          );
+        })}
+      </div>
     </section>
   );
 }

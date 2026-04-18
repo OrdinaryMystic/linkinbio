@@ -1,7 +1,5 @@
 import Link from "next/link";
-import { CalendarDays, FolderOpen, User } from "lucide-react";
-import { Button } from "@/components/button";
-import { Card, CardHeader, CardTitle } from "@/components/card";
+import { ArrowUpRight } from "lucide-react";
 import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
 import type { BlogPostFrontmatter, MarkdownListItem } from "@/lib/content";
 import { formatSlugLabel } from "@/lib/blog-taxonomy-utils";
@@ -14,68 +12,99 @@ type PostListProps = {
   basePath?: string;
 };
 
+function formatDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
 export function PostList({
   posts,
   emptyMessage,
-  columns = 2,
   showAuthorMeta = true,
   basePath = "/blog",
 }: PostListProps) {
   if (posts.length === 0) {
-    return <p className="text-sm text-[var(--color-muted)]">{emptyMessage}</p>;
+    return (
+      <p className="text-sm text-[var(--color-muted)]">{emptyMessage}</p>
+    );
   }
 
   return (
-    <section className={columns === 1 ? "grid gap-4" : "grid gap-4 md:grid-cols-2"}>
-      {posts.map((post) => (
-        <Card key={post.slug} className="flex flex-col gap-4 p-4">
-          <div className="flex min-w-0 flex-1 flex-col">
-            <CardHeader className="mb-2">
-              <CardTitle>
-                <Link href={`${basePath}/${post.slug}`} className="hover:underline underline-offset-4">
+    <section className="divide-y divide-[var(--color-rule)] border-t-2 border-[var(--color-ink)]">
+      {posts.map((post) => {
+        const author = showAuthorMeta
+          ? getAuthorBySlug(post.frontmatter.author)
+          : null;
+        const hasAuthor = Boolean(author) && author!.slug !== DEFAULT_AUTHOR_SLUG;
+
+        return (
+          <article
+            key={post.slug}
+            className="grid gap-4 py-8 first:pt-10 md:grid-cols-[10rem_1fr] md:gap-10"
+          >
+            {/* Metadata rail */}
+            <div className="flex flex-row flex-wrap items-center gap-x-4 gap-y-2 md:flex-col md:items-start md:gap-3">
+              <time
+                dateTime={post.frontmatter.date}
+                className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]"
+              >
+                {formatDate(post.frontmatter.date)}
+              </time>
+              {post.frontmatter.category ? (
+                <>
+                  <span
+                    className="hidden h-px w-6 bg-[var(--color-oxblood)] md:block"
+                    aria-hidden
+                  />
+                  <Link
+                    href={`/blog/categories/${post.frontmatter.category}`}
+                    className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+                  >
+                    {formatSlugLabel(post.frontmatter.category)}
+                  </Link>
+                </>
+              ) : null}
+              {hasAuthor ? (
+                <Link
+                  href={`/authors/${author!.slug}`}
+                  className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)]"
+                >
+                  {author!.name}
+                </Link>
+              ) : null}
+            </div>
+
+            {/* Content */}
+            <div>
+              <h3 className="font-heading text-2xl font-semibold leading-[1.15] tracking-tight text-[var(--color-ink)] sm:text-[1.7rem]">
+                <Link
+                  href={`${basePath}/${post.slug}`}
+                  className="transition-colors hover:text-[var(--color-oxblood)]"
+                >
                   {post.frontmatter.title}
                 </Link>
-              </CardTitle>
-            </CardHeader>
-            <div className="mt-auto flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
-              <div className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)] sm:w-auto sm:justify-start">
-                <span className="flex items-center gap-1.5">
-                  <CalendarDays className="h-3.5 w-3.5 shrink-0" />
-                  {new Date(post.frontmatter.date).toLocaleDateString()}
-                </span>
-                {showAuthorMeta &&
-                getAuthorBySlug(post.frontmatter.author).slug !== DEFAULT_AUTHOR_SLUG ? (
-                  <span className="flex items-center gap-1.5">
-                    <User className="h-3.5 w-3.5 shrink-0" />
-                    <Link
-                      href={`/authors/${getAuthorBySlug(post.frontmatter.author).slug}`}
-                      className="underline-offset-2 hover:underline"
-                    >
-                      {getAuthorBySlug(post.frontmatter.author).name}
-                    </Link>
-                  </span>
-                ) : null}
-                <span className="flex items-center gap-1.5">
-                  <FolderOpen className="h-3.5 w-3.5 shrink-0" />
-                  {post.frontmatter.category ? (
-                    <Link
-                      href={`/blog/categories/${post.frontmatter.category}`}
-                      className="underline-offset-2 hover:underline"
-                    >
-                      {formatSlugLabel(post.frontmatter.category)}
-                    </Link>
-                  ) : (
-                    "Uncategorized"
-                  )}
-                </span>
-              </div>
-              <Link href={`${basePath}/${post.slug}`} className="block w-full sm:w-auto sm:flex-shrink-0">
-                <Button size="sm" variant="outline" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
+              </h3>
+              {post.frontmatter.description ? (
+                <p className="mt-3 text-base leading-relaxed text-[var(--color-muted)] line-clamp-3">
+                  {post.frontmatter.description}
+                </p>
+              ) : null}
+              <Link
+                href={`${basePath}/${post.slug}`}
+                className="mt-5 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+              >
+                Read Article
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
               </Link>
             </div>
-          </div>
-        </Card>
-      ))}
+          </article>
+        );
+      })}
     </section>
   );
 }

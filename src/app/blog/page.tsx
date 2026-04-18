@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BlogExplorer } from "@/components/blog/blog-explorer";
+import { PageHeader } from "@/components/page-header";
 import { getAllBlogPosts } from "@/lib/content";
 import { SITE_URL } from "@/lib/site";
 
@@ -27,16 +28,12 @@ export default async function BlogIndexPage({
     : resolvedSearchParams?.archive;
 
   return (
-    <div className="space-y-6">
-      <header className="space-y-3">
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
-          Blog
-        </h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
-          Essays and notes on tarot, astrology, and reflective tools, written for
-          people who like nuance more than predictions.
-        </p>
-      </header>
+    <div>
+      <PageHeader
+        eyebrow="Writings & Reflections"
+        title="Ordinary Mystic Blog"
+        description="Essays and notes on tarot, astrology, and reflective tools, written for people who like nuance more than predictions."
+      />
 
       <BlogExplorer
         posts={posts}

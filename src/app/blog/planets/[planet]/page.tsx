@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PostList } from "@/components/blog/post-list";
+import { PageHeader } from "@/components/page-header";
 import { RelatedEntities } from "@/components/blog/related-entities";
 import { getTaxonomyEntities, getTaxonomyEntity } from "@/data/taxonomy";
 import { getAllBlogPosts } from "@/lib/content";
@@ -47,25 +48,23 @@ export default async function PlanetPage({
   const filteredPosts = filterPostsByListValue(posts, "planets", planet);
 
   return (
-    <div className="space-y-6">
-      <header className="space-y-2">
-        <p className="text-xs uppercase tracking-wide text-[var(--color-oxblood)]">Planet</p>
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
-          {pageContent?.title ?? entity.title}
-        </h1>
-        <p className="max-w-3xl text-sm leading-relaxed text-[var(--color-ink)]">
-          {pageContent?.description ?? entity.description}
-        </p>
-      </header>
+    <div>
+      <PageHeader
+        eyebrow="Planet"
+        title={pageContent?.title ?? entity.title}
+        description={pageContent?.description ?? entity.description}
+      />
 
       {pageContent?.contentHtml ? (
         <section
-          className="prose-content max-w-none rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-5"
+          className="prose-content mb-10 max-w-none border-y border-[var(--color-rule)] bg-[var(--color-bone-raised)] p-6"
           dangerouslySetInnerHTML={{ __html: pageContent.contentHtml }}
         />
       ) : null}
 
-      <RelatedEntities entity={entity} />
+      <div className="mb-10">
+        <RelatedEntities entity={entity} />
+      </div>
 
       <PostList
         posts={filteredPosts}

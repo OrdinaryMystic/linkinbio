@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { CalendarDays, FolderOpen, User } from "lucide-react";
+import { ArrowUpRight, ChevronRight } from "lucide-react";
 import { PostList } from "@/components/blog/post-list";
-import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
 import type { BlogPostFrontmatter, MarkdownListItem } from "@/lib/content";
 import {
   filterPostsBySearchTagAndArchive,
@@ -10,13 +9,21 @@ import {
   getCategoryCounts,
   getTagCounts,
 } from "@/lib/blog-taxonomy-utils";
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/card";
-import { Button } from "@/components/button";
 
 function monthName(month: string) {
   const value = Number(month);
   if (!Number.isInteger(value) || value < 1 || value > 12) return month;
   return new Date(2000, value - 1, 1).toLocaleString("en-US", { month: "long" });
+}
+
+function formatFeaturedDate(value: string) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 }
 
 type BlogExplorerProps = {
@@ -59,150 +66,185 @@ export function BlogExplorer({
     featuredPost === undefined
       ? filteredPosts
       : filteredPosts.filter((post) => post.slug !== featuredPost.slug);
+
   const categoryCounts = getCategoryCounts(posts);
-  const subcategoryCounts = [...new Set(posts.map((post) => post.frontmatter.subcategory).filter(Boolean))]
+  const subcategoryCounts = [
+    ...new Set(
+      posts.map((post) => post.frontmatter.subcategory).filter(Boolean),
+    ),
+  ]
     .map((subcategory) => ({
       subcategory: subcategory as string,
-      count: posts.filter((post) => post.frontmatter.subcategory === subcategory).length,
+      count: posts.filter((post) => post.frontmatter.subcategory === subcategory)
+        .length,
     }))
-    .sort((a, b) => b.count - a.count || a.subcategory.localeCompare(b.subcategory));
+    .sort(
+      (a, b) => b.count - a.count || a.subcategory.localeCompare(b.subcategory),
+    );
   const tagCounts = getTagCounts(posts);
   const archives = getArchiveGroups(posts);
 
+  const primaryItems =
+    sidebarPrimary === "subcategories"
+      ? subcategoryCounts.map((entry) => ({
+          href: `/blog/subcategories/${entry.subcategory}`,
+          label: formatSlugLabel(entry.subcategory),
+          count: entry.count,
+        }))
+      : categoryCounts.map((entry) => ({
+          href: `/blog/categories/${entry.category}`,
+          label: formatSlugLabel(entry.category),
+          count: entry.count,
+        }));
+
   return (
-    <div className="space-y-5">
+    <div className="space-y-14">
+      {/* FEATURED LEDE */}
       {featuredPost ? (
-        <Card className="flex flex-col gap-4 p-4">
-          <div className="flex min-w-0 flex-1 flex-col">
-            <CardHeader className="mb-2">
-              <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">
-                Featured Post
-              </p>
-              <CardTitle>
-                <Link
-                  href={`${basePath}/${featuredPost.slug}`}
-                  className="hover:underline underline-offset-4"
-                >
-                  {featuredPost.frontmatter.title}
-                </Link>
-              </CardTitle>
-              <CardDescription>{featuredPost.frontmatter.description}</CardDescription>
-            </CardHeader>
-            <CardFooter className="mt-auto flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:items-end sm:justify-between">
-              <div className="flex w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)] sm:w-auto sm:justify-start">
-                <span className="flex items-center gap-1.5">
-                  <CalendarDays className="h-3.5 w-3.5 shrink-0" />
-                  {new Date(featuredPost.frontmatter.date).toLocaleDateString()}
-                </span>
-                {getAuthorBySlug(featuredPost.frontmatter.author).slug !==
-                DEFAULT_AUTHOR_SLUG ? (
-                  <span className="flex items-center gap-1.5">
-                    <User className="h-3.5 w-3.5 shrink-0" />
-                    <Link
-                      href={`/authors/${getAuthorBySlug(featuredPost.frontmatter.author).slug}`}
-                      className="underline-offset-2 hover:underline"
-                    >
-                      {getAuthorBySlug(featuredPost.frontmatter.author).name}
-                    </Link>
-                  </span>
-                ) : null}
-                <span className="flex items-center gap-1.5">
-                  <FolderOpen className="h-3.5 w-3.5 shrink-0" />
-                  {featuredPost.frontmatter.category ? (
-                    <Link
-                      href={`/blog/categories/${featuredPost.frontmatter.category}`}
-                      className="underline-offset-2 hover:underline"
-                    >
-                      {formatSlugLabel(featuredPost.frontmatter.category)}
-                    </Link>
-                  ) : (
-                    "Uncategorized"
-                  )}
-                </span>
-              </div>
-              <Link href={`${basePath}/${featuredPost.slug}`} className="block w-full sm:w-auto sm:flex-shrink-0">
-                <Button size="sm" className="w-full justify-center whitespace-nowrap sm:w-auto">Read Post</Button>
-              </Link>
-            </CardFooter>
+        <article className="border-t-2 border-[var(--color-ink)] pt-8 sm:pt-10">
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+              Featured
+            </span>
+            <span
+              className="h-px flex-1 bg-[var(--color-rule)]"
+              aria-hidden
+            />
+            <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]">
+              {formatFeaturedDate(featuredPost.frontmatter.date)}
+            </span>
           </div>
-        </Card>
+          <h2 className="mt-5 max-w-3xl font-heading text-3xl font-semibold tracking-tight leading-[1.1] text-[var(--color-ink)] sm:text-4xl lg:text-5xl">
+            <Link
+              href={`${basePath}/${featuredPost.slug}`}
+              className="transition-colors hover:text-[var(--color-oxblood)]"
+            >
+              {featuredPost.frontmatter.title}
+            </Link>
+          </h2>
+          {featuredPost.frontmatter.description ? (
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-muted)] sm:text-lg line-clamp-3">
+              {featuredPost.frontmatter.description}
+            </p>
+          ) : null}
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            {featuredPost.frontmatter.category ? (
+              <Link
+                href={`/blog/categories/${featuredPost.frontmatter.category}`}
+                className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)] transition-colors hover:text-[var(--color-oxblood)]"
+              >
+                {formatSlugLabel(featuredPost.frontmatter.category)}
+              </Link>
+            ) : null}
+            <span className="h-px flex-1 bg-[var(--color-rule)]" aria-hidden />
+            <Link
+              href={`${basePath}/${featuredPost.slug}`}
+              className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+            >
+              Read Article
+              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+            </Link>
+          </div>
+        </article>
       ) : null}
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr] lg:items-start">
-        <PostList posts={restPosts} emptyMessage={emptyMessage} columns={1} basePath={basePath} />
+      {/* LIST + SIDEBAR */}
+      <div className="grid gap-12 lg:grid-cols-[1fr_17rem] lg:items-start lg:gap-14">
+        <PostList
+          posts={restPosts}
+          emptyMessage={emptyMessage}
+          columns={1}
+          basePath={basePath}
+        />
 
-        <aside className="space-y-5 rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-4">
-          <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+        <aside className="space-y-10 lg:sticky lg:top-20 lg:self-start lg:border-l lg:border-[var(--color-rule)] lg:pl-10">
+          <section>
+            <h2 className="border-b-2 border-[var(--color-ink)] pb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
               {sidebarPrimary === "subcategories" ? "Subcategories" : "Categories"}
             </h2>
-            <ul className="space-y-1 text-sm text-[var(--color-ink)]">
-              {sidebarPrimary === "subcategories"
-                ? subcategoryCounts.map(({ subcategory, count }) => (
-                    <li key={subcategory}>
-                      <Link
-                        href={`/blog/subcategories/${subcategory}`}
-                        className="flex items-center justify-between rounded px-2 py-1 hover:bg-[var(--color-bone-raised)]"
-                      >
-                        <span>{formatSlugLabel(subcategory)}</span>
-                        <span className="text-xs text-[var(--color-muted)]">{count}</span>
-                      </Link>
-                    </li>
-                  ))
-                : categoryCounts.map(({ category, count }) => (
-                    <li key={category}>
-                      <Link
-                        href={`/blog/categories/${category}`}
-                        className="flex items-center justify-between rounded px-2 py-1 hover:bg-[var(--color-bone-raised)]"
-                      >
-                        <span>{formatSlugLabel(category)}</span>
-                        <span className="text-xs text-[var(--color-muted)]">{count}</span>
-                      </Link>
-                    </li>
-                  ))}
+            <ul className="divide-y divide-[var(--color-rule)]">
+              {primaryItems.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    href={item.href}
+                    className="group flex items-baseline justify-between gap-3 py-3 transition-colors"
+                  >
+                    <span className="font-heading text-base text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-oxblood)]">
+                      {item.label}
+                    </span>
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-muted)]">
+                      {String(item.count).padStart(2, "0")}
+                    </span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </section>
 
-          <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+          <section>
+            <h2 className="border-b-2 border-[var(--color-ink)] pb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
               Archives
             </h2>
-            <div className="space-y-2">
-              {archives.map((group) => (
-                <details key={group.year} className="rounded px-2 py-1">
-                  <summary className="cursor-pointer text-sm font-medium text-[var(--color-ink)]">
-                    {group.year}
-                  </summary>
-                  <ul className="mt-2 space-y-1 pl-4">
-                    {group.months.map(({ month, count }) => (
-                      <li key={`${group.year}-${month}`}>
-                        <Link
-                          href={`${currentPath}?archive=${group.year}-${month}`}
-                          className="flex items-center justify-between rounded px-2 py-1 text-sm text-[var(--color-ink)] hover:bg-[var(--color-bone-raised)]"
-                        >
-                          <span>{monthName(month)}</span>
-                          <span className="text-xs text-[var(--color-muted)]">{count}</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              ))}
-            </div>
+            <ul className="divide-y divide-[var(--color-rule)]">
+              {archives.map((group) => {
+                const total = group.months.reduce(
+                  (acc, m) => acc + m.count,
+                  0,
+                );
+                return (
+                  <li key={group.year}>
+                    <details className="group">
+                      <summary className="flex cursor-pointer list-none items-baseline justify-between gap-3 py-3 [&::-webkit-details-marker]:hidden">
+                        <span className="flex items-center gap-2 font-heading text-base font-semibold text-[var(--color-ink)] transition-colors group-hover:text-[var(--color-oxblood)]">
+                          <ChevronRight
+                            className="h-3 w-3 text-[var(--color-muted)] transition-transform group-open:rotate-90"
+                            aria-hidden
+                          />
+                          {group.year}
+                        </span>
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-muted)]">
+                          {String(total).padStart(2, "0")}
+                        </span>
+                      </summary>
+                      <ul className="mb-3 ml-2 border-l border-[var(--color-rule)] pl-4">
+                        {group.months.map(({ month, count }) => (
+                          <li key={month}>
+                            <Link
+                              href={`${currentPath}?archive=${group.year}-${month}`}
+                              className="flex items-baseline justify-between gap-3 py-1.5 text-sm text-[var(--color-muted)] transition-colors hover:text-[var(--color-oxblood)]"
+                            >
+                              <span>{monthName(month)}</span>
+                              <span className="text-[10px] font-semibold uppercase tracking-[0.2em]">
+                                {count}
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  </li>
+                );
+              })}
+            </ul>
           </section>
 
-          <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+          <section>
+            <h2 className="border-b-2 border-[var(--color-ink)] pb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
               Tags
             </h2>
-            <div className="flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm leading-relaxed">
               {tagCounts.map(({ tag, count }) => (
                 <Link
                   key={tag}
                   href={`${currentPath}?tag=${tag}`}
-                  className="rounded-md border border-[var(--color-rule)] px-2 py-1 text-xs text-[var(--color-ink)] hover:bg-[var(--color-bone-raised)]"
+                  className="group inline-flex items-baseline gap-1 text-[var(--color-ink)] transition-colors hover:text-[var(--color-oxblood)]"
                 >
-                  {formatSlugLabel(tag)} ({count})
+                  <span className="underline-offset-4 group-hover:underline">
+                    {formatSlugLabel(tag)}
+                  </span>
+                  <sup className="text-[10px] font-semibold text-[var(--color-muted)]">
+                    {count}
+                  </sup>
                 </Link>
               ))}
             </div>

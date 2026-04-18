@@ -1,18 +1,18 @@
 "use client";
 
 const RISING_SIGNS = [
-  { id: "aries-rising", label: "Aries", symbol: "♈" },
-  { id: "taurus-rising", label: "Taurus", symbol: "♉" },
-  { id: "gemini-rising", label: "Gemini", symbol: "♊" },
-  { id: "cancer-rising", label: "Cancer", symbol: "♋" },
-  { id: "leo-rising", label: "Leo", symbol: "♌" },
-  { id: "virgo-rising", label: "Virgo", symbol: "♍" },
-  { id: "libra-rising", label: "Libra", symbol: "♎" },
-  { id: "scorpio-rising", label: "Scorpio", symbol: "♏" },
-  { id: "sagittarius-rising", label: "Sagittarius", symbol: "♐" },
-  { id: "capricorn-rising", label: "Capricorn", symbol: "♑" },
-  { id: "aquarius-rising", label: "Aquarius", symbol: "♒" },
-  { id: "pisces-rising", label: "Pisces", symbol: "♓" },
+  { id: "aries-rising", label: "Aries" },
+  { id: "taurus-rising", label: "Taurus" },
+  { id: "gemini-rising", label: "Gemini" },
+  { id: "cancer-rising", label: "Cancer" },
+  { id: "leo-rising", label: "Leo" },
+  { id: "virgo-rising", label: "Virgo" },
+  { id: "libra-rising", label: "Libra" },
+  { id: "scorpio-rising", label: "Scorpio" },
+  { id: "sagittarius-rising", label: "Sagittarius" },
+  { id: "capricorn-rising", label: "Capricorn" },
+  { id: "aquarius-rising", label: "Aquarius" },
+  { id: "pisces-rising", label: "Pisces" },
 ];
 
 export function ForecastSignJumper() {
@@ -24,33 +24,31 @@ export function ForecastSignJumper() {
   }
 
   return (
-    <div className="overflow-hidden rounded px-5 py-4" style={{ backgroundColor: "var(--color-bone-raised)" }}>
-      <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-bone)] opacity-80">
+    <div className="mt-8 border-y-2 border-[var(--color-ink)] bg-[var(--color-bone-raised)] px-6 py-8 sm:px-8 sm:py-9">
+      <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+        <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
         Rising Sign Forecast
-      </p>
-      <p className="mt-1 text-sm font-medium text-[var(--color-bone)]">
+      </span>
+      <h3 className="mt-3 font-heading text-2xl font-semibold tracking-tight leading-[1.15] text-[var(--color-ink)]">
         Jump to your rising sign
-      </p>
-      <p className="mt-0.5 text-xs leading-relaxed text-[var(--color-bone)] opacity-70">
+      </h3>
+      <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">
         Don&apos;t know yours? You need your birth time.{" "}
         <a
           href="/blog/why-birth-time"
-          className="underline underline-offset-2 hover:opacity-100"
+          className="text-[var(--color-oxblood)] underline underline-offset-[3px] transition-colors hover:text-[var(--color-oxblood-hover)]"
         >
           Here&apos;s why it matters.
         </a>
       </p>
-      <div className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
+      <div className="mt-6 grid grid-cols-2 gap-px border border-[var(--color-rule)] bg-[var(--color-rule)] sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
         {RISING_SIGNS.map((sign) => (
           <button
             key={sign.id}
             type="button"
             onClick={() => handleClick(sign.id)}
-            className="flex items-center gap-2 rounded-lg border border-white/20 bg-white/10 px-3 py-2 text-left text-sm font-medium text-[var(--color-bone)] transition-colors hover:bg-white/20 hover:border-white/30"
+            className="group flex items-center justify-between gap-2 bg-[var(--color-bone)] px-4 py-3 text-left font-heading text-[0.9375rem] font-medium text-[var(--color-ink)] transition-colors hover:bg-[var(--color-bone-raised)] hover:text-[var(--color-oxblood)]"
           >
-            <span className="text-base leading-none" aria-hidden>
-              {sign.symbol}
-            </span>
             <span>{sign.label}</span>
           </button>
         ))}

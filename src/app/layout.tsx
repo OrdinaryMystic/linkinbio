@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Newsreader } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
@@ -106,53 +105,45 @@ export default function RootLayout({
             <Container>{children}</Container>
           </main>
           <footer
-            className="py-12"
+            className="py-16"
             style={{ backgroundColor: "#1a1614" }}
           >
             <Container>
-              <div className="grid gap-10 md:grid-cols-4">
+              <div className="grid gap-10 md:grid-cols-4 md:gap-12">
                 {/* Brand column */}
-                <div className="md:col-span-1 space-y-3">
-                  <div className="flex items-center gap-2">
-                    <Image
-                      src="/favicon.png"
-                      alt=""
-                      width={20}
-                      height={20}
-                      className="h-5 w-5 shrink-0"
-                    />
-                    <span className="font-heading text-sm font-semibold text-[#f5f0e8]">
-                      Ordinary Mystic
-                    </span>
-                  </div>
-                  <p className="text-xs leading-relaxed text-[#9a8d7d]">
+                <div className="md:col-span-1 space-y-4">
+                  <span className="font-heading text-lg font-semibold tracking-tight text-[var(--color-bone)]">
+                    Ordinary Mystic
+                  </span>
+                  <span className="block h-px w-8 bg-[var(--color-oxblood)]" aria-hidden />
+                  <p className="text-sm leading-relaxed text-[#9a8d7d]">
                     Finding meaning in the patterns of ordinary life.
                   </p>
                 </div>
 
                 {/* Writing column */}
-                <div className="space-y-3">
-                  <h4 className="text-xs font-semibold uppercase tracking-widest text-[#9a8d7d]">
+                <div>
+                  <h4 className="border-b border-[#2d2620] pb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#c9bba8]">
                     Writing
                   </h4>
-                  <ul className="space-y-2 text-sm">
+                  <ul className="mt-4 space-y-2.5 text-sm">
                     <li>
-                      <Link href="/blog" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                      <Link href="/blog" className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]">
                         Blog
                       </Link>
                     </li>
                     <li>
-                      <Link href="/blog/categories/astrology" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                      <Link href="/blog/categories/astrology" className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]">
                         Astrology
                       </Link>
                     </li>
                     <li>
-                      <Link href="/blog/categories/tarot" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                      <Link href="/blog/categories/tarot" className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]">
                         Tarot
                       </Link>
                     </li>
                     <li>
-                      <Link href="/knowledge-base" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                      <Link href="/knowledge-base" className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]">
                         Knowledge Base
                       </Link>
                     </li>
@@ -160,23 +151,23 @@ export default function RootLayout({
                 </div>
 
                 {/* Tools & Work column */}
-                <div className="space-y-3">
-                  <h4 className="text-xs font-semibold uppercase tracking-widest text-[#9a8d7d]">
-                    Tools & Work
+                <div>
+                  <h4 className="border-b border-[#2d2620] pb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#c9bba8]">
+                    Tools &amp; Work
                   </h4>
-                  <ul className="space-y-2 text-sm">
+                  <ul className="mt-4 space-y-2.5 text-sm">
                     <li>
-                      <Link href="/resources" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                      <Link href="/resources" className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]">
                         Resources
                       </Link>
                     </li>
                     <li>
-                      <Link href="/book" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                      <Link href="/book" className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]">
                         Book a Reading
                       </Link>
                     </li>
                     <li>
-                      <a href={DIGITAL_TAROT_APP_URL} target="_blank" rel="noopener noreferrer" className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                      <a href={DIGITAL_TAROT_APP_URL} target="_blank" rel="noopener noreferrer" className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]">
                         Digital Tarot
                       </a>
                     </li>
@@ -184,15 +175,15 @@ export default function RootLayout({
                 </div>
 
                 {/* Connect column */}
-                <div className="space-y-3">
-                  <h4 className="text-xs font-semibold uppercase tracking-widest text-[#9a8d7d]">
+                <div>
+                  <h4 className="border-b border-[#2d2620] pb-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#c9bba8]">
                     Connect
                   </h4>
-                  <ul className="space-y-2 text-sm">
+                  <ul className="mt-4 space-y-2.5 text-sm">
                     <li>
                       <a
                         href="mailto:ordinarymysticreadings@gmail.com"
-                        className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors"
+                        className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]"
                       >
                         Email
                       </a>
@@ -202,7 +193,7 @@ export default function RootLayout({
                         href="https://www.youtube.com/@OrdinaryMysticReadings"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors"
+                        className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]"
                       >
                         YouTube
                       </a>
@@ -212,7 +203,7 @@ export default function RootLayout({
                         href={TIKTOK_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors"
+                        className="text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]"
                       >
                         TikTok
                       </a>
@@ -222,13 +213,16 @@ export default function RootLayout({
               </div>
 
               <div
-                className="mt-10 pt-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+                className="mt-12 flex flex-col gap-3 pt-6 sm:flex-row sm:items-center sm:justify-between"
                 style={{ borderTop: "1px solid #2d2620" }}
               >
-                <p className="text-xs text-[#9a8d7d]">
-                  Tulsa, OK
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[#9a8d7d]">
+                  Tulsa, Oklahoma
                 </p>
-                <Link href="/about" className="text-xs text-[#9a8d7d] hover:text-[#f5f0e8] transition-colors">
+                <Link
+                  href="/about"
+                  className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#9a8d7d] transition-colors hover:text-[var(--color-bone)]"
+                >
                   About this project
                 </Link>
               </div>

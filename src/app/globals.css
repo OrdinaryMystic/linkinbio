@@ -173,28 +173,29 @@ body {
   color: var(--color-oxblood-hover);
 }
 
-/* Details / summary accordion */
+/* Details / summary accordion — editorial */
 .prose-content details {
-  @apply mt-4 overflow-hidden;
+  @apply mt-3;
   border: 1px solid var(--color-rule);
 }
 
 .prose-content details + details {
-  @apply mt-2;
+  margin-top: -1px;
 }
 
 .prose-content summary {
   display: block;
   cursor: pointer;
-  padding: 0.75rem 1rem;
-  padding-right: 2rem;
-  font-size: 0.875rem;
+  padding: 0.875rem 1.25rem;
+  padding-right: 2.75rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-ink);
-  background-color: var(--color-bone-raised);
+  background-color: var(--color-bone);
   user-select: none;
   list-style: none;
   position: relative;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
 .prose-content summary::-webkit-details-marker {
@@ -202,63 +203,82 @@ body {
 }
 
 .prose-content summary::after {
-  content: "\25BE";
+  content: "";
   position: absolute;
-  right: 1rem;
+  right: 1.25rem;
   top: 50%;
-  transform: translateY(-50%);
-  color: var(--color-muted);
-  transition: transform 0.2s ease;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid var(--color-muted);
+  border-bottom: 1.5px solid var(--color-muted);
+  transform: translateY(-70%) rotate(45deg);
+  transition: transform 0.2s ease, border-color 0.15s ease;
   pointer-events: none;
 }
 
 .prose-content details[open] > summary {
   background-color: var(--color-bone-raised);
   border-bottom: 1px solid var(--color-rule);
+  color: var(--color-oxblood);
 }
 
 .prose-content details[open] > summary::after {
-  transform: translateY(-50%) rotate(180deg);
+  transform: translateY(-30%) rotate(-135deg);
+  border-color: var(--color-oxblood);
 }
 
 .prose-content summary:hover {
   background-color: var(--color-bone-raised);
+  color: var(--color-oxblood);
 }
 
-/* Rising sign accordion cards */
+.prose-content summary:hover::after {
+  border-color: var(--color-oxblood);
+}
+
+/* Rising sign accordion — oxblood side-rule variant */
 .prose-content details[id$="-rising"] {
   border: 1px solid var(--color-rule);
+  border-left: 2px solid var(--color-oxblood);
 }
 
 .prose-content details[id$="-rising"] summary {
-  background-color: var(--color-ink);
-  color: var(--color-bone);
+  background-color: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  font-size: 1.0625rem;
+  letter-spacing: -0.005em;
 }
 
 .prose-content details[id$="-rising"] summary .sign-house {
-  opacity: 0.75;
-  font-weight: 400;
   margin-left: 0.5rem;
-}
-
-.prose-content details[id$="-rising"] summary::after {
-  color: var(--color-bone);
-  opacity: 0.7;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
 .prose-content details[id$="-rising"][open] > summary {
-  background-color: var(--color-ink);
-  border-bottom: 1px solid var(--color-rule);
+  background-color: var(--color-bone-raised);
+  color: var(--color-ink);
+}
+
+.prose-content details[id$="-rising"][open] > summary::after {
+  border-color: var(--color-oxblood);
 }
 
 .prose-content details[id$="-rising"] summary:hover {
-  opacity: 0.95;
+  background-color: var(--color-bone-raised);
+  color: var(--color-ink);
 }
 
 .prose-content .sign-details-body,
 .prose-content .faq-details-body {
-  @apply px-4 pb-4 pt-3 text-base leading-relaxed;
+  @apply px-5 pb-5 pt-4 text-base leading-relaxed;
   color: var(--color-ink);
+  background-color: var(--color-bone);
 }
 
 .prose-content .sign-details-body p,
@@ -312,40 +332,76 @@ body {
   color: var(--color-oxblood-hover);
 }
 
-/* Forecast jumper */
+/* Forecast jumper — editorial rising-sign index */
 .forecast-jumper {
-  @apply mt-6 overflow-hidden px-5 py-4;
-  background-color: var(--color-ink);
+  @apply mt-8 px-6 py-8 sm:px-8 sm:py-9;
+  background-color: var(--color-bone-raised);
+  border-top: 2px solid var(--color-ink);
+  border-bottom: 2px solid var(--color-ink);
+  position: relative;
+}
+
+.forecast-jumper::before {
+  content: "Rising Sign Forecast";
+  display: block;
+  margin-bottom: 0.75rem;
+  padding-left: 2rem;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+  background-image: linear-gradient(var(--color-oxblood), var(--color-oxblood));
+  background-repeat: no-repeat;
+  background-size: 1.5rem 1px;
+  background-position: 0 50%;
 }
 
 .forecast-jumper__title {
-  @apply text-sm font-semibold;
-  color: var(--color-bone) !important;
+  font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  @apply text-2xl font-semibold tracking-tight;
+  color: var(--color-ink) !important;
+  line-height: 1.15;
 }
 
 .forecast-jumper__subtitle {
-  @apply mt-0.5 text-xs;
-  color: var(--color-bone) !important;
-  opacity: 0.8;
+  @apply mt-3 text-sm;
+  color: var(--color-muted) !important;
+  opacity: 1;
+  line-height: 1.6;
+}
+
+.forecast-jumper__subtitle a {
+  color: var(--color-oxblood);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.forecast-jumper__subtitle a:hover {
+  color: var(--color-oxblood-hover);
 }
 
 .forecast-jumper__grid {
-  @apply mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6;
+  @apply mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6;
+  gap: 1px;
+  background-color: var(--color-rule);
+  border: 1px solid var(--color-rule);
 }
 
 .forecast-jumper__btn {
-  @apply flex items-center gap-2 px-3 py-2 text-left text-sm font-medium no-underline transition-colors;
-  color: var(--color-bone);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.06);
-}
-.forecast-jumper__btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.25);
+  @apply flex items-center px-4 py-3 text-left no-underline transition-colors;
+  background-color: var(--color-bone);
+  color: var(--color-ink);
+  font-family: var(--font-newsreader), Georgia, "Times New Roman", serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.005em;
 }
 
-.forecast-jumper__symbol {
-  @apply text-base leading-none;
+.forecast-jumper__btn:hover {
+  background-color: var(--color-bone-raised);
+  color: var(--color-oxblood);
 }
 
 /* Current Forecast banner overlay */

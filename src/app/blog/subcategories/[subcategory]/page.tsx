@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { PostList } from "@/components/blog/post-list";
+import { PageHeader } from "@/components/page-header";
 import { getAllBlogPosts } from "@/lib/content";
 import { getContentPageBySlug, getContentPages } from "@/lib/content-pages";
 import { filterPostsBySingleValue, formatSlugLabel } from "@/lib/blog-taxonomy-utils";
@@ -49,20 +50,16 @@ export default async function SubcategoryPage({
   const filteredPosts = filterPostsBySingleValue(posts, "subcategory", subcategory);
 
   return (
-    <div className="space-y-6">
-      <header className="space-y-2">
-        <p className="text-xs uppercase tracking-wide text-[var(--color-oxblood)]">Subcategory</p>
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
-          {pageContent?.title ?? subcategoryConfig.title ?? formatSlugLabel(subcategory)}
-        </h1>
-        <p className="max-w-3xl text-sm leading-relaxed text-[var(--color-ink)]">
-          {pageContent?.description ?? subcategoryConfig.description}
-        </p>
-      </header>
+    <div>
+      <PageHeader
+        eyebrow="Subcategory"
+        title={pageContent?.title ?? subcategoryConfig.title ?? formatSlugLabel(subcategory)}
+        description={pageContent?.description ?? subcategoryConfig.description}
+      />
 
       {pageContent?.contentHtml ? (
         <section
-          className="prose-content max-w-none rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-5"
+          className="prose-content mb-10 max-w-none border-y border-[var(--color-rule)] bg-[var(--color-bone-raised)] p-6"
           dangerouslySetInnerHTML={{ __html: pageContent.contentHtml }}
         />
       ) : null}

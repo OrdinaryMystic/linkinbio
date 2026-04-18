@@ -28,10 +28,12 @@ export function Comments() {
   }
 
   return (
-    <section className="rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-4 sm:p-6">
-      <h2 className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+    <section className="border-t border-[var(--color-ink)] pt-8">
+      <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+        <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
         Discussion
-      </h2>
+      </span>
+      <div className="mt-5">
       <Giscus
         repo={config.repo}
         repoId={config.repoId}
@@ -45,6 +47,7 @@ export function Comments() {
         lang="en"
         loading="lazy"
       />
+      </div>
     </section>
   );
 }

@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/button";
 import { ReaderMilestone } from "@/components/analytics/reader-milestone";
 import { AuthorBox } from "@/components/blog/author-box";
 import { Comments } from "@/components/blog/comments";
 import { PostSidebar } from "@/components/blog/post-sidebar";
 import { RelatedPostsCarousel } from "@/components/blog/related-posts-carousel";
-import { CalendarDays } from "lucide-react";
-import { getAuthorBySlug } from "@/data/authors";
+import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
+import { formatSlugLabel } from "@/lib/blog-taxonomy-utils";
+import { getTaxonomyEntity } from "@/data/taxonomy";
 import {
   type BlogPostFrontmatter,
   getAllForecasts,
@@ -21,74 +22,6 @@ import { withUtmParams } from "@/lib/utils";
 type Params = {
   slug: string;
 };
-
-type ForecastScope = "seasonal" | "monthly" | "weekly" | "daily" | "annual";
-type ForecastTimeframe = "Current" | "Upcoming" | "Past";
-
-function parseDateOnly(value?: string): Date | null {
-  if (!value) return null;
-  const date = new Date(`${value}T00:00:00`);
-  return Number.isNaN(date.getTime()) ? null : date;
-}
-
-function getForecastTimeframe(frontmatter: BlogPostFrontmatter): ForecastTimeframe {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const start = parseDateOnly(frontmatter.forecastStart);
-  const end = parseDateOnly(frontmatter.forecastEnd);
-
-  if (!start || !end) return "Past";
-  if (today < start) return "Upcoming";
-  if (today > end) return "Past";
-  return "Current";
-}
-
-function formatDateLabel(value?: string): string | null {
-  const date = parseDateOnly(value);
-  if (!date) return null;
-  return date.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
-}
-
-function getWindowLabel(frontmatter: BlogPostFrontmatter): string {
-  const start = formatDateLabel(frontmatter.forecastStart);
-  const end = formatDateLabel(frontmatter.forecastEnd);
-  if (start && end && start !== end) return `Forecast for ${start} through ${end}`;
-  if (start && end && start === end) return `Forecast for ${start}`;
-  if (start) return `Forecast for ${start}`;
-  if (end) return `Forecast through ${end}`;
-  return "Forecast window pending";
-}
-
-function getScope(frontmatter: BlogPostFrontmatter): ForecastScope | null {
-  const scope = frontmatter.forecastScope;
-  if (
-    scope === "seasonal" ||
-    scope === "monthly" ||
-    scope === "weekly" ||
-    scope === "daily" ||
-    scope === "annual"
-  ) {
-    return scope;
-  }
-  return null;
-}
-
-function getScopeBadge(scope: ForecastScope): { label: string; className: string } {
-  switch (scope) {
-    case "annual":
-      return { label: "Annual", className: "bg-violet-100 text-violet-800 border-violet-200" };
-    case "seasonal":
-      return { label: "Seasonal", className: "bg-indigo-100 text-indigo-800 border-indigo-200" };
-    case "monthly":
-      return { label: "Monthly", className: "bg-sky-100 text-sky-800 border-sky-200" };
-    case "weekly":
-      return { label: "Weekly", className: "bg-amber-100 text-amber-800 border-amber-200" };
-    case "daily":
-      return { label: "Daily", className: "bg-emerald-100 text-emerald-800 border-emerald-200" };
-    default:
-      return { label: "Forecast", className: "bg-[var(--color-bone-raised)] text-[var(--color-ink)] border-[var(--color-rule)]" };
-  }
-}
 
 export async function generateStaticParams() {
   const posts = await getAllForecasts();
@@ -106,7 +39,7 @@ export async function generateMetadata({
 
   if (!match) {
     return {
-      title: "Forecast not found",
+      title: "Post not found",
     };
   }
 
@@ -165,17 +98,21 @@ export default async function ForecastPostPage({
     "Get a practical reading in plain English focused on your actual patterns, timing, and next steps.";
   const ctaLabel = fm.ctaLabel ?? "Book a Reading";
   const ctaUrl = withUtmParams(fm.ctaUrl ?? "/book", {
-    utm_source: "forecasts",
+    utm_source: "blog",
     utm_medium: "cta-card",
   });
+  const category = fm.category;
+  const subcategory = fm.subcategory;
   const author = getAuthorBySlug(fm.author);
-  const scope = getScope(fm);
-  const scopeBadge = scope ? getScopeBadge(scope) : null;
-  const timeframe = getForecastTimeframe(fm);
   const absolutePostUrl = `${SITE_URL}/forecasts/${slug}`;
   const breadcrumbs = [
-    { label: "Forecasts", href: "/forecasts" },
-    { label: timeframe, href: "/forecasts" },
+    { label: "Blog", href: "/blog" },
+    ...(category
+      ? [{ label: formatSlugLabel(category), href: `/blog/categories/${category}` }]
+      : []),
+    ...(subcategory
+      ? [{ label: formatSlugLabel(subcategory), href: `/blog/subcategories/${subcategory}` }]
+      : []),
   ];
 
   const currentTags = new Set(fm.tags ?? []);
@@ -209,6 +146,29 @@ export default async function ForecastPostPage({
     })
     .slice(0, 3)
     .map((item) => item.post);
+
+  const linkedMetadata = [
+    ...(fm.planets ?? []).map((value) => ({
+      label: getTaxonomyEntity("planets", value)?.title ?? value.replaceAll("-", " "),
+      href: `/blog/planets/${value}`,
+    })),
+    ...(fm.signs ?? []).map((value) => ({
+      label: getTaxonomyEntity("signs", value)?.title ?? value.replaceAll("-", " "),
+      href: `/blog/signs/${value}`,
+    })),
+    ...(fm.houses ?? []).map((value) => ({
+      label: getTaxonomyEntity("houses", value)?.title ?? value.replaceAll("-", " "),
+      href: `/blog/houses/${value}`,
+    })),
+    ...(fm.cards ?? []).map((value) => ({
+      label: getTaxonomyEntity("cards", value)?.title ?? value.replaceAll("-", " "),
+      href: `/blog/cards/${value}`,
+    })),
+    ...(fm.tags ?? []).map((value) => ({
+      label: value.replaceAll("-", " "),
+      href: `/blog/tags/${value}`,
+    })),
+  ];
 
   const articleJsonLd = {
     "@context": "https://schema.org",
@@ -260,7 +220,7 @@ export default async function ForecastPostPage({
     });
 
   return (
-    <article className="space-y-6">
+    <article>
       <ReaderMilestone slug={slug} />
       <script
         type="application/ld+json"
@@ -276,79 +236,120 @@ export default async function ForecastPostPage({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       ) : null}
-      <header className="space-y-3">
-        <nav className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-wide text-[var(--color-muted)]">
+
+      {/* HEADER */}
+      <header className="mb-10 sm:mb-14">
+        <nav className="flex flex-wrap items-center gap-x-2 gap-y-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]">
           {breadcrumbs.map((crumb, index) => (
             <span key={crumb.href} className="inline-flex items-center gap-2">
-              {index > 0 ? <span>/</span> : null}
+              {index > 0 ? (
+                <span className="text-[var(--color-rule)]" aria-hidden>
+                  /
+                </span>
+              ) : null}
               {index === breadcrumbs.length - 1 ? (
                 <span>{crumb.label}</span>
               ) : (
-                <Link href={crumb.href} className="hover:text-[var(--color-ink)] hover:underline">
+                <Link
+                  href={crumb.href}
+                  className="transition-colors hover:text-[var(--color-oxblood)]"
+                >
                   {crumb.label}
                 </Link>
               )}
             </span>
           ))}
         </nav>
+
+        {category ? (
+          <div className="mt-8 inline-flex items-center gap-3">
+            <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+            <Link
+              href={`/blog/categories/${category}`}
+              className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+            >
+              {formatSlugLabel(category)}
+            </Link>
+          </div>
+        ) : null}
+
+        <h1 className="mt-5 font-heading text-3xl font-semibold tracking-tight leading-[1.1] text-[var(--color-ink)] sm:text-4xl lg:text-5xl">
+          {fm.title}
+        </h1>
+
+        {fm.description ? (
+          <p className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">
+            {fm.description}
+          </p>
+        ) : null}
+
+        <div className="mt-8 flex flex-wrap items-center gap-4 border-t border-[var(--color-rule)] pt-5">
+          <time
+            dateTime={fm.date}
+            className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]"
+          >
+            {new Date(fm.date).toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </time>
+          {author.slug !== DEFAULT_AUTHOR_SLUG ? (
+            <>
+              <span
+                className="h-px flex-1 bg-[var(--color-rule)]"
+                aria-hidden
+              />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]">
+                By{" "}
+                <Link
+                  href={`/authors/${author.slug}`}
+                  className="text-[var(--color-ink)] underline-offset-4 transition-colors hover:text-[var(--color-oxblood)] hover:underline"
+                >
+                  {author.name}
+                </Link>
+              </span>
+            </>
+          ) : null}
+        </div>
       </header>
 
-      <div className="relative h-60 w-full overflow-hidden rounded bg-[var(--color-bone-raised)] sm:h-80">
-        <Image
-          src={fm.image ?? "/images/placeholder-blog-1.svg"}
-          alt={fm.imageAlt ?? fm.title}
-          fill
-          priority
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 960px"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
-        <div className="absolute inset-0" />
-        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-          {scopeBadge ? (
-            <span
-              className={`mb-2 inline-flex items-center rounded-full border px-2.5 py-1 text-xs font-semibold tracking-wide ${scopeBadge.className}`}
-            >
-              {scopeBadge.label}
-            </span>
-          ) : null}
-          <h1 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-bone)] sm:text-4xl">
-            {fm.title}
-          </h1>
-          <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-[var(--color-bone)]/90">
-            <span className="text-sm font-semibold text-[var(--color-bone)]/95">{getWindowLabel(fm)}</span>
-            <span className="inline-flex items-center gap-1.5 whitespace-nowrap">
-              <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden />
-              Written: {new Date(fm.date).toLocaleDateString()}
-            </span>
-          </div>
-        </div>
-      </div>
-
+      {/* ARTICLE BODY */}
       <section
         className="prose-content max-w-none"
         dangerouslySetInnerHTML={{ __html: entry.contentHtml }}
       />
 
-      <PostSidebar methodology={fm.methodology} sources={fm.sources} />
+      <div className="mt-10">
+        <PostSidebar methodology={fm.methodology} sources={fm.sources} />
+      </div>
 
-      <div className="overflow-hidden rounded border border-[var(--color-rule)]">
-        <aside className="rounded-t border-0 bg-[var(--color-bone-raised)] p-6">
-          <div className="space-y-3">
-            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-oxblood)]">
-              {ctaEyebrow}
-            </p>
-            <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)]">
-              {ctaTitle}
-            </h2>
-            <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
-              {ctaBody}
-            </p>
-            <Link href={ctaUrl} className="inline-block pt-1">
-              <Button size="sm">{ctaLabel}</Button>
-            </Link>
-          </div>
-        </aside>
+      {/* CTA CALLOUT */}
+      <aside className="mt-12 border-y-2 border-[var(--color-ink)] bg-[var(--color-bone-raised)] px-6 py-9 sm:px-10 sm:py-11">
+        <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+          <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+          {ctaEyebrow}
+        </span>
+        <h2 className="mt-4 max-w-2xl font-heading text-2xl font-semibold tracking-tight leading-[1.15] text-[var(--color-ink)] sm:text-3xl">
+          {ctaTitle}
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-muted)]">
+          {ctaBody}
+        </p>
+        <Link href={ctaUrl} className="mt-6 inline-block">
+          <Button
+            type="button"
+            size="md"
+            className="rounded-none bg-[var(--color-oxblood)] text-[var(--color-bone)] hover:bg-[var(--color-oxblood-hover)]"
+            rightIcon={<ArrowRight className="h-4 w-4" />}
+          >
+            {ctaLabel}
+          </Button>
+        </Link>
+      </aside>
+
+      {/* AUTHOR */}
+      <div className="mt-12">
         <AuthorBox
           embedded
           author={{
@@ -361,8 +362,36 @@ export default async function ForecastPostPage({
         />
       </div>
 
-      <Comments />
-      <RelatedPostsCarousel items={relatedPosts} basePath="/forecasts" />
+      {/* TAGS */}
+      {linkedMetadata.length > 0 ? (
+        <section className="mt-12 border-t border-[var(--color-ink)] pt-8">
+          <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+            <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+            Filed Under
+          </span>
+          <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2">
+            {linkedMetadata.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="text-sm text-[var(--color-ink)] underline-offset-4 transition-colors hover:text-[var(--color-oxblood)] hover:underline"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
+      {/* RELATED */}
+      <div className="mt-12">
+        <RelatedPostsCarousel items={relatedPosts} basePath="/forecasts" />
+      </div>
+
+      {/* COMMENTS */}
+      <div className="mt-12">
+        <Comments />
+      </div>
     </article>
   );
 }

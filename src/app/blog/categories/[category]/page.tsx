@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { BlogExplorer } from "@/components/blog/blog-explorer";
+import { PageHeader } from "@/components/page-header";
 import { BLOG_CATEGORIES } from "@/data/blog-taxonomy";
 import { getAllBlogPosts } from "@/lib/content";
 import { getContentPageBySlug } from "@/lib/content-pages";
@@ -56,16 +57,12 @@ export default async function CategoryPage({
   const filteredPosts = filterPostsBySingleValue(posts, "category", category);
 
   return (
-    <div className="space-y-6">
-      <header className="space-y-2">
-        <p className="text-xs uppercase tracking-wide text-[var(--color-oxblood)]">Category</p>
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
-          {pageContent?.title ?? categoryConfig.title ?? formatSlugLabel(category)}
-        </h1>
-        <p className="max-w-3xl text-sm leading-relaxed text-[var(--color-ink)]">
-          {pageContent?.description ?? categoryConfig.description}
-        </p>
-      </header>
+    <div>
+      <PageHeader
+        eyebrow="Category"
+        title={pageContent?.title ?? categoryConfig.title ?? formatSlugLabel(category)}
+        description={pageContent?.description ?? categoryConfig.description}
+      />
 
       <BlogExplorer
         posts={filteredPosts}

@@ -2,9 +2,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import {
   ArrowRight,
-  ChevronRight,
+  ArrowUpRight,
   ExternalLink,
-  PenLine,
 } from "lucide-react";
 import { Button } from "@/components/button";
 import {
@@ -36,7 +35,20 @@ export const metadata: Metadata = {
   },
 };
 
-const sectionPadding = "py-16 sm:py-20";
+const sectionPadding = "py-20 sm:py-24";
+
+const formatCategory = (category: string) =>
+  category
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+const formatDate = (value: string) =>
+  new Date(value).toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
 
 export default async function Home() {
   const allPosts = await getAllBlogPosts();
@@ -55,110 +67,138 @@ export default async function Home() {
         aria-label="Hero"
         style={{ backgroundColor: "#1a1614" }}
       >
-        <div className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 py-24 sm:py-32 text-center">
+        <div className="relative z-10 w-full max-w-3xl mx-auto px-4 sm:px-6 py-28 sm:py-36 text-center">
           {SITE_LIVE_MODE ? (
             <Link
               href={TIKTOK_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mx-auto mb-6 inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium"
+              className="mx-auto mb-8 inline-flex items-center gap-2 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.25em]"
               style={{
                 color: "var(--color-bone)",
                 border: "1px solid var(--color-oxblood)",
                 backgroundColor: "rgba(122, 46, 42, 0.15)",
               }}
             >
-              <span className="h-2.5 w-2.5 rounded-full animate-pulse" style={{ backgroundColor: "var(--color-oxblood)" }} aria-hidden />
+              <span
+                className="h-2 w-2 rounded-full animate-pulse"
+                style={{ backgroundColor: "var(--color-oxblood)" }}
+                aria-hidden
+              />
               Live on TikTok
             </Link>
           ) : null}
-          <h1 className="font-heading text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-[var(--color-bone)]">
-            Ordinary Mystic
+
+          {/* SEO H1 — rendered as a newspaper flag kicker */}
+          <h1 className="mx-auto flex max-w-xl items-center justify-center gap-3 px-2 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-[#9a8d7d] sm:gap-4 sm:px-0 sm:text-[11px] sm:tracking-[0.3em]">
+            <span className="hidden h-px w-8 bg-[#3a312b] sm:block" aria-hidden />
+            <span>
+              Tarot &amp; Astrology &middot; Readings, Writings, &amp; Tools
+            </span>
+            <span className="hidden h-px w-8 bg-[#3a312b] sm:block" aria-hidden />
           </h1>
-          <p className="mt-2 font-heading text-lg italic tracking-wide sm:text-xl text-[#9a8d7d]">
-            Tarot & Astrology
+
+          {/* Wordmark */}
+          <p className="mt-8 font-heading text-5xl font-semibold tracking-tight sm:text-6xl lg:text-7xl text-[var(--color-bone)] leading-[0.95]">
+            Ordinary Mystic
           </p>
-          <p className="mt-6 text-base sm:text-lg max-w-xl mx-auto leading-relaxed text-[#9a8d7d]">
-            Readings, writing, and tools for finding meaning in the patterns of ordinary life.
+
+          {/* Italic tagline */}
+          <p className="mt-7 font-heading text-lg italic sm:text-xl leading-relaxed max-w-xl mx-auto text-[#c9bba8]">
+            Finding meaning in the patterns of ordinary life.
           </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             <Link href="/blog">
               <Button
                 type="button"
                 size="lg"
-                className="bg-[var(--color-oxblood)] text-[var(--color-bone)] hover:bg-[var(--color-oxblood-hover)]"
+                className="rounded-none bg-[var(--color-oxblood)] text-[var(--color-bone)] hover:bg-[var(--color-oxblood-hover)]"
                 rightIcon={<ArrowRight className="h-4 w-4" />}
               >
                 Read the Blog
               </Button>
             </Link>
-            <Link href="/about">
+            <Link href="/book">
               <Button
                 type="button"
                 size="lg"
                 variant="outline"
-                className="border-[#9a8d7d] bg-transparent text-[#f5f0e8] hover:bg-white/5"
+                className="rounded-none border-[#9a8d7d] bg-transparent text-[#f5f0e8] hover:bg-white/5"
               >
-                About the project
+                Book a reading
               </Button>
             </Link>
           </div>
         </div>
       </section>
 
+      {/* LIVE MODE — TikTok bookings */}
       {SITE_LIVE_MODE ? (
         <section
           className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${sectionPadding}`}
           style={{ backgroundColor: "var(--color-bone-raised)" }}
         >
           <Container className="px-4 sm:px-6">
-            <h2 className="font-heading text-center text-3xl font-bold tracking-tight sm:text-4xl text-[var(--color-ink)]">
-              Book a TikTok Live Reading
-            </h2>
-            <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-2">
-              <Card>
+            <div className="text-center">
+              <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+                <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+                Live on TikTok
+                <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+              </span>
+              <h2 className="mt-5 font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-[var(--color-ink)]">
+                Book a Live Reading
+              </h2>
+            </div>
+            <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
+              <Card className="rounded-none">
                 <CardHeader className="space-y-3">
                   <div
-                    className="flex h-10 w-10 items-center justify-center rounded-full"
+                    className="flex h-10 w-10 items-center justify-center"
                     style={{ backgroundColor: "var(--color-rule)", color: "var(--color-ink)" }}
                   >
                     <TarotCardsIcon className="h-5 w-5" />
                   </div>
-                  <CardTitle>Live Tarot Reading</CardTitle>
+                  <CardTitle className="font-heading text-xl font-semibold tracking-tight">
+                    Live Tarot Reading
+                  </CardTitle>
                   <CardDescription>
                     A focused tarot reading live in the TikTok room. One topic or one clear question in 20 minutes, with practical direction.
                   </CardDescription>
                   <p className="text-sm font-medium text-[var(--color-ink)]">
-                    20 minutes · <span className="line-through text-[var(--color-muted)]">$20</span>{" "}
+                    20 minutes &middot;{" "}
+                    <span className="line-through text-[var(--color-muted)]">$20</span>{" "}
                     <span className="font-bold text-[var(--color-oxblood)]">$1</span> with coupon code{" "}
                     <span className="font-bold text-[var(--color-ink)]">LIVE</span>
                   </p>
                 </CardHeader>
                 <CardFooter>
                   <Link href={TIKTOK_LIVE_TAROT_URL} target="_blank" rel="noopener noreferrer">
-                    <Button type="button" size="sm">
+                    <Button type="button" size="sm" className="rounded-none">
                       Book Now
                     </Button>
                   </Link>
                 </CardFooter>
               </Card>
-              <Card>
+              <Card className="rounded-none">
                 <CardHeader className="space-y-3">
                   <div
-                    className="flex h-10 w-10 items-center justify-center rounded-full"
+                    className="flex h-10 w-10 items-center justify-center"
                     style={{ backgroundColor: "var(--color-rule)", color: "var(--color-ink)" }}
                   >
                     <TarotCardsIcon className="h-5 w-5" />
                   </div>
-                  <CardTitle>Live Astrology Reading</CardTitle>
+                  <CardTitle className="font-heading text-xl font-semibold tracking-tight">
+                    Live Astrology Reading
+                  </CardTitle>
                   <CardDescription>
                     A live 20-minute astrology reading in front of the room for one topic or question. An accurate birth time is required.
                   </CardDescription>
-                  <p className="text-sm font-medium text-[var(--color-ink)]">20 minutes · $20</p>
+                  <p className="text-sm font-medium text-[var(--color-ink)]">20 minutes &middot; $20</p>
                 </CardHeader>
                 <CardFooter>
                   <Link href={TIKTOK_LIVE_ASTROLOGY_URL} target="_blank" rel="noopener noreferrer">
-                    <Button type="button" size="sm">
+                    <Button type="button" size="sm" className="rounded-none">
                       Book Now
                     </Button>
                   </Link>
@@ -169,329 +209,357 @@ export default async function Home() {
         </section>
       ) : null}
 
-      {/* SECTION: Featured Writing */}
+      {/* BLOG */}
       <section
         className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${sectionPadding}`}
         style={{ backgroundColor: "var(--color-bone)" }}
       >
         <Container className="px-4 sm:px-6">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-muted)]">
-                From the blog
-              </p>
-              <h2 className="font-heading mt-1 text-3xl font-bold tracking-tight sm:text-4xl text-[var(--color-ink)]">
-                Recent Writings
-              </h2>
-            </div>
-            <Link
-              href="/blog"
-              className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted)] underline-offset-4 hover:text-[var(--color-ink)] hover:underline"
-            >
-              All posts
-              <ChevronRight className="h-4 w-4" aria-hidden />
-            </Link>
-          </div>
-
-          {/* Featured post */}
+          {/* Featured — magazine lede treatment */}
           {featuredPost ? (
-            <Link href={`/blog/${featuredPost.slug}`} className="group block">
-              <div className="space-y-3">
-                  {featuredPost.frontmatter.category ? (
-                    <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-oxblood)]">
-                      {featuredPost.frontmatter.category
-                        .split("-")
-                        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                        .join(" ")}
-                    </p>
-                  ) : null}
-                  <h3 className="font-heading text-2xl font-bold tracking-tight sm:text-3xl text-[var(--color-ink)] group-hover:underline underline-offset-4">
-                    {featuredPost.frontmatter.title}
-                  </h3>
-                  <p className="text-base leading-relaxed text-[var(--color-muted)] line-clamp-3">
-                    {featuredPost.frontmatter.description}
-                  </p>
-                  <p className="text-sm text-[var(--color-muted)]">
-                    {new Date(featuredPost.frontmatter.date).toLocaleDateString("en-US", {
-                      month: "long",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
-                  </p>
+            <article className="border-t-2 border-[var(--color-ink)] pt-8 sm:pt-10">
+              <div className="flex items-center gap-3">
+                {featuredPost.frontmatter.category ? (
+                  <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+                    {formatCategory(featuredPost.frontmatter.category)}
+                  </span>
+                ) : null}
+                <span className="h-px flex-1 bg-[var(--color-rule)]" aria-hidden />
+                <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]">
+                  {formatDate(featuredPost.frontmatter.date)}
+                </span>
               </div>
-            </Link>
+              <h2 className="mt-6 font-heading text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl text-[var(--color-ink)] leading-[1.1] max-w-3xl">
+                <Link
+                  href={`/blog/${featuredPost.slug}`}
+                  className="transition-colors hover:text-[var(--color-oxblood)]"
+                >
+                  {featuredPost.frontmatter.title}
+                </Link>
+              </h2>
+              <p className="mt-5 text-base sm:text-lg leading-relaxed text-[var(--color-muted)] max-w-2xl line-clamp-3">
+                {featuredPost.frontmatter.description}
+              </p>
+              <Link
+                href={`/blog/${featuredPost.slug}`}
+                className="mt-6 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+              >
+                Read Article
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+              </Link>
+            </article>
           ) : null}
 
-          {/* More posts */}
+          {/* Secondary — three-column newspaper grid */}
           {recentPosts.length > 0 ? (
-            <div
-              className="mt-12 pt-10 grid gap-8 md:grid-cols-3"
-              style={{ borderTop: "1px solid var(--color-rule)" }}
-            >
+            <div className="mt-16 grid border-t border-[var(--color-rule)] divide-y divide-[var(--color-rule)] md:grid-cols-3 md:divide-y-0 md:divide-x md:divide-[var(--color-rule)]">
               {recentPosts.map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
-                  <article className="space-y-3">
-                    {post.frontmatter.category ? (
-                      <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-oxblood)]">
-                        {post.frontmatter.category
-                          .split("-")
-                          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-                          .join(" ")}
-                      </p>
-                    ) : null}
-                    <h3 className="font-heading text-lg font-semibold tracking-tight text-[var(--color-ink)] group-hover:underline underline-offset-4">
+                <article
+                  key={post.slug}
+                  className="flex flex-col pt-8 pb-8 md:px-7 md:pb-2 md:first:pl-0 md:last:pr-0"
+                >
+                  {post.frontmatter.category ? (
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+                      {formatCategory(post.frontmatter.category)}
+                    </span>
+                  ) : null}
+                  <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight text-[var(--color-ink)] leading-snug">
+                    <Link
+                      href={`/blog/${post.slug}`}
+                      className="transition-colors hover:text-[var(--color-oxblood)]"
+                    >
                       {post.frontmatter.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-[var(--color-muted)] line-clamp-2">
-                      {post.frontmatter.description}
-                    </p>
-                  </article>
-                </Link>
+                    </Link>
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)] line-clamp-3">
+                    {post.frontmatter.description}
+                  </p>
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className="mt-5 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+                  >
+                    Read Article
+                    <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                  </Link>
+                </article>
               ))}
             </div>
           ) : null}
 
-          <p className="mt-8 text-center sm:hidden">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted)] underline-offset-4 hover:text-[var(--color-ink)] hover:underline"
-            >
-              Read all posts
-              <ChevronRight className="h-4 w-4" aria-hidden />
+          <div className="mt-14 text-center">
+            <Link href="/blog">
+              <Button
+                type="button"
+                size="sm"
+                className="rounded-none bg-[var(--color-oxblood)] text-[var(--color-bone)] hover:bg-[var(--color-oxblood-hover)]"
+                rightIcon={<ArrowRight className="h-4 w-4" />}
+              >
+                All Posts
+              </Button>
             </Link>
-          </p>
+          </div>
         </Container>
       </section>
 
-      {/* SECTION: Philosophy strip */}
+      {/* ABOUT */}
       <section
-        className="relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen"
+        className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${sectionPadding}`}
         style={{
           backgroundColor: "var(--color-bone-raised)",
           borderTop: "1px solid var(--color-rule)",
           borderBottom: "1px solid var(--color-rule)",
         }}
       >
-        <Container className="px-4 sm:px-6 py-12 sm:py-16">
-          <div className="mx-auto max-w-3xl space-y-3">
-              <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)]">
-                Tyler Martin
+        <Container className="px-4 sm:px-6">
+          <div className="grid gap-10 md:grid-cols-12 md:gap-12">
+            <div className="md:col-span-4">
+              <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+                <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+                About
+              </span>
+              <h2 className="mt-4 font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-[var(--color-ink)] leading-[1.1]">
+                About Ordinary Mystic
               </h2>
-              <p className="text-base leading-relaxed text-[var(--color-ink)]">
-                I use tarot and astrology as pattern-recognition tools — structured
-                ways to map timing, friction, and possibility. No scripts about fate.
-                No vague predictions. Just clear thinking applied to symbolic systems
-                that have been around longer than most of us give them credit for.
+            </div>
+            <div className="md:col-span-8 md:border-l md:border-[var(--color-rule)] md:pl-10 space-y-5">
+              <p className="font-heading text-xl sm:text-2xl leading-snug text-[var(--color-ink)] first-letter:font-heading first-letter:text-5xl first-letter:font-semibold first-letter:float-left first-letter:mr-2 first-letter:leading-[0.9] first-letter:mt-1">
+                Hi, I&apos;m Tyler. I use Tarot and astrology as pattern-recognition tools, structured ways to map timing, friction, and possibility. No scripts about fate. No vague predictions. Just clear thinking applied to symbolic systems that have been around longer than most of us give them credit for.
               </p>
-              <p className="text-base leading-relaxed text-[var(--color-ink)]">
-                I write about how these systems actually work when you strip the
-                theatrics away, and I build tools for practitioners who want to track
-                and deepen their practice over time.
+              <p className="text-base leading-relaxed text-[var(--color-muted)]">
+                I write about how these systems actually work when you strip the theatrics away, and I build tools for practitioners who want to track and deepen their practice over time.
               </p>
               <Link
                 href="/about"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted)] underline-offset-4 hover:text-[var(--color-ink)] hover:underline"
+                className="inline-flex items-center gap-2 pt-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
               >
-                More about the project
-                <ChevronRight className="h-4 w-4" aria-hidden />
+                More About the Project
+                <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
               </Link>
+            </div>
           </div>
         </Container>
       </section>
 
-      {/* SECTION: Querent */}
+      {/* QUERENT */}
       <section
         className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${sectionPadding}`}
         style={{ backgroundColor: "#1a1614" }}
       >
         <Container className="px-4 sm:px-6">
           <div className="mx-auto max-w-2xl text-center">
-            <p className="text-xs font-medium uppercase tracking-widest text-[#9a8d7d]">
-              In development
-            </p>
-            <h2 className="font-heading mt-2 text-3xl font-bold tracking-tight sm:text-4xl text-[var(--color-bone)]">
+            <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#c9bba8]">
+              <span className="h-px w-6 bg-[#c9bba8]" aria-hidden />
+              In Development
+              <span className="h-px w-6 bg-[#c9bba8]" aria-hidden />
+            </span>
+            <h2 className="mt-6 font-heading text-4xl font-semibold tracking-tight sm:text-5xl text-[var(--color-bone)]">
               Querent
             </h2>
-            <p className="mt-2 font-heading text-base italic text-[#9a8d7d]">
+            <p className="mt-4 font-heading text-lg italic text-[#c9bba8]">
               A reading companion that learns you.
             </p>
-            <p className="mt-6 text-base leading-relaxed max-w-lg mx-auto text-[#9a8d7d]">
-              Querent is software for tarot and astrology practitioners who want
-              better tools for logging readings, tracking patterns, and building a
-              personal reference system that grows with their practice.
+            <div
+              className="mx-auto mt-8 h-px w-12 bg-[var(--color-oxblood)]"
+              aria-hidden
+            />
+            <p className="mt-8 text-base sm:text-lg leading-relaxed max-w-lg mx-auto text-[#9a8d7d]">
+              Software for tarot and astrology practitioners who want better tools for logging readings, tracking patterns, and building a personal reference system that grows with their practice.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-              <Link href="/blog">
-                <Button
-                  type="button"
-                  size="md"
-                  variant="outline"
-                  className="border-[#9a8d7d] bg-transparent text-[#f5f0e8] hover:bg-white/5"
-                  rightIcon={<PenLine className="h-4 w-4" />}
-                >
-                  Follow the build log
-                </Button>
-              </Link>
+            <div className="mt-10">
+              <span className="inline-flex items-center gap-2 border border-[#3a312b] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#9a8d7d]">
+                Build Log Coming Soon
+              </span>
             </div>
-            <p className="mt-6 text-xs max-w-sm mx-auto text-[#9a8d7d]">
-              Still early. The ideas get tested in real readings and written about on
-              the blog before they become features.
+            <p className="mt-8 text-xs leading-relaxed max-w-sm mx-auto text-[#9a8d7d]">
+              Still early. Ideas get tested in real readings and written about on the blog before they become features.
             </p>
           </div>
         </Container>
       </section>
 
-      {/* SECTION: Tools for Practitioners */}
+      {/* TOOLS */}
       <section
         className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${sectionPadding}`}
         style={{ backgroundColor: "var(--color-bone)" }}
       >
         <Container className="px-4 sm:px-6">
-          <div className="text-center mb-10">
-            <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl text-[var(--color-ink)]">
+          <div>
+            <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+              <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+              Tools
+            </span>
+            <h2 className="mt-4 font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-[var(--color-ink)] leading-[1.1]">
               Tools for Practitioners
             </h2>
-            <p className="mt-3 text-base max-w-xl mx-auto text-[var(--color-muted)]">
-              Systems and software for people who want to track their practice, not just do it.
+            <p className="mt-4 text-base sm:text-lg leading-relaxed max-w-2xl text-[var(--color-muted)]">
+              Systems and software for people who want to track and deepen their practice over time, not just move through it.
             </p>
           </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            <Card className="flex flex-col">
-              <CardHeader className="space-y-2">
-                <CardTitle>Simple Tarot Journal</CardTitle>
-                <CardDescription>
-                  A searchable Notion template to log readings and card pulls, build a living card library, and surface past insights when you need them.
-                </CardDescription>
-                <p className="text-xs text-[var(--color-muted)]">Notion template</p>
-                <p className="text-sm font-medium text-[var(--color-ink)]">$12</p>
-              </CardHeader>
-              <CardFooter className="mt-auto">
-                <Link href="https://ordinarymystic.gumroad.com/l/tarotjournal" target="_blank" rel="noopener noreferrer">
-                  <Button type="button" size="sm">
-                    Buy now
+
+          <div className="mt-12 border-y border-[var(--color-ink)] grid md:grid-cols-3 md:divide-x md:divide-[var(--color-rule)]">
+            <div className="p-7 md:p-8 flex flex-col gap-5 border-b md:border-b-0 border-[var(--color-rule)]">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)]">
+                  Notion Template &middot; $12
+                </p>
+                <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight text-[var(--color-ink)] leading-snug">
+                  Simple Tarot Journal
+                </h3>
+              </div>
+              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+                A searchable Notion template to log readings and card pulls, build a living card library, and surface past insights when you need them.
+              </p>
+              <div className="mt-auto pt-1">
+                <Link
+                  href="https://ordinarymystic.gumroad.com/l/tarotjournal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button type="button" size="sm" className="rounded-none">
+                    Buy Now
                   </Button>
                 </Link>
-              </CardFooter>
-            </Card>
-            <Card className="flex flex-col">
-              <CardHeader className="space-y-2">
-                <CardTitle>Complete Tarot Dashboard</CardTitle>
-                <CardDescription>
-                  Advanced Notion system to track readings in full detail — upright and reversed cards, contextual meanings, and statistics that deepen over time.
-                </CardDescription>
-                <p className="text-xs text-[var(--color-muted)]">Notion template</p>
-                <p className="text-sm font-medium text-[var(--color-ink)]">$32</p>
-              </CardHeader>
-              <CardFooter className="mt-auto">
-                <Link href="https://ordinarymystic.gumroad.com/l/tarotdashboard" target="_blank" rel="noopener noreferrer">
-                  <Button type="button" size="sm">
-                    Buy now
+              </div>
+            </div>
+
+            <div className="p-7 md:p-8 flex flex-col gap-5 border-b md:border-b-0 border-[var(--color-rule)]">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)]">
+                  Notion Template &middot; $32
+                </p>
+                <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight text-[var(--color-ink)] leading-snug">
+                  Complete Tarot Dashboard
+                </h3>
+              </div>
+              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+                Advanced Notion system to track readings in full detail, with upright and reversed cards, contextual meanings, and statistics that deepen over time.
+              </p>
+              <div className="mt-auto pt-1">
+                <Link
+                  href="https://ordinarymystic.gumroad.com/l/tarotdashboard"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button type="button" size="sm" className="rounded-none">
+                    Buy Now
                   </Button>
                 </Link>
-              </CardFooter>
-            </Card>
-            <Card className="flex flex-col">
-              <CardHeader className="space-y-2">
-                <CardTitle>Digital Tarot</CardTitle>
-                <CardDescription>
-                  A free desktop web app to shuffle, pull, and rearrange tarot cards. Currently in beta.
-                </CardDescription>
-                <p className="text-xs text-[var(--color-muted)]">Free web app</p>
-              </CardHeader>
-              <CardFooter className="mt-auto">
+              </div>
+            </div>
+
+            <div className="p-7 md:p-8 flex flex-col gap-5">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)]">
+                  Free Web App
+                </p>
+                <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight text-[var(--color-ink)] leading-snug">
+                  Digital Tarot
+                </h3>
+              </div>
+              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+                A free desktop web app to shuffle, pull, and rearrange tarot cards. Currently in beta.
+              </p>
+              <div className="mt-auto pt-1">
                 <Link href={DIGITAL_TAROT_APP_URL} target="_blank" rel="noopener noreferrer">
-                  <Button type="button" size="sm" variant="outline" rightIcon={<ExternalLink className="h-4 w-4" />}>
-                    Try now
+                  <Button
+                    type="button"
+                    size="sm"
+                    variant="outline"
+                    className="rounded-none"
+                    rightIcon={<ExternalLink className="h-4 w-4" />}
+                  >
+                    Try Now
                   </Button>
                 </Link>
-              </CardFooter>
-            </Card>
+              </div>
+            </div>
           </div>
-          <p className="mt-8 text-center">
+
+          <div className="mt-10 text-center">
             <Link
               href="/resources"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--color-muted)] underline-offset-4 hover:text-[var(--color-ink)] hover:underline"
+              className="inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
             >
-              Browse all resources
-              <ChevronRight className="h-4 w-4" aria-hidden />
+              Browse All Resources
+              <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
             </Link>
-          </p>
+          </div>
         </Container>
       </section>
 
-      {/* SECTION: Work with me */}
+      {/* WORK WITH ME — rate card */}
       <section
         id="book"
         className={`relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen ${sectionPadding}`}
         style={{ backgroundColor: "var(--color-bone-raised)" }}
       >
         <Container className="px-4 sm:px-6">
-          <div className="mx-auto max-w-2xl text-center mb-10">
-            <h2 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl text-[var(--color-ink)]">
-              Work With Me
-            </h2>
-            <p className="mt-3 text-base leading-relaxed text-[var(--color-muted)]">
-              One-on-one readings for people who want a structured conversation, not a
-              performance. Tarot, astrology, or both — via Zoom or in person in Tulsa.
+          <div className="grid gap-8 md:grid-cols-12 md:items-end md:gap-12">
+            <div className="md:col-span-5">
+              <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+                <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+                Readings
+              </span>
+              <h2 className="mt-4 font-heading text-3xl font-semibold tracking-tight sm:text-4xl text-[var(--color-ink)] leading-[1.1]">
+                Work With Me
+              </h2>
+            </div>
+            <p className="md:col-span-7 text-base leading-relaxed text-[var(--color-muted)]">
+              One-on-one readings for people who want a structured conversation, not a performance. Tarot, astrology, or both, via Zoom or in person in Tulsa.
             </p>
           </div>
-          <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-3">
-            <div
-              className="p-6 space-y-3"
-              style={{
-                backgroundColor: "var(--color-bone)",
-                border: "1px solid var(--color-rule)",
-              }}
-            >
-              <h3 className="font-heading text-lg font-bold tracking-tight text-[var(--color-ink)]">
-                Tarot
-              </h3>
-              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
-                Structured readings around a specific question or theme. Written, recorded, or live.
-              </p>
-              <p className="text-sm font-medium text-[var(--color-ink)]">From $40</p>
-            </div>
-            <div
-              className="p-6 space-y-3"
-              style={{
-                backgroundColor: "var(--color-bone)",
-                border: "1px solid var(--color-rule)",
-              }}
-            >
-              <h3 className="font-heading text-lg font-bold tracking-tight text-[var(--color-ink)]">
-                Astrology
-              </h3>
-              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
-                Natal chart interpretation and transit forecasting. Requires accurate birth time.
-              </p>
-              <p className="text-sm font-medium text-[var(--color-ink)]">From $55</p>
-            </div>
-            <div
-              className="p-6 space-y-3"
-              style={{
-                backgroundColor: "var(--color-bone)",
-                border: "1px solid var(--color-rule)",
-              }}
-            >
-              <h3 className="font-heading text-lg font-bold tracking-tight text-[var(--color-ink)]">
-                Combined
-              </h3>
-              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
-                Both systems in a single extended session. Chart for timing; cards for nuance.
-              </p>
-              <p className="text-sm font-medium text-[var(--color-ink)]">From $130</p>
-            </div>
+
+          <div className="mt-12 border-y border-[var(--color-ink)] grid md:grid-cols-3 md:divide-x md:divide-[var(--color-rule)]">
+            {[
+              {
+                name: "Tarot",
+                price: "From $40",
+                description:
+                  "Structured readings around a specific question or theme. Written, recorded, or live.",
+              },
+              {
+                name: "Astrology",
+                price: "From $55",
+                description:
+                  "Natal chart interpretation and transit forecasting. Requires accurate birth time.",
+              },
+              {
+                name: "Combined",
+                price: "From $130",
+                description:
+                  "Both systems in a single extended session. Chart for timing; cards for nuance.",
+              },
+            ].map((offer, index) => (
+              <div
+                key={offer.name}
+                className={`p-7 md:p-8 flex flex-col gap-4 ${
+                  index < 2 ? "border-b md:border-b-0 border-[var(--color-rule)]" : ""
+                }`}
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <h3 className="font-heading text-xl font-semibold tracking-tight text-[var(--color-ink)]">
+                    {offer.name}
+                  </h3>
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[var(--color-ink)]">
+                    {offer.price}
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+                  {offer.description}
+                </p>
+              </div>
+            ))}
           </div>
-          <div className="mt-8 text-center">
+
+          <div className="mt-10 text-center">
             <Link href="/book">
               <Button
                 type="button"
                 size="md"
-                variant="outline"
-                className="mt-2"
+                className="rounded-none bg-[var(--color-oxblood)] text-[var(--color-bone)] hover:bg-[var(--color-oxblood-hover)]"
                 rightIcon={<ArrowRight className="h-4 w-4" />}
               >
-                See all reading options
+                See All Reading Options
               </Button>
             </Link>
           </div>

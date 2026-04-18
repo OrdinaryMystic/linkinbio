@@ -1,5 +1,5 @@
-import Image from "next/image";
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
 export type AuthorSummary = {
   slug: string;
@@ -21,55 +21,62 @@ type AuthorBoxProps = {
 export function AuthorBox({ author, embedded = false }: AuthorBoxProps) {
   const summaryText = author.description ?? author.bio ?? "";
 
-  const iconForSocial = (label: string) => {
-    if (label === "YouTube") return "/images/youtube-app-white-icon.png";
-    if (label === "TikTok") return "/images/tiktok-white-icon.png";
-    return "/images/email-white-icon.png";
-  };
-
   return (
     <section
       className={
         embedded
-          ? "rounded-b border-0 bg-[#1f2237] p-4 text-white sm:p-6"
-          : "rounded border border-[#3a315d] bg-[#1f2237] p-4 text-white sm:p-6"
+          ? "border-t border-[var(--color-ink)] pt-8 sm:pt-10"
+          : "mb-10 sm:mb-14"
       }
     >
-      <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-white/70">
-        Author
-      </h2>
-      <div className="mt-3 flex items-start gap-4">
-        <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border border-white/30 bg-white/10">
-          <Image src={author.image} alt={author.name} fill className="object-cover" />
-        </div>
-        <div className="space-y-1">
+      <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+        <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+        {embedded ? "About the Author" : "Author"}
+      </span>
+
+      {embedded ? (
+        <h3 className="mt-3 font-heading text-2xl font-semibold tracking-tight leading-[1.15] text-[var(--color-ink)] sm:text-3xl">
           <Link
             href={`/authors/${author.slug}`}
-            className="font-semibold text-white underline-offset-4 hover:underline"
+            className="transition-colors hover:text-[var(--color-oxblood)]"
           >
             {author.name}
           </Link>
-          {summaryText ? (
-            <p className="text-sm leading-relaxed text-white/90">{summaryText}</p>
-          ) : null}
-          {author.socials?.length ? (
-            <div className="mt-3 flex flex-wrap gap-3">
-              {author.socials.map((social) => (
-                <Link
-                  key={social.url}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="opacity-90 transition-opacity hover:opacity-100"
-                  aria-label={social.label}
-                >
-                  <Image src={iconForSocial(social.label)} alt="" width={24} height={24} />
-                </Link>
-              ))}
-            </div>
-          ) : null}
+        </h3>
+      ) : (
+        <h1 className="mt-4 font-heading text-4xl font-semibold tracking-tight leading-[1.05] text-[var(--color-ink)] sm:text-5xl lg:text-6xl">
+          {author.name}
+        </h1>
+      )}
+
+      {summaryText ? (
+        <p
+          className={
+            embedded
+              ? "mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-muted)]"
+              : "mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-muted)] sm:text-lg"
+          }
+        >
+          {summaryText}
+        </p>
+      ) : null}
+
+      {author.socials?.length ? (
+        <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3">
+          {author.socials.map((social) => (
+            <Link
+              key={social.url}
+              href={social.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+            >
+              {social.label}
+              <ArrowUpRight className="h-3 w-3" aria-hidden />
+            </Link>
+          ))}
         </div>
-      </div>
+      ) : null}
     </section>
   );
 }

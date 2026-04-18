@@ -64,18 +64,18 @@ This guide walks through every major event of Aries season 2026 in the order it 
 <p class="forecast-jumper__title">Want to skip the explanation?</p>
 <p class="forecast-jumper__subtitle">Click below to jump directly to your rising sign.</p>
 <div class="forecast-jumper__grid">
-<a href="#aries-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♈</span> Aries</a>
-<a href="#taurus-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♉</span> Taurus</a>
-<a href="#gemini-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♊</span> Gemini</a>
-<a href="#cancer-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♋</span> Cancer</a>
-<a href="#leo-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♌</span> Leo</a>
-<a href="#virgo-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♍</span> Virgo</a>
-<a href="#libra-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♎</span> Libra</a>
-<a href="#scorpio-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♏</span> Scorpio</a>
-<a href="#sagittarius-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♐</span> Sagittarius</a>
-<a href="#capricorn-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♑</span> Capricorn</a>
-<a href="#aquarius-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♒</span> Aquarius</a>
-<a href="#pisces-rising" class="forecast-jumper__btn"><span class="forecast-jumper__symbol" aria-hidden>♓</span> Pisces</a>
+<a href="#aries-rising" class="forecast-jumper__btn">Aries</a>
+<a href="#taurus-rising" class="forecast-jumper__btn">Taurus</a>
+<a href="#gemini-rising" class="forecast-jumper__btn">Gemini</a>
+<a href="#cancer-rising" class="forecast-jumper__btn">Cancer</a>
+<a href="#leo-rising" class="forecast-jumper__btn">Leo</a>
+<a href="#virgo-rising" class="forecast-jumper__btn">Virgo</a>
+<a href="#libra-rising" class="forecast-jumper__btn">Libra</a>
+<a href="#scorpio-rising" class="forecast-jumper__btn">Scorpio</a>
+<a href="#sagittarius-rising" class="forecast-jumper__btn">Sagittarius</a>
+<a href="#capricorn-rising" class="forecast-jumper__btn">Capricorn</a>
+<a href="#aquarius-rising" class="forecast-jumper__btn">Aquarius</a>
+<a href="#pisces-rising" class="forecast-jumper__btn">Pisces</a>
 </div>
 </div>
 <!-- Video embed placeholder removed for now.

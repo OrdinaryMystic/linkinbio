@@ -2,16 +2,8 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
-import { ChevronDown, ChevronUp, ExternalLink, Star } from "lucide-react";
+import { ArrowUpRight, ChevronDown, ExternalLink } from "lucide-react";
 import { Button } from "@/components/button";
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/card";
 import { recommendedResources, type ResourceCategory } from "@/data/resources";
 import { DIGITAL_TAROT_APP_URL } from "@/lib/config";
 import { trackEvent } from "@/lib/analytics";
@@ -24,12 +16,6 @@ const categoryFilters: CategoryFilter[] = [
   "Tarot",
   "Spirituality",
 ];
-
-const categoryBadgeClasses: Record<ResourceCategory, string> = {
-  Astrology: "bg-indigo-50 text-indigo-700 ring-indigo-200",
-  Tarot: "bg-violet-50 text-violet-700 ring-violet-200",
-  Spirituality: "bg-emerald-50 text-emerald-700 ring-emerald-200",
-};
 
 export function ResourcesPageContent() {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("All");
@@ -62,114 +48,98 @@ export function ResourcesPageContent() {
   };
 
   return (
-    <div className="space-y-12">
-      <header className="space-y-3">
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+    <div>
+      {/* Header */}
+      <header className="mb-10 sm:mb-14">
+        <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+          <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+          Resources
+        </span>
+        <h1 className="mt-4 font-heading text-4xl font-semibold tracking-tight leading-[1.05] text-[var(--color-ink)] sm:text-5xl lg:text-6xl">
           Resource Hub for Ordinary Mystics
         </h1>
-        <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
-          Clean, minimal tools that help you track readings, patterns, and
-          experiments.
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">
+          Clean, minimal tools that help you track readings, patterns, and experiments.
         </p>
       </header>
 
-      <section>
-        <h2 className="font-heading text-xl font-bold tracking-tight text-[var(--color-ink)] sm:text-2xl">
+      {/* Ordinary Mystic Tools */}
+      <section className="mb-16 sm:mb-20">
+        <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+          <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+          Ordinary Mystic Tools
+        </span>
+        <h2 className="mt-4 font-heading text-3xl font-semibold tracking-tight leading-[1.1] text-[var(--color-ink)] sm:text-4xl">
           Tools to support your readings
         </h2>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
-          I&apos;m a Notion-certified template creator and power user, and have
-          been using Notion personally and professionally for 10+ years.
-          I&apos;ve built and sold templates, I&apos;ve been a Notion consultant
-          for companies, and I believe this is the #1 tool for organizing
-          anything. That makes it a great resource for tracking your Tarot
-          readings! Browse my Notion templates and other online tools below.
+        <p className="mt-4 max-w-3xl text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">
+          I&apos;m a Notion-certified template creator and power user, and have been using Notion personally and professionally for 10+ years. I&apos;ve built and sold templates, consulted for companies on Notion, and believe it&apos;s the best tool for organizing anything, which makes it a great resource for tracking your tarot readings. Browse my Notion templates and other online tools below.
         </p>
-        <div className="mt-6 grid gap-6 md:grid-cols-3">
-          <Card className="flex flex-col p-0 overflow-hidden">
-            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-t bg-[var(--color-bone-raised)]">
-              <Image
-                src="/images/resource/simple_tarot_journal.png"
-                alt=""
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
+
+        <div className="mt-12 grid border-y border-[var(--color-ink)] md:grid-cols-3 md:divide-x md:divide-[var(--color-rule)]">
+          <div className="flex flex-col gap-5 border-b border-[var(--color-rule)] p-7 md:border-b-0 md:p-8">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)]">
+                Notion Template &middot; $12
+              </p>
+              <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight leading-snug text-[var(--color-ink)]">
+                Simple Tarot Journal
+              </h3>
             </div>
-            <CardHeader className="space-y-2 px-6 pt-4">
-              <CardTitle>Simple Tarot Journal</CardTitle>
-              <CardDescription>
-                A simple, searchable Notion template to log readings and card
-                pulls, build a living card library, and surface past insights
-                when you need them.
-              </CardDescription>
-              <p className="text-xs text-[var(--color-muted)]">Simple & searchable</p>
-              <p className="text-sm font-medium text-[var(--color-ink)]">$12</p>
-            </CardHeader>
-            <CardFooter className="mt-auto px-6 pb-6">
+            <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+              A searchable Notion template to log readings and card pulls, build a living card library, and surface past insights when you need them.
+            </p>
+            <div className="mt-auto pt-1">
               <Link
                 href="https://ordinarymystic.gumroad.com/l/tarotjournal"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button type="button" size="sm">
-                  Buy now
+                <Button type="button" size="sm" className="rounded-none">
+                  Buy Now
                 </Button>
               </Link>
-            </CardFooter>
-          </Card>
-          <Card className="flex flex-col p-0 overflow-hidden">
-            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-t bg-[var(--color-bone-raised)]">
-              <Image
-                src="/images/resource/complete_tarot_dashboard.png"
-                alt=""
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
             </div>
-            <CardHeader className="space-y-2 px-6 pt-4">
-              <CardTitle>Complete Tarot Dashboard</CardTitle>
-              <CardDescription>
-                Advanced Notion system to track readings in full detail—upright
-                and reversed cards, contextual meanings, and statistics so your
-                practice deepens over time.
-              </CardDescription>
-              <p className="text-xs text-[var(--color-muted)]">Advanced & flexible</p>
-              <p className="text-sm font-medium text-[var(--color-ink)]">$32</p>
-            </CardHeader>
-            <CardFooter className="mt-auto px-6 pb-6">
+          </div>
+
+          <div className="flex flex-col gap-5 border-b border-[var(--color-rule)] p-7 md:border-b-0 md:p-8">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)]">
+                Notion Template &middot; $32
+              </p>
+              <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight leading-snug text-[var(--color-ink)]">
+                Complete Tarot Dashboard
+              </h3>
+            </div>
+            <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+              Advanced Notion system to track readings in full detail, with upright and reversed cards, contextual meanings, and statistics that deepen your practice over time.
+            </p>
+            <div className="mt-auto pt-1">
               <Link
                 href="https://ordinarymystic.gumroad.com/l/tarotdashboard"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Button type="button" size="sm">
-                  Buy now
+                <Button type="button" size="sm" className="rounded-none">
+                  Buy Now
                 </Button>
               </Link>
-            </CardFooter>
-          </Card>
-          <Card className="flex flex-col p-0 overflow-hidden">
-            <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded-t bg-[var(--color-bone-raised)]">
-              <Image
-                src="/images/resource/digital_tarot.png"
-                alt=""
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 33vw"
-              />
             </div>
-            <CardHeader className="space-y-2 px-6 pt-4">
-              <CardTitle>Digital Tarot</CardTitle>
-              <CardDescription>
-                A free online desktop simulator app to shuffle, pull, and
-                rearrange Tarot cards. This website is in beta, and mobile view
-                is not currently supported.
-              </CardDescription>
-              <p className="text-xs text-[var(--color-muted)]">Free web app</p>
-            </CardHeader>
-            <CardFooter className="mt-auto px-6 pb-6">
+          </div>
+
+          <div className="flex flex-col gap-5 p-7 md:p-8">
+            <div>
+              <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-muted)]">
+                Free Web App
+              </p>
+              <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight leading-snug text-[var(--color-ink)]">
+                Digital Tarot
+              </h3>
+            </div>
+            <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+              A free desktop web app to shuffle, pull, and rearrange tarot cards. Currently in beta; mobile view is not yet supported.
+            </p>
+            <div className="mt-auto pt-1">
               <Link
                 href={DIGITAL_TAROT_APP_URL}
                 target="_blank"
@@ -178,248 +148,232 @@ export function ResourcesPageContent() {
                 <Button
                   type="button"
                   size="sm"
+                  variant="outline"
+                  className="rounded-none"
                   rightIcon={<ExternalLink className="h-4 w-4" />}
                 >
-                  Try now
+                  Try Now
                 </Button>
               </Link>
-            </CardFooter>
-          </Card>
+            </div>
+          </div>
         </div>
       </section>
 
-      <hr className="border-[var(--color-rule)]" />
+      {/* Recommended Library */}
+      <section id="recommended-resources">
+        <span className="inline-flex items-center gap-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+          <span className="h-px w-6 bg-[var(--color-oxblood)]" aria-hidden />
+          Recommended
+        </span>
+        <h2 className="mt-4 font-heading text-3xl font-semibold tracking-tight leading-[1.1] text-[var(--color-ink)] sm:text-4xl">
+          Recommended library
+        </h2>
+        <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--color-muted)] sm:text-lg">
+          A curated set of books and digital tools I consistently recommend.
+        </p>
 
-      <section id="recommended-resources" className="space-y-6">
-        <div className="space-y-2">
-          <h2 className="font-heading text-xl font-bold tracking-tight text-[var(--color-ink)] sm:text-2xl">
-            Recommended library
-          </h2>
-          <p className="max-w-2xl text-sm leading-relaxed text-[var(--color-ink)]">
-            A curated set of books and digital tools I consistently recommend.
-          </p>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {categoryFilters.map((category) => {
-            const isActive = activeCategory === category;
-            return (
-              <button
-                key={category}
-                type="button"
-                onClick={() => setActiveCategory(category)}
-                className={[
-                  "rounded-full border px-4 py-1.5 text-xs font-medium tracking-wide transition",
-                  isActive
-                    ? "border-[var(--color-ink)] bg-[var(--color-ink)] text-[var(--color-bone)]"
-                    : "border-[var(--color-rule)] text-[var(--color-ink)] hover:border-[var(--color-muted)]",
-                ].join(" ")}
-                aria-pressed={isActive}
-              >
-                {category}
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="space-y-6">
-          <div className="space-y-4">
-            <button
-              type="button"
-              onClick={() => setBooksOpen((open) => !open)}
-              className="flex w-full cursor-pointer items-center justify-between border-b border-[var(--color-rule)] pb-2 text-left"
-              aria-expanded={booksOpen}
-            >
-              <span className="text-sm font-semibold uppercase tracking-wide text-[var(--color-ink)]">
-                Books ({books.length})
-              </span>
-              <span className="relative h-4 w-4 cursor-pointer text-[var(--color-muted)]">
-                <ChevronDown
-                  className={[
-                    "absolute inset-0 h-4 w-4 transition-all duration-250",
-                    booksOpen
-                      ? "opacity-0 -translate-y-1"
-                      : "opacity-100 translate-y-0",
-                  ].join(" ")}
-                />
-                <ChevronUp
-                  className={[
-                    "absolute inset-0 h-4 w-4 transition-all duration-250",
-                    booksOpen
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-1",
-                  ].join(" ")}
-                />
-              </span>
-            </button>
-
-            <div
-              className={[
-                "overflow-hidden transition-all duration-300 ease-out",
-                booksOpen ? "max-h-[3000px] opacity-100" : "max-h-0 opacity-0",
-              ].join(" ")}
-              aria-hidden={!booksOpen}
-            >
-              <div className="grid grid-cols-1 gap-4 pt-1 md:grid-cols-3">
-                {books.map((resource) => (
-                  <article
-                    key={resource.url}
-                    className="rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-4"
-                  >
-                    <h3 className="flex items-start gap-1.5 text-base font-semibold text-[var(--color-ink)]">
-                      <span>{resource.title}</span>
-                      {resource.isAffiliate && (
-                        <a
-                          href="#affiliate-disclosure"
-                          aria-label="View affiliate disclosure"
-                          className="mt-0.5 text-amber-500 transition-colors hover:text-amber-600"
-                        >
-                          <Star className="h-3.5 w-3.5 fill-current" />
-                        </a>
-                      )}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--color-ink)]">
-                      {resource.description}
-                    </p>
-                    <div className="mt-3">
-                      <span
-                        className={[
-                          "inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ring-inset",
-                          categoryBadgeClasses[resource.category],
-                        ].join(" ")}
-                      >
-                        {resource.category}
-                      </span>
-                    </div>
-                    <Link
-                      href={resource.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() =>
-                        handleRecommendedClick(
-                          resource.title,
-                          resource.category,
-                          resource.type,
-                          resource.url,
-                        )
-                      }
-                      className="mt-4 inline-flex text-sm font-medium text-[var(--color-oxblood)] underline-offset-4 hover:underline hover:text-[var(--color-oxblood-hover)]"
-                    >
-                      Learn More →
-                    </Link>
-                  </article>
-                ))}
-              </div>
-            </div>
+        {/* Filter tabs */}
+        <div className="mt-8 border-y border-[var(--color-rule)]">
+          <div className="flex flex-wrap divide-x divide-[var(--color-rule)]">
+            {categoryFilters.map((category) => {
+              const isActive = activeCategory === category;
+              return (
+                <button
+                  key={category}
+                  type="button"
+                  onClick={() => setActiveCategory(category)}
+                  className={`px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.25em] transition-colors ${
+                    isActive
+                      ? "bg-[var(--color-ink)] text-[var(--color-bone)]"
+                      : "text-[var(--color-muted)] hover:text-[var(--color-oxblood)]"
+                  }`}
+                  aria-pressed={isActive}
+                >
+                  {category}
+                </button>
+              );
+            })}
           </div>
+        </div>
 
-          <div className="space-y-4">
-            <button
-              type="button"
-              onClick={() => setDigitalOpen((open) => !open)}
-              className="flex w-full cursor-pointer items-center justify-between border-b border-[var(--color-rule)] pb-2 text-left"
-              aria-expanded={digitalOpen}
-            >
-              <span className="text-sm font-semibold uppercase tracking-wide text-[var(--color-ink)]">
-                Tools & Digital ({digital.length})
+        {/* Books */}
+        <div className="mt-10">
+          <button
+            type="button"
+            onClick={() => setBooksOpen((open) => !open)}
+            className="group flex w-full items-center justify-between border-b-2 border-[var(--color-ink)] pb-3 text-left"
+            aria-expanded={booksOpen}
+          >
+            <span className="inline-flex items-center gap-4">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)] transition-colors group-hover:text-[var(--color-oxblood-hover)]">
+                Books
               </span>
-              <span className="relative h-4 w-4 cursor-pointer text-[var(--color-muted)]">
-                <ChevronDown
-                  className={[
-                    "absolute inset-0 h-4 w-4 transition-all duration-250",
-                    digitalOpen
-                      ? "opacity-0 -translate-y-1"
-                      : "opacity-100 translate-y-0",
-                  ].join(" ")}
-                />
-                <ChevronUp
-                  className={[
-                    "absolute inset-0 h-4 w-4 transition-all duration-250",
-                    digitalOpen
-                      ? "opacity-100 translate-y-0"
-                      : "opacity-0 translate-y-1",
-                  ].join(" ")}
-                />
+              <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]">
+                {String(books.length).padStart(2, "0")}
               </span>
-            </button>
+            </span>
+            <ChevronDown
+              className={`h-4 w-4 text-[var(--color-muted)] transition-transform ${
+                booksOpen ? "rotate-180" : ""
+              }`}
+              aria-hidden
+            />
+          </button>
 
-            <div
-              className={[
-                "overflow-hidden transition-all duration-300 ease-out",
-                digitalOpen
-                  ? "max-h-[3000px] opacity-100"
-                  : "max-h-0 opacity-0",
-              ].join(" ")}
-              aria-hidden={!digitalOpen}
-            >
-              <div className="grid grid-cols-1 gap-4 pt-1 md:grid-cols-3">
-                {digital.map((resource) => (
-                  <article
-                    key={resource.url}
-                    className="rounded border border-[var(--color-rule)] bg-[var(--color-bone)] p-4"
-                  >
-                    <h3 className="flex items-start gap-1.5 text-base font-semibold text-[var(--color-ink)]">
-                      <span>{resource.title}</span>
-                      {resource.isAffiliate && (
-                        <a
-                          href="#affiliate-disclosure"
-                          aria-label="View affiliate disclosure"
-                          className="mt-0.5 text-amber-500 transition-colors hover:text-amber-600"
-                        >
-                          <Star className="h-3.5 w-3.5 fill-current" />
-                        </a>
-                      )}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--color-ink)]">
-                      {resource.description}
-                    </p>
-                    <div className="mt-3">
-                      <span
-                        className={[
-                          "inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-medium ring-1 ring-inset",
-                          categoryBadgeClasses[resource.category],
-                        ].join(" ")}
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-out ${
+              booksOpen ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0"
+            }`}
+            aria-hidden={!booksOpen}
+          >
+            <div className="grid md:grid-cols-3 md:divide-x md:divide-[var(--color-rule)]">
+              {books.map((resource, index) => (
+                <article
+                  key={resource.url}
+                  className={`flex flex-col pt-8 pb-6 md:px-6 md:pb-2 md:first:pl-0 md:last:pr-0 ${
+                    index < books.length - 1
+                      ? "border-b border-[var(--color-rule)] md:border-b-0"
+                      : ""
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+                      {resource.category}
+                    </span>
+                    {resource.isAffiliate ? (
+                      <a
+                        href="#affiliate-disclosure"
+                        aria-label="View affiliate disclosure"
+                        className="text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)]"
                       >
-                        {resource.category}
-                      </span>
-                    </div>
-                    <Link
-                      href={resource.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() =>
-                        handleRecommendedClick(
-                          resource.title,
-                          resource.category,
-                          resource.type,
-                          resource.url,
-                        )
-                      }
-                      className="mt-4 inline-flex text-sm font-medium text-[var(--color-oxblood)] underline-offset-4 hover:underline hover:text-[var(--color-oxblood-hover)]"
-                    >
-                      Learn More →
-                    </Link>
-                  </article>
-                ))}
-              </div>
+                        <sup className="text-[11px] font-semibold">†</sup>
+                      </a>
+                    ) : null}
+                  </div>
+                  <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight leading-snug text-[var(--color-ink)]">
+                    {resource.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">
+                    {resource.description}
+                  </p>
+                  <Link
+                    href={resource.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      handleRecommendedClick(
+                        resource.title,
+                        resource.category,
+                        resource.type,
+                        resource.url,
+                      )
+                    }
+                    className="mt-5 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+                  >
+                    Learn More
+                    <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                  </Link>
+                </article>
+              ))}
             </div>
           </div>
         </div>
 
+        {/* Digital */}
+        <div className="mt-12">
+          <button
+            type="button"
+            onClick={() => setDigitalOpen((open) => !open)}
+            className="group flex w-full items-center justify-between border-b-2 border-[var(--color-ink)] pb-3 text-left"
+            aria-expanded={digitalOpen}
+          >
+            <span className="inline-flex items-center gap-4">
+              <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)] transition-colors group-hover:text-[var(--color-oxblood-hover)]">
+                Tools &amp; Digital
+              </span>
+              <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-muted)]">
+                {String(digital.length).padStart(2, "0")}
+              </span>
+            </span>
+            <ChevronDown
+              className={`h-4 w-4 text-[var(--color-muted)] transition-transform ${
+                digitalOpen ? "rotate-180" : ""
+              }`}
+              aria-hidden
+            />
+          </button>
+
+          <div
+            className={`overflow-hidden transition-all duration-300 ease-out ${
+              digitalOpen ? "max-h-[5000px] opacity-100" : "max-h-0 opacity-0"
+            }`}
+            aria-hidden={!digitalOpen}
+          >
+            <div className="grid md:grid-cols-3 md:divide-x md:divide-[var(--color-rule)]">
+              {digital.map((resource, index) => (
+                <article
+                  key={resource.url}
+                  className={`flex flex-col pt-8 pb-6 md:px-6 md:pb-2 md:first:pl-0 md:last:pr-0 ${
+                    index < digital.length - 1
+                      ? "border-b border-[var(--color-rule)] md:border-b-0"
+                      : ""
+                  }`}
+                >
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                    <span className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
+                      {resource.category}
+                    </span>
+                    {resource.isAffiliate ? (
+                      <a
+                        href="#affiliate-disclosure"
+                        aria-label="View affiliate disclosure"
+                        className="text-[var(--color-muted)] transition-colors hover:text-[var(--color-ink)]"
+                      >
+                        <sup className="text-[11px] font-semibold">†</sup>
+                      </a>
+                    ) : null}
+                  </div>
+                  <h3 className="mt-3 font-heading text-xl font-semibold tracking-tight leading-snug text-[var(--color-ink)]">
+                    {resource.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[var(--color-muted)]">
+                    {resource.description}
+                  </p>
+                  <Link
+                    href={resource.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() =>
+                      handleRecommendedClick(
+                        resource.title,
+                        resource.category,
+                        resource.type,
+                        resource.url,
+                      )
+                    }
+                    className="mt-5 inline-flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
+                  >
+                    Learn More
+                    <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
+                  </Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Affiliate disclosure */}
         <div
           id="affiliate-disclosure"
-          className="rounded border border-[var(--color-rule)] bg-[var(--color-bone-raised)] px-4 py-3 text-xs leading-relaxed text-[var(--color-muted)]"
+          className="mt-14 border-t border-[var(--color-rule)] pt-5"
         >
-          <span className="inline-flex items-baseline gap-1 font-semibold text-[var(--color-ink)] align-baseline">
-            <Star className="relative top-px h-3 w-3 fill-amber-500 text-amber-500" />
-            Full Disclosure:
-          </span>{" "}
-          Resources marked with a star icon are affiliate links. These are
-          tools and books I personally use and would recommend regardless of any
-          kickback. If you choose to purchase through these links, I may receive
-          a small commission at no extra cost to you. This support helps keep
-          the Ordinary Mystic lights on—thank you for the support on my journey
-          and yours!
+          <p className="text-xs leading-relaxed text-[var(--color-muted)]">
+            <span className="font-semibold text-[var(--color-ink)]">
+              <sup className="mr-0.5">†</sup>Full Disclosure:
+            </span>{" "}
+            Resources marked with a dagger are affiliate links. These are tools and books I personally use and would recommend regardless of any kickback. If you choose to purchase through these links, I may receive a small commission at no extra cost to you. This support helps keep the Ordinary Mystic lights on. Thank you for the support on my journey and yours.
+          </p>
         </div>
       </section>
     </div>

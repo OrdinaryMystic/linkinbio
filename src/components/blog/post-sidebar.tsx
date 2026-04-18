@@ -14,30 +14,32 @@ export function PostSidebar({ methodology, sources = [] }: PostSidebarProps) {
   }
 
   return (
-    <aside className="rounded border border-[var(--color-rule)] bg-[var(--color-bone-raised)] p-4 md:sticky md:top-24 md:p-5">
-      <div className="space-y-5">
+    <aside className="md:sticky md:top-24">
+      <div className="space-y-8 border-t-2 border-[var(--color-ink)] pt-6">
         {hasMethodology ? (
-          <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+          <section>
+            <h2 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
               Methodology
             </h2>
-            <p className="text-sm leading-relaxed text-[var(--color-ink)]">{methodology}</p>
+            <p className="mt-3 text-sm leading-relaxed text-[var(--color-ink)]">
+              {methodology}
+            </p>
           </section>
         ) : null}
 
         {hasSources ? (
-          <section className="space-y-2">
-            <h2 className="text-xs font-semibold uppercase tracking-[0.12em] text-[var(--color-muted)]">
+          <section>
+            <h2 className="text-[10px] font-semibold uppercase tracking-[0.3em] text-[var(--color-oxblood)]">
               Sources
             </h2>
-            <ul className="space-y-2">
+            <ul className="mt-3 divide-y divide-[var(--color-rule)] border-y border-[var(--color-rule)]">
               {sources.map((source) => (
-                <li key={source} className="text-sm leading-relaxed">
+                <li key={source}>
                   <Link
                     href={source}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-[var(--color-oxblood)] underline decoration-[var(--color-rule)] underline-offset-4 hover:text-[var(--color-oxblood-hover)]"
+                    className="block break-words py-2.5 text-sm leading-relaxed text-[var(--color-oxblood)] transition-colors hover:text-[var(--color-oxblood-hover)]"
                   >
                     {source}
                   </Link>

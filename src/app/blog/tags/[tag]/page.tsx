@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { PostList } from "@/components/blog/post-list";
+import { PageHeader } from "@/components/page-header";
 import { getAllBlogPosts } from "@/lib/content";
 import { filterPostsByListValue, formatSlugLabel } from "@/lib/blog-taxonomy-utils";
 import { SITE_URL } from "@/lib/site";
@@ -44,16 +45,12 @@ export default async function TagPage({
   const filteredPosts = filterPostsByListValue(posts, "tags", tag);
 
   return (
-    <div className="space-y-6">
-      <header className="space-y-2">
-        <p className="text-xs uppercase tracking-wide text-[var(--color-oxblood)]">Tag</p>
-        <h1 className="font-heading text-3xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
-          {formatSlugLabel(tag)}
-        </h1>
-        <p className="max-w-3xl text-sm leading-relaxed text-[var(--color-ink)]">
-          Posts tagged with {formatSlugLabel(tag)}.
-        </p>
-      </header>
+    <div>
+      <PageHeader
+        eyebrow="Tag"
+        title={formatSlugLabel(tag)}
+        description={`Posts tagged with ${formatSlugLabel(tag)}.`}
+      />
 
       <PostList posts={filteredPosts} emptyMessage="No posts are currently tagged this way." />
     </div>

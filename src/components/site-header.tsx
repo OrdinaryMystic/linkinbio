@@ -54,7 +54,7 @@ export function SiteHeader() {
               href="/blog"
               className="inline-flex items-center gap-1 text-[#f5f0e8] opacity-70 transition-opacity hover:opacity-100"
             >
-              Writings
+              Blog
               <ChevronDown className="h-4 w-4" />
             </Link>
             <div
@@ -136,7 +136,7 @@ export function SiteHeader() {
                 className="flex w-full items-center justify-between px-4 py-3 text-base font-semibold text-[#f5f0e8] opacity-80 transition-opacity hover:opacity-100"
                 aria-expanded={blogSubmenuOpen}
               >
-                Writings
+                Blog
                 {blogSubmenuOpen ? (
                   <ChevronDown className="h-4 w-4 shrink-0" aria-hidden />
                 ) : (

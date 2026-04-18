@@ -90,7 +90,7 @@ export default async function Home() {
                 className="bg-[var(--color-oxblood)] text-[var(--color-bone)] hover:bg-[var(--color-oxblood-hover)]"
                 rightIcon={<ArrowRight className="h-4 w-4" />}
               >
-                Read the writing
+                Read the Blog
               </Button>
             </Link>
             <Link href="/about">
@@ -182,7 +182,7 @@ export default async function Home() {
                 From the blog
               </p>
               <h2 className="font-heading mt-1 text-3xl font-bold tracking-tight sm:text-4xl text-[var(--color-ink)]">
-                Recent Writing
+                Recent Writings
               </h2>
             </div>
             <Link
@@ -197,21 +197,7 @@ export default async function Home() {
           {/* Featured post */}
           {featuredPost ? (
             <Link href={`/blog/${featuredPost.slug}`} className="group block">
-              <div className="grid gap-6 md:grid-cols-2 md:gap-10 items-center">
-                <div
-                  className="relative aspect-[3/2] w-full overflow-hidden"
-                  style={{ border: "1px solid var(--color-rule)" }}
-                >
-                  <Image
-                    src={featuredPost.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
-                    alt={featuredPost.frontmatter.title}
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                  />
-                </div>
-                <div className="space-y-3">
+              <div className="space-y-3">
                   {featuredPost.frontmatter.category ? (
                     <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-oxblood)]">
                       {featuredPost.frontmatter.category
@@ -233,7 +219,6 @@ export default async function Home() {
                       year: "numeric",
                     })}
                   </p>
-                </div>
               </div>
             </Link>
           ) : null}
@@ -247,18 +232,6 @@ export default async function Home() {
               {recentPosts.map((post) => (
                 <Link key={post.slug} href={`/blog/${post.slug}`} className="group block">
                   <article className="space-y-3">
-                    <div
-                      className="relative aspect-[3/2] w-full overflow-hidden"
-                      style={{ border: "1px solid var(--color-rule)" }}
-                    >
-                      <Image
-                        src={post.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
-                        alt={post.frontmatter.title}
-                        fill
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        className="object-cover transition-transform duration-300 group-hover:scale-[1.02]"
-                      />
-                    </div>
                     {post.frontmatter.category ? (
                       <p className="text-xs font-medium uppercase tracking-widest text-[var(--color-oxblood)]">
                         {post.frontmatter.category

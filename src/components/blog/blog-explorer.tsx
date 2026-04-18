@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { CalendarDays, FolderOpen, User } from "lucide-react";
 import { PostList } from "@/components/blog/post-list";
 import { DEFAULT_AUTHOR_SLUG, getAuthorBySlug } from "@/data/authors";
@@ -73,15 +72,7 @@ export function BlogExplorer({
   return (
     <div className="space-y-5">
       {featuredPost ? (
-        <Card className="flex flex-col gap-4 p-4 sm:flex-row">
-          <div className="relative aspect-video w-full shrink-0 overflow-hidden rounded bg-[var(--color-bone-raised)] sm:h-52 sm:w-72 sm:aspect-auto">
-            <Image
-              src={featuredPost.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
-              alt={featuredPost.frontmatter.title}
-              fill
-              className="object-cover"
-            />
-          </div>
+        <Card className="flex flex-col gap-4 p-4">
           <div className="flex min-w-0 flex-1 flex-col">
             <CardHeader className="mb-2">
               <p className="text-xs font-semibold uppercase tracking-wide text-[var(--color-muted)]">

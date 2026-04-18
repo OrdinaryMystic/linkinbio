@@ -435,36 +435,65 @@ export default async function Home() {
               performance. Tarot, astrology, or both — via Zoom or in person in Tulsa.
             </p>
           </div>
-          <div className="mx-auto max-w-lg">
+          <div className="mx-auto mt-10 grid max-w-4xl gap-6 md:grid-cols-3">
             <div
-              className="p-6 sm:p-8 text-center space-y-4"
+              className="p-6 space-y-3"
               style={{
                 backgroundColor: "var(--color-bone)",
                 border: "1px solid var(--color-rule)",
               }}
             >
-              <p className="text-sm leading-relaxed text-[var(--color-ink)]">
-                Sessions are collaborative. You bring your questions and context; the
-                cards and charts bring structure. We work through it together and you
-                leave with something concrete.
+              <h3 className="font-heading text-lg font-bold tracking-tight text-[var(--color-ink)]">
+                Tarot
+              </h3>
+              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+                Structured readings around a specific question or theme. Written, recorded, or live.
               </p>
-              <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-[var(--color-muted)]">
-                <span>Live · $60/hr</span>
-                <span>Recorded · $30</span>
-                <span>Written · $15</span>
-              </div>
-              <Link href="/book">
-                <Button
-                  type="button"
-                  size="md"
-                  variant="outline"
-                  className="mt-2"
-                  rightIcon={<ArrowRight className="h-4 w-4" />}
-                >
-                  See reading options
-                </Button>
-              </Link>
+              <p className="text-sm font-medium text-[var(--color-ink)]">From $40</p>
             </div>
+            <div
+              className="p-6 space-y-3"
+              style={{
+                backgroundColor: "var(--color-bone)",
+                border: "1px solid var(--color-rule)",
+              }}
+            >
+              <h3 className="font-heading text-lg font-bold tracking-tight text-[var(--color-ink)]">
+                Astrology
+              </h3>
+              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+                Natal chart interpretation and transit forecasting. Requires accurate birth time.
+              </p>
+              <p className="text-sm font-medium text-[var(--color-ink)]">From $55</p>
+            </div>
+            <div
+              className="p-6 space-y-3"
+              style={{
+                backgroundColor: "var(--color-bone)",
+                border: "1px solid var(--color-rule)",
+              }}
+            >
+              <h3 className="font-heading text-lg font-bold tracking-tight text-[var(--color-ink)]">
+                Combined
+              </h3>
+              <p className="text-sm leading-relaxed text-[var(--color-muted)]">
+                Both systems in a single extended session. Chart for timing; cards for nuance.
+              </p>
+              <p className="text-sm font-medium text-[var(--color-ink)]">From $130</p>
+            </div>
+          </div>
+          <div className="mt-8 text-center">
+            <Link href="/book">
+              <Button
+                type="button"
+                size="md"
+                variant="outline"
+                className="mt-2"
+                rightIcon={<ArrowRight className="h-4 w-4" />}
+              >
+                See all reading options
+              </Button>
+            </Link>
           </div>
         </Container>
       </section>

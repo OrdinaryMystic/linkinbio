@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/button";
@@ -251,51 +250,39 @@ export default async function BlogPostPage({
         </nav>
       </header>
 
-      <div className="relative h-60 w-full overflow-hidden rounded bg-[var(--color-bone-raised)] sm:h-80">
-        <Image
-          src={fm.image ?? "/images/placeholder-blog-1.svg"}
-          alt={fm.imageAlt ?? fm.title}
-          fill
-          priority
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 960px"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/35 to-black/10" />
-        <div className="absolute inset-0" />
-        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-7">
-          <h1 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-bone)] sm:text-4xl">
-            {fm.title}
-          </h1>
-          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--color-bone)]/90">
+      <div className="space-y-3 border-b border-[var(--color-rule)] pb-6">
+        <h1 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)] sm:text-4xl">
+          {fm.title}
+        </h1>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-[var(--color-muted)]">
+          <span className="flex items-center gap-1.5">
+            <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden />
+            {new Date(fm.date).toLocaleDateString()}
+          </span>
+          {author.slug !== DEFAULT_AUTHOR_SLUG ? (
             <span className="flex items-center gap-1.5">
-              <CalendarDays className="h-3.5 w-3.5 shrink-0" aria-hidden />
-              {new Date(fm.date).toLocaleDateString()}
+              <User className="h-3.5 w-3.5 shrink-0" aria-hidden />
+              <Link
+                href={`/authors/${author.slug}`}
+                className="underline-offset-2 hover:text-[var(--color-ink)] hover:underline"
+              >
+                {author.name}
+              </Link>
             </span>
-            {author.slug !== DEFAULT_AUTHOR_SLUG ? (
-              <span className="flex items-center gap-1.5">
-                <User className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                <Link
-                  href={`/authors/${author.slug}`}
-                  className="underline-offset-2 hover:text-[var(--color-bone)] hover:underline"
-                >
-                  {author.name}
-                </Link>
-              </span>
-            ) : null}
-            <span className="flex items-center gap-1.5">
-              <FolderOpen className="h-3.5 w-3.5 shrink-0" aria-hidden />
-              {category ? (
-                <Link
-                  href={`/blog/categories/${category}`}
-                  className="underline-offset-2 hover:text-[var(--color-bone)] hover:underline"
-                >
-                  {formatSlugLabel(category)}
-                </Link>
-              ) : (
-                "Uncategorized"
-              )}
-            </span>
-          </div>
+          ) : null}
+          <span className="flex items-center gap-1.5">
+            <FolderOpen className="h-3.5 w-3.5 shrink-0" aria-hidden />
+            {category ? (
+              <Link
+                href={`/blog/categories/${category}`}
+                className="underline-offset-2 hover:text-[var(--color-ink)] hover:underline"
+              >
+                {formatSlugLabel(category)}
+              </Link>
+            ) : (
+              "Uncategorized"
+            )}
+          </span>
         </div>
       </div>
 

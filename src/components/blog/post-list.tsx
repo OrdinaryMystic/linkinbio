@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { CalendarDays, FolderOpen, User } from "lucide-react";
 import { Button } from "@/components/button";
@@ -29,18 +28,7 @@ export function PostList({
   return (
     <section className={columns === 1 ? "grid gap-4" : "grid gap-4 md:grid-cols-2"}>
       {posts.map((post) => (
-        <Card key={post.slug} className="flex flex-col gap-4 p-4 sm:flex-row">
-          <div
-            className="relative aspect-video w-full shrink-0 overflow-hidden sm:h-32 sm:w-40 sm:aspect-auto"
-            style={{ border: "1px solid var(--color-rule)" }}
-          >
-            <Image
-              src={post.frontmatter.image ?? "/images/placeholder-blog-1.svg"}
-              alt={post.frontmatter.title}
-              fill
-              className="object-cover"
-            />
-          </div>
+        <Card key={post.slug} className="flex flex-col gap-4 p-4">
           <div className="flex min-w-0 flex-1 flex-col">
             <CardHeader className="mb-2">
               <CardTitle>

@@ -39,6 +39,16 @@ We're entering this ingress with artificial intelligence already rewriting the i
 
 But that's the next chapter. Tonight, we're still on the threshold.
 
+## The preview we already had
+
+This isn't the first time Uranus has crossed into Gemini recently. Between July 7 and November 8, 2025, Uranus briefly entered Gemini before stationing retrograde and pulling back into Taurus. A four-month preview - just long enough to feel the voltage shift before it was withdrawn.
+
+If that period felt strange in ways that were hard to locate - a quickening in how information moved, a new kind of noise in the mental environment, conversations that seemed to accelerate past their subject matter - that was Uranus in Gemini, testing the signal before cutting out.
+
+The retrograde return to Taurus wasn't a reversal. It was an extension. From November through this past February, Uranus moving back through familiar ground gave us another pass at the Taurus curriculum: what we own, what we owe, what we've built that can hold weight and what we've built that was always provisional. The message wasn't "you failed the first time." It was closer to: here's the chapter again, with everything you've learned since July. Read it differently.
+
+That extension is nearly over. Uranus re-enters Gemini on April 25, 2026, and will not return to Taurus again in this century. Whatever the retrograde was asking you to resolve in the material domain - the financial restructuring, the question of what's worth holding onto, the relationship between security and control - those questions don't disappear when the ingress happens. They just stop being the active subject.
+
 ## Staying in the doorway
 
 The temptation at an anaretic degree is to rush. To force the ending, to make the change happen faster because the anticipation is worse than the thing itself. Traditional astrologers noted this - the urgency of the 29th degree often produces premature action, the desperate grab at closure.

@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Newsreader } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
+import { WeekendPromoBanner } from "@/components/weekend-promo-banner";
 import { Container } from "@/components/container";
 import { PersonJsonLd } from "@/components/seo/person-json-ld";
 import { DIGITAL_TAROT_APP_URL, SITE_LIVE_MODE, TIKTOK_URL } from "@/lib/config";
@@ -100,6 +101,7 @@ export default function RootLayout({
         data-site-live={SITE_LIVE_MODE ? "true" : undefined}
       >
         <div className="flex min-h-screen flex-col">
+          <WeekendPromoBanner />
           <SiteHeader />
           <main className="flex-1 pt-10 pb-16">
             <Container>{children}</Container>

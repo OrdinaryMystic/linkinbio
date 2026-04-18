@@ -9,8 +9,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/card";
+import { WrittenTarotCard } from "@/components/booking/written-tarot-card";
 import {
-  TAROT_WRITTEN_URL,
   TAROT_RECORDED_URL,
   TAROT_LIVE_ZOOM_URL,
   TAROT_LIVE_IN_PERSON_URL,
@@ -83,27 +83,7 @@ export default function BookingPage() {
           </p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
-          <Card>
-            <CardHeader className="space-y-3">
-              <div
-                className="flex h-10 w-10 items-center justify-center rounded-full"
-                style={{ backgroundColor: "var(--color-rule)", color: "var(--color-ink)" }}
-              >
-                <FileText className="h-5 w-5" />
-              </div>
-              <CardTitle>Written Reading</CardTitle>
-              <CardDescription>
-                Your reading delivered as a written report, emailed to you. No call, no
-                scheduling. Ideal if you prefer to read and revisit at your own pace.
-              </CardDescription>
-              <p className="text-sm font-medium text-[var(--color-ink)]">$40</p>
-            </CardHeader>
-            <CardFooter>
-              <Link href={TAROT_WRITTEN_URL} target="_blank">
-                <Button type="button" size="sm">Book Now</Button>
-              </Link>
-            </CardFooter>
-          </Card>
+          <WrittenTarotCard />
 
           <Card>
             <CardHeader className="space-y-3">

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import { SITE_URL } from "@/lib/site";
@@ -53,18 +52,7 @@ export default function AboutPage() {
 
       {/* Philosophy */}
       <section className="space-y-5 text-base leading-relaxed text-[var(--color-ink)]">
-        <div className="md:flex md:items-start md:gap-8">
-          <div className="shrink-0 mb-6 md:mb-0">
-            <Image
-              src="/images/profile-img.png"
-              alt="Tyler Martin"
-              width={120}
-              height={120}
-              className="h-28 w-28 rounded-full object-cover"
-              style={{ border: "2px solid var(--color-rule)" }}
-            />
-          </div>
-          <div className="space-y-4">
+        <div className="space-y-4">
             <p>
               I&apos;m Tyler. I use tarot and astrology as pattern-recognition
               tools — structured ways to map timing, friction, and possibility
@@ -81,7 +69,6 @@ export default function AboutPage() {
               That question shaped everything — how sessions are framed, how I
               write, and what I&apos;m building next.
             </p>
-          </div>
         </div>
 
         <p>

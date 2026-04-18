@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { ChevronDown, ChevronRight, Menu, X } from "lucide-react";
 import { Container } from "@/components/container";
 
@@ -32,15 +31,8 @@ export function SiteHeader() {
       }}
     >
       <Container className="flex items-center justify-between py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <Image
-            src="/images/profile-img.png"
-            alt=""
-            width={32}
-            height={32}
-            className="h-8 w-8 rounded-full object-cover"
-          />
-          <span className="font-heading text-sm font-semibold tracking-tight text-[#f5f0e8]">
+        <Link href="/" className="flex items-center">
+          <span className="font-heading text-base font-semibold tracking-wide text-[#f5f0e8]">
             Ordinary Mystic
           </span>
         </Link>

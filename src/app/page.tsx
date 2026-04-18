@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import type { Metadata } from "next";
 import {
   ArrowRight,
@@ -274,18 +273,7 @@ export default async function Home() {
         }}
       >
         <Container className="px-4 sm:px-6 py-12 sm:py-16">
-          <div className="mx-auto max-w-3xl md:flex md:items-start md:gap-10">
-            <div className="shrink-0 mb-6 md:mb-0">
-              <Image
-                src="/images/profile-img.png"
-                alt="Tyler Martin"
-                width={96}
-                height={96}
-                className="h-24 w-24 rounded-full object-cover"
-                style={{ border: "2px solid var(--color-rule)" }}
-              />
-            </div>
-            <div className="space-y-3">
+          <div className="mx-auto max-w-3xl space-y-3">
               <h2 className="font-heading text-2xl font-bold tracking-tight text-[var(--color-ink)]">
                 Tyler Martin
               </h2>
@@ -307,7 +295,6 @@ export default async function Home() {
                 More about the project
                 <ChevronRight className="h-4 w-4" aria-hidden />
               </Link>
-            </div>
           </div>
         </Container>
       </section>

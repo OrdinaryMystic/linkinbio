@@ -23,24 +23,35 @@ export async function POST(request: Request) {
   }
 
   // Add to Resend contacts
-  const { error: contactError } = await resend.contacts.create({
-    email,
-    unsubscribed: false,
-  });
+  let isNewContact = true;
+  try {
+    const { error: contactError } = await resend.contacts.create({
+      email,
+      unsubscribed: false,
+    });
 
-  if (contactError) {
-    // Resend returns an error if the contact already exists — treat as success
-    const alreadyExists =
-      contactError.message?.toLowerCase().includes("already") ||
-      contactError.name === "validation_error";
+    if (contactError) {
+      // Log full error shape so we can see what Resend actually returns
+      console.error("[newsletter] Resend contact error:", JSON.stringify(contactError));
 
-    if (!alreadyExists) {
-      console.error("[newsletter] Resend contact error:", contactError);
-      return NextResponse.json(
-        { error: "Something went wrong. Please try again." },
-        { status: 500 }
-      );
+      const msg = (contactError.message ?? "").toLowerCase();
+      const alreadyExists =
+        msg.includes("already") ||
+        msg.includes("exist") ||
+        contactError.name === "validation_error";
+
+      if (alreadyExists) {
+        // Already subscribed — return silently, skip welcome email
+        return NextResponse.json({ success: true });
+      }
+
+      // Unexpected Resend error — still try to send welcome email
+      // but flag so we don't count this as confirmed
+      isNewContact = false;
     }
+  } catch (err) {
+    console.error("[newsletter] Resend contact exception:", err);
+    isNewContact = false;
   }
 
   // Unsubscribe URL — encodes email so no database token needed

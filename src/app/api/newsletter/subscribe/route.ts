@@ -24,9 +24,12 @@ export async function POST(request: Request) {
   }
 
   // Insert into Supabase — unique constraint handles duplicates
-  const { error: dbError } = await getSupabaseAdmin()
+  // Select the unsubscribe_token so we can include it in the welcome email
+  const { data, error: dbError } = await getSupabaseAdmin()
     .from("newsletter_subscribers")
-    .insert({ email, source: "website" });
+    .insert({ email, source: "website" })
+    .select("unsubscribe_token")
+    .single();
 
   if (dbError) {
     // 23505 = unique_violation (already subscribed)
@@ -40,6 +43,8 @@ export async function POST(request: Request) {
     );
   }
 
+  const unsubscribeUrl = `https://ordinarymysticreadings.com/api/newsletter/unsubscribe?token=${data.unsubscribe_token}`;
+
   // Send welcome email — non-blocking; don't fail the sub if email errors
   try {
     await resend.emails.send({
@@ -50,13 +55,13 @@ export async function POST(request: Request) {
 <!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background-color:#1a1614;font-family:Georgia,serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#1a1614;padding:48px 24px;">
+<body style="margin:0;padding:0;background-color:#f5f0e8;font-family:Georgia,serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f0e8;padding:48px 24px;">
     <tr>
       <td align="center">
         <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;">
           <tr>
-            <td style="padding-bottom:32px;border-bottom:1px solid #2d2620;">
+            <td style="padding-bottom:32px;border-bottom:1px solid #d9cfbe;">
               <p style="margin:0;font-size:10px;font-weight:600;letter-spacing:0.3em;text-transform:uppercase;color:#7a2e2a;">
                 Ordinary Mystic
               </p>
@@ -64,28 +69,29 @@ export async function POST(request: Request) {
           </tr>
           <tr>
             <td style="padding-top:32px;">
-              <p style="margin:0 0 20px;font-size:22px;font-weight:600;line-height:1.3;color:#f5f0e8;">
+              <p style="margin:0 0 20px;font-size:22px;font-weight:600;line-height:1.3;color:#1a1614;">
                 You&rsquo;re on the list.
               </p>
-              <p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#9a8d7d;">
+              <p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#6b5f52;">
                 Every week I send a short letter on the astrological weather &mdash; what&rsquo;s in the sky, what&rsquo;s worth paying attention to, and how to think about the week in front of you.
               </p>
-              <p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#9a8d7d;">
+              <p style="margin:0 0 16px;font-size:15px;line-height:1.7;color:#6b5f52;">
                 No cosmic inevitabilities. Just pattern recognition.
               </p>
-              <p style="margin:0 0 32px;font-size:15px;line-height:1.7;color:#9a8d7d;">
+              <p style="margin:0 0 32px;font-size:15px;line-height:1.7;color:#6b5f52;">
                 I&rsquo;ll also share updates on Querent, the reading companion I&rsquo;m building, as it takes shape.
               </p>
-              <p style="margin:0;font-size:14px;line-height:1.6;color:#6b5e52;">
+              <p style="margin:0;font-size:14px;line-height:1.6;color:#6b5f52;">
                 &mdash; Tyler<br>
-                <a href="https://ordinarymystic.com" style="color:#7a2e2a;text-decoration:none;">ordinarymystic.com</a>
+                <a href="https://ordinarymysticreadings.com" style="color:#7a2e2a;text-decoration:none;">ordinarymysticreadings.com</a>
               </p>
             </td>
           </tr>
           <tr>
-            <td style="padding-top:40px;border-top:1px solid #2d2620;margin-top:40px;">
-              <p style="margin:0;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;color:#3a312b;">
-                Tulsa, Oklahoma
+            <td style="padding-top:32px;border-top:1px solid #d9cfbe;">
+              <p style="margin:0;font-size:10px;line-height:1.6;color:#9a8d7d;">
+                You&rsquo;re receiving this because you signed up at ordinarymysticreadings.com.<br>
+                <a href="${unsubscribeUrl}" style="color:#9a8d7d;">Unsubscribe</a>
               </p>
             </td>
           </tr>

@@ -59,7 +59,7 @@ export function NewsletterForm() {
 
   return (
     <form onSubmit={handleSubmit} className="w-full max-w-md mx-auto">
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-stretch gap-3">
         <label htmlFor="newsletter-email" className="sr-only">
           Email address
         </label>

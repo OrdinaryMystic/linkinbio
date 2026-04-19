@@ -45,6 +45,13 @@ export async function POST(request: Request) {
 
   const unsubscribeUrl = `https://ordinarymysticreadings.com/api/newsletter/unsubscribe?token=${data.unsubscribe_token}`;
 
+  // Sync to Resend contacts — non-blocking
+  try {
+    await resend.contacts.create({ email, unsubscribed: false });
+  } catch (contactError) {
+    console.error("[newsletter] Resend contact sync error:", contactError);
+  }
+
   // Send welcome email — non-blocking; don't fail the sub if email errors
   try {
     await resend.emails.send({

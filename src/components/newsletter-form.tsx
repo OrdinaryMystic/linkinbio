@@ -84,7 +84,7 @@ export function NewsletterForm() {
           variant="primary"
           size="md"
           disabled={status === "loading"}
-          className="rounded-none whitespace-nowrap"
+          className="rounded-none whitespace-nowrap h-full"
           rightIcon={
             status !== "loading" ? (
               <ArrowRight className="h-4 w-4" />

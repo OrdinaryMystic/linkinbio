@@ -368,7 +368,7 @@ export default async function Home() {
             </p>
             <div className="mt-10 w-full">
               <p className="mb-6 text-sm leading-relaxed text-[#9a8d7d]">
-                Subscribe to the weekly astrology letter — and be first to know when Querent beta launches.
+                Subscribe to the weekly astrology letter and be first to know when Querent beta launches.
               </p>
               <NewsletterForm />
             </div>

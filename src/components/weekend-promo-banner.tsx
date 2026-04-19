@@ -9,7 +9,9 @@ import {
   isWeekendPromoActive,
 } from "@/lib/promo";
 
-const DISMISS_KEY = "om:weekend-tarot-promo:dismissed";
+// Bumped to `-april` so anyone who dismissed the original weekend version
+// gets re-notified that the promo was extended through April 30.
+const DISMISS_KEY = "om:tarot-promo-april:dismissed";
 
 export function WeekendPromoBanner() {
   const [visible, setVisible] = useState(false);

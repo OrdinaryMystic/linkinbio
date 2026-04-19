@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { getSupabaseAdmin } from "@/lib/supabase";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -23,34 +22,30 @@ export async function POST(request: Request) {
     );
   }
 
-  // Insert into Supabase — unique constraint handles duplicates
-  // Select the unsubscribe_token so we can include it in the welcome email
-  const { data, error: dbError } = await getSupabaseAdmin()
-    .from("newsletter_subscribers")
-    .insert({ email, source: "website" })
-    .select("unsubscribe_token")
-    .single();
+  // Add to Resend contacts
+  const { error: contactError } = await resend.contacts.create({
+    email,
+    unsubscribed: false,
+  });
 
-  if (dbError) {
-    // 23505 = unique_violation (already subscribed)
-    if (dbError.code === "23505") {
-      return NextResponse.json({ success: true });
+  if (contactError) {
+    // Resend returns an error if the contact already exists — treat as success
+    const alreadyExists =
+      contactError.message?.toLowerCase().includes("already") ||
+      contactError.name === "validation_error";
+
+    if (!alreadyExists) {
+      console.error("[newsletter] Resend contact error:", contactError);
+      return NextResponse.json(
+        { error: "Something went wrong. Please try again." },
+        { status: 500 }
+      );
     }
-    console.error("[newsletter] Supabase error:", dbError);
-    return NextResponse.json(
-      { error: "Something went wrong. Please try again." },
-      { status: 500 }
-    );
   }
 
-  const unsubscribeUrl = `https://ordinarymysticreadings.com/api/newsletter/unsubscribe?token=${data.unsubscribe_token}`;
-
-  // Sync to Resend contacts — non-blocking
-  try {
-    await resend.contacts.create({ email, unsubscribed: false });
-  } catch (contactError) {
-    console.error("[newsletter] Resend contact sync error:", contactError);
-  }
+  // Unsubscribe URL — encodes email so no database token needed
+  const token = Buffer.from(email).toString("base64url");
+  const unsubscribeUrl = `https://ordinarymysticreadings.com/api/newsletter/unsubscribe?token=${token}`;
 
   // Send welcome email — non-blocking; don't fail the sub if email errors
   try {
@@ -58,6 +53,10 @@ export async function POST(request: Request) {
       from: "Tyler (Ordinary Mystic) <tyler@ordinarymysticreadings.com>",
       to: email,
       subject: "You're on the list.",
+      headers: {
+        "List-Unsubscribe": `<${unsubscribeUrl}>`,
+        "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+      },
       html: `
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +111,6 @@ export async function POST(request: Request) {
     });
   } catch (emailError) {
     console.error("[newsletter] Resend error:", emailError);
-    // Subscription is saved — don't surface this error to the user
   }
 
   return NextResponse.json({ success: true });

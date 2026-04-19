@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { getSupabaseAdmin } from "@/lib/supabase";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -14,28 +13,23 @@ export async function GET(request: Request) {
     );
   }
 
-  const { data, error } = await getSupabaseAdmin()
-    .from("newsletter_subscribers")
-    .update({ status: "unsubscribed", unsubscribed_at: new Date().toISOString() })
-    .eq("unsubscribe_token", token)
-    .eq("status", "active")
-    .select("email")
-    .single();
-
-  if (error) {
-    console.error("[newsletter] Unsubscribe error:", error);
+  let email: string;
+  try {
+    email = Buffer.from(token, "base64url").toString("utf-8");
+    if (!email || !email.includes("@")) throw new Error("invalid");
+  } catch {
     return NextResponse.redirect(
-      new URL("/unsubscribed?error=server", request.url)
+      new URL("/unsubscribed?error=invalid-token", request.url)
     );
   }
 
-  // Sync unsubscribe to Resend — non-blocking
-  if (data?.email) {
-    try {
-      await resend.contacts.update({ email: data.email, unsubscribed: true });
-    } catch (contactError) {
-      console.error("[newsletter] Resend unsubscribe sync error:", contactError);
-    }
+  try {
+    await resend.contacts.update({ email, unsubscribed: true });
+  } catch (err) {
+    console.error("[newsletter] Resend unsubscribe error:", err);
+    return NextResponse.redirect(
+      new URL("/unsubscribed?error=server", request.url)
+    );
   }
 
   return NextResponse.redirect(new URL("/unsubscribed", request.url));

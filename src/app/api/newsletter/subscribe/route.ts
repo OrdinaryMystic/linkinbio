@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
-import { supabaseAdmin } from "@/lib/supabase";
+import { getSupabaseAdmin } from "@/lib/supabase";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
   }
 
   // Insert into Supabase — unique constraint handles duplicates
-  const { error: dbError } = await supabaseAdmin
+  const { error: dbError } = await getSupabaseAdmin()
     .from("newsletter_subscribers")
     .insert({ email, source: "website" });
 

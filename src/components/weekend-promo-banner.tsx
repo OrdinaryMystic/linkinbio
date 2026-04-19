@@ -54,7 +54,7 @@ export function WeekendPromoBanner() {
           href="/book#written-tarot"
           className="flex-1 text-center text-[10px] font-semibold uppercase tracking-[0.2em] text-[var(--color-bone)] transition-opacity hover:opacity-90 sm:text-[11px] sm:tracking-[0.25em]"
         >
-          Written Tarot Readings on Sale This Weekend Only
+          Written Tarot Readings on Sale Through April 30
           <span className="mx-2 opacity-70" aria-hidden>
             &middot;
           </span>

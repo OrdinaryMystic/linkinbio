@@ -65,7 +65,7 @@ export function WrittenTarotCard() {
             </span>
           </p>
           <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[var(--color-oxblood)]">
-            Weekend Sale &middot; Ends {WEEKEND_PROMO_END_DISPLAY}
+            Limited Sale &middot; Ends {WEEKEND_PROMO_END_DISPLAY}
           </p>
           <p
             className="mt-2 pt-3 text-xs leading-relaxed text-[var(--color-muted)]"

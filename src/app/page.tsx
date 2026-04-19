@@ -366,9 +366,12 @@ export default async function Home() {
               Software for tarot and astrology practitioners who want better tools for logging readings, tracking patterns, and building a personal reference system that grows with their practice.
             </p>
             <div className="mt-10">
-              <span className="inline-flex items-center gap-2 border border-[#3a312b] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#9a8d7d]">
-                Build Log Coming Soon
-              </span>
+              <Link
+                href="/subscribe"
+                className="inline-flex items-center gap-2 border border-[#3a312b] px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-[#9a8d7d] transition-colors hover:border-[#9a8d7d] hover:text-[var(--color-bone)]"
+              >
+                Get the Weekly Letter
+              </Link>
             </div>
             <p className="mt-8 text-xs leading-relaxed max-w-sm mx-auto text-[#9a8d7d]">
               Still early. Ideas get tested in real readings and written about on the blog before they become features.

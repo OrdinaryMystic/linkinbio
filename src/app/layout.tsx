@@ -38,11 +38,6 @@ export const metadata: Metadata = {
   },
   description:
     "Readings, writing, and tools for finding meaning in the patterns of ordinary life. Tarot and astrology as structured thinking.",
-  icons: {
-    icon: "/favicon.png",
-    shortcut: "/favicon.png",
-    apple: "/favicon.png",
-  },
   openGraph: {
     title: `${siteName} – Tarot & Astrology`,
     description:
